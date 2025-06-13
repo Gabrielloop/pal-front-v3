@@ -19,8 +19,6 @@ import FormContainer from '@/components/ui/FormContainer.vue'
 import Button from '@/components/ui/Button.vue'
 import AppIcon from '../AppIcon.vue'
 
-const email = ref('')
-const password = ref('')
 const error = ref(null)
 const loading = ref(false)
 

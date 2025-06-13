@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { loginRequest, logoutRequest } from '@/api/auth'
+
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -7,27 +9,19 @@ export const useAuthStore = defineStore('auth', {
   }),
   getters: {
     isAuthenticated: (state) => !!state.token,
-    
     isAdmin: (state) => state.user?.role === 'admin',
   },
   actions: {
     async login(credentials) {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/user/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(credentials),
-        })
-
-        const data = await response.json()
-        
-        if (!response.ok) throw new Error(data.message || 'Échec de la connexion')
+        const data = await loginRequest(credentials)
 
         this.token = data.access_token
         this.user = data.user
 
-        localStorage.setItem('token', data.token)
+        localStorage.setItem('token', data.access_token)
         localStorage.setItem('user', JSON.stringify(data.user))
+
       } catch (err) {
         console.error(err)
         throw err
@@ -35,19 +29,7 @@ export const useAuthStore = defineStore('auth', {
     },
     logout: async function () {
         try {
-          const response = await fetch('http://127.0.0.1:8000/api/users/logout', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.token}`,
-            },
-          })
-      
-          const data = await response.json()
-      
-          if (!response.ok) {
-            throw new Error(data.message || 'Échec de la déconnexion')
-          }
+            await logoutRequest()
       
         } catch (err) {
           console.error('Erreur logout :', err)
@@ -59,12 +41,17 @@ export const useAuthStore = defineStore('auth', {
         }
       },
     restore() {
+
       const token = localStorage.getItem('token')
       const user = localStorage.getItem('user')
+      
+      console.log('[AUTH RESTORE]', { token, user })
+
       if (token && user) {
         this.token = token
         this.user = JSON.parse(user)
       }
+
     },
   },
 })

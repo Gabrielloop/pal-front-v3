@@ -13,7 +13,7 @@ const auth = useAuthStore()
 <template>
   <div class="max-w-md mx-auto p-4">
     <p class="text-xs text-gray-400">
-    Auth debug: {{ auth.user?.email }} — connecté: {{ auth.isAuthenticated }}
+    Auth debug: {{ auth.user?.email }} — connecté: {{ auth.isAuthenticated }} - token: {{ auth.token }} - role: {{ auth.user?.role }}
   </p>
     <DeconnexionForm v-if="auth?.user"/>
     <ConnexionForm v-else/>
