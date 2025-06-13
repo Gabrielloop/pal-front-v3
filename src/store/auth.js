@@ -7,12 +7,12 @@ export const useAuthStore = defineStore('auth', {
   }),
   getters: {
     isAuthenticated: (state) => !!state.token,
+    
     isAdmin: (state) => state.user?.role === 'admin',
   },
   actions: {
     async login(credentials) {
       try {
-        // Remplace cette URL par celle de ton backend
         const response = await fetch('http://127.0.0.1:8000/api/user/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -23,7 +23,7 @@ export const useAuthStore = defineStore('auth', {
         
         if (!response.ok) throw new Error(data.message || 'Échec de la connexion')
 
-        this.token = data.token
+        this.token = data.access_token
         this.user = data.user
 
         localStorage.setItem('token', data.token)
@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
     },
     logout: async function () {
         try {
-          const response = await fetch('http://127.0.0.1:8000/api/user/logout', {
+          const response = await fetch('http://127.0.0.1:8000/api/users/logout', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -51,7 +51,6 @@ export const useAuthStore = defineStore('auth', {
       
         } catch (err) {
           console.error('Erreur logout :', err)
-          // on peut choisir d'ignorer l'erreur ici pour forcer la déconnexion locale
         } finally {
           this.token = null
           this.user = null

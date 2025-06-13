@@ -13,7 +13,10 @@ import {BookOpenIcon,
   MagnifyingGlassIcon,
   UserIcon,
   TrashIcon,
-  PencilIcon} from '@heroicons/vue/24/outline'
+  PencilIcon,
+  ArrowRightStartOnRectangleIcon,
+  ArrowLeftEndOnRectangleIcon
+} from '@heroicons/vue/24/outline'
 
 
 const props = defineProps({
@@ -31,7 +34,9 @@ const icons = {
   search: MagnifyingGlassIcon,
   user: UserIcon,
   trash: TrashIcon,
-  edit: PencilIcon
+  edit: PencilIcon,
+  out: ArrowRightStartOnRectangleIcon,
+  in: ArrowLeftEndOnRectangleIcon
 }
 
 const iconComponent = icons[props.name] || BookOpenIcon
