@@ -2,6 +2,11 @@
 import { useAuthStore } from '@/store/auth'
 import { watch,onMounted } from 'vue'
 
+
+import '@/style.css'
+import '@/assets/main.css'
+import '@/assets/designSystem.css'
+
 const auth = useAuthStore()
 
 onMounted(() => {

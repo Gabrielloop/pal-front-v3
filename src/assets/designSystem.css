@@ -10,6 +10,11 @@
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
 
+  /* Inputs générique */
+  .input-text {
+    @apply block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary;
+  }
+
   /* Tailles */
   .btn-sm {
     @apply text-xs px-3 py-1;

@@ -1,7 +1,4 @@
 import { createApp } from 'vue'
-import '@/style.css'
-import '@/assets/main.css'
-import '@/assets/designSystem.css'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import { useAuthStore } from '@/store/auth'

@@ -2,13 +2,13 @@
 <template>
     <FormContainer title="Connexion">
       <template #fields>
-        <input v-model="email" type="email" placeholder="Email" class="input w-full mb-2" />
-        <input v-model="password" type="password" placeholder="Mot de passe" class="input w-full mb-2" />
+        <input v-model="email" type="email" placeholder="Email" class="input input-text w-full mb-2" />
+        <input v-model="password" type="password" placeholder="Mot de passe" class="input input-text w-full mb-2" />
         <p v-if="error" class="text-red-500">{{ error }}</p>
       </template>
   
       <template #actions>
-        <Button :loading="loading" @click.prevent="submit">
+        <Button :loading="loading" @click.prevent="submit" variant="valider">
             <template #icon>
                 <AppIcon name="in" class="w-5 h-5 mr-2" />
             </template>Se connecter</Button>

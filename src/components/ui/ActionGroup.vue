@@ -1,6 +1,6 @@
 <template>
 
-    <div :class="direction === 'row' ? 'flex gap-2' : 'flex flex-col gap-2'">
+    <div :class="direction === 'row' ? 'flex gap-2 justify-center' : 'flex flex-col gap-2'">
       <slot />
     </div>
 

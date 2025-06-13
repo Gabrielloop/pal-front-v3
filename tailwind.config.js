@@ -4,6 +4,14 @@ export default {
     './index.html',
     './src/**/*.{vue,js,ts,jsx,tsx}',
   ],
+  safelist: [
+    {
+      pattern: /^btn(-[a-z]+)?$/, // attrape btn, btn-valider, btn-disabled, etc.
+    },
+    {
+      pattern: /^badge(-[a-z]+)?$/, // attrape badge, badge-primary, etc.
+    }
+  ],
   theme: {
     extend: {
       colors: {
