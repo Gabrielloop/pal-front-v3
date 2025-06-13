@@ -1,28 +1,39 @@
+@import './designSystem.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-@layer components {
-    .btn {
-      @apply px-4 py-2 rounded-lg font-semibold text-white transition duration-150 ease-in-out;
-    }
-  
-    .btn-valider {
-      @apply btn bg-primary hover:bg-primary/80;
-    }
-  
-    .btn-refuser {
-      @apply btn bg-danger hover:bg-danger/80;
-    }
-  
-    .btn-attente {
-      @apply btn bg-warning text-black hover:bg-warning/80;
-    }
-  
-    .btn-disabled {
-      @apply btn bg-disabled text-white opacity-60 cursor-not-allowed;
-    }
-  }
-
-  
+.toastify.toast-success {
+  background: #10b981 !important;
+  color: white !important;
+  font-weight: bold !important;
+  border-radius: 0.5rem !important;
+  padding: 0.75rem 1.25rem !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+.toastify.toast-info {
+  background: #1e40af !important;
+  color: white !important;
+  font-weight: bold !important;
+  border-radius: 0.5rem !important;
+  padding: 0.75rem 1.25rem !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+.toastify.toast-warn {
+  background: #f59e0b !important;
+  color: white !important;
+  font-weight: bold !important;
+  border-radius: 0.5rem !important;
+  padding: 0.75rem 1.25rem !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+.toastify.toast-error {
+  background: #dc2626 !important;
+  color: white !important;
+  font-weight: bold !important;
+  border-radius: 0.5rem !important;
+  padding: 0.75rem 1.25rem !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
