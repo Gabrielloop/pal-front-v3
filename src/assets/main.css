@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn {
+      @apply px-4 py-2 rounded-lg font-semibold text-white transition duration-150 ease-in-out;
+    }
+  
+    .btn-valider {
+      @apply btn bg-primary hover:bg-primary/80;
+    }
+  
+    .btn-refuser {
+      @apply btn bg-danger hover:bg-danger/80;
+    }
+  
+    .btn-attente {
+      @apply btn bg-warning text-black hover:bg-warning/80;
+    }
+  
+    .btn-disabled {
+      @apply btn bg-disabled text-white opacity-60 cursor-not-allowed;
+    }
+  }
+
+  

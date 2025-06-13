@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Bouton générique */
+  .btn {
+    @apply inline-flex items-center justify-center font-medium rounded-md transition duration-150 ease-in-out;
+    @apply px-4 py-2 text-white text-sm;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  /* Tailles */
+  .btn-sm {
+    @apply text-xs px-3 py-1;
+  }
+
+  .btn-lg {
+    @apply text-base px-5 py-3;
+  }
+
+  /* Variantes */
+  .btn-valider {
+    @apply btn bg-primary hover:bg-primary/80 focus:ring-primary;
+  }
+
+  .btn-refuser {
+    @apply btn bg-danger hover:bg-danger/80 focus:ring-danger;
+  }
+
+  .btn-attente {
+    @apply btn bg-warning text-black hover:bg-warning/80 focus:ring-warning;
+  }
+
+  .btn-disabled {
+    @apply btn bg-disabled opacity-60 cursor-not-allowed;
+  }
+
+  /* Badge générique */
+  .badge {
+    @apply inline-block px-2 py-0.5 text-xs font-semibold rounded-full;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary text-white;
+  }
+
+  .badge-danger {
+    @apply badge bg-danger text-white;
+  }
+
+  .badge-warning {
+    @apply badge bg-warning text-black;
+  }
+
+  .badge-muted {
+    @apply badge bg-gray-300 text-gray-700;
+  }
+}
