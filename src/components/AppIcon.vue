@@ -1,28 +1,26 @@
 <template>
-    <component
-    :is="iconComponent"
-    v-bind="$attrs"
-    class="w-5 h-5"
-    />
+  <component :is="iconComponent" v-bind="$attrs" class="h-5 w-5" />
 </template>
 
 <script setup>
-import {BookOpenIcon,
+import {
+  BookOpenIcon,
   HeartIcon,
   StarIcon,
   MagnifyingGlassIcon,
   UserIcon,
   TrashIcon,
-  PencilIcon} from '@heroicons/vue/24/outline'
-
+  PencilIcon,
+  ArrowRightStartOnRectangleIcon,
+  ArrowLeftEndOnRectangleIcon,
+} from '@heroicons/vue/24/outline'
 
 const props = defineProps({
   name: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
-
 
 const icons = {
   book: BookOpenIcon,
@@ -31,9 +29,10 @@ const icons = {
   search: MagnifyingGlassIcon,
   user: UserIcon,
   trash: TrashIcon,
-  edit: PencilIcon
+  edit: PencilIcon,
+  out: ArrowRightStartOnRectangleIcon,
+  in: ArrowLeftEndOnRectangleIcon,
 }
 
 const iconComponent = icons[props.name] || BookOpenIcon
-
 </script>

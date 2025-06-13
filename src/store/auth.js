@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { loginRequest, logoutRequest } from '@/api/auth'
+import { useToastStore } from '@/store/toast'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -12,56 +14,46 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(credentials) {
       try {
-        // Remplace cette URL par celle de ton backend
-        const response = await fetch('http://127.0.0.1:8000/api/user/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(credentials),
-        })
+        const data = await loginRequest(credentials)
 
-        const data = await response.json()
-        
-        if (!response.ok) throw new Error(data.message || 'Échec de la connexion')
-
-        this.token = data.token
+        this.token = data.access_token
         this.user = data.user
 
-        localStorage.setItem('token', data.token)
+        localStorage.setItem('token', data.access_token)
         localStorage.setItem('user', JSON.stringify(data.user))
+
+        const toast = useToastStore()
+        toast.success('Bonjour ' + this.user.name)
       } catch (err) {
+        const toast = useToastStore()
+        toast.warn('Connexion échoué')
         console.error(err)
         throw err
       }
     },
     logout: async function () {
-        try {
-          const response = await fetch('http://127.0.0.1:8000/api/user/logout', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.token}`,
-            },
-          })
-      
-          const data = await response.json()
-      
-          if (!response.ok) {
-            throw new Error(data.message || 'Échec de la déconnexion')
-          }
-      
-        } catch (err) {
-          console.error('Erreur logout :', err)
-          // on peut choisir d'ignorer l'erreur ici pour forcer la déconnexion locale
-        } finally {
-          this.token = null
-          this.user = null
-          localStorage.removeItem('token')
-          localStorage.removeItem('user')
-        }
-      },
+      try {
+        await logoutRequest()
+      } catch (err) {
+        const toast = useToastStore()
+        toast.warn('Déconnexion impossible')
+        console.error('Erreur logout :', err)
+      } finally {
+        const toast = useToastStore()
+        toast.success('À bientôt ' + (this.user?.name ?? ''))
+
+        this.token = null
+        this.user = null
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+      }
+    },
     restore() {
       const token = localStorage.getItem('token')
       const user = localStorage.getItem('user')
+
+      console.log('[AUTH RESTORE]', { token, user })
+
       if (token && user) {
         this.token = token
         this.user = JSON.parse(user)

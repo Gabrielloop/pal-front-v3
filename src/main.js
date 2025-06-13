@@ -1,19 +1,22 @@
 import { createApp } from 'vue'
-import '@/style.css'
-import '@/assets/main.css'
-import '@/assets/designSystem.css'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import { useAuthStore } from '@/store/auth'
 import { router } from '@/router'
+
+import './assets/main.css'
 
 const pinia = createPinia()
 
 const app = createApp(App)
 
 app.use(pinia)
+
 const auth = useAuthStore()
 auth.restore()
 
+console.log('Token depuis Pinia:', auth.token)
+
 app.use(router)
+
 app.mount('#app')

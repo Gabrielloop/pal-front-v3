@@ -1,16 +1,47 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 
-import Home from '@/pages/Home.vue'
-import Admin from '@/pages/Admin.vue'
-import Profil from '@/pages/Profil.vue'
-
-
 const routes = [
-  { path: '/', name: 'Home', component: () => Home },
-  { path: '/admin', name: 'Admin', component: () => Admin, meta: { requiresAdmin: true } },
-  { path: '/profil', name: 'Profil', component: () => Profil, meta: { requiresAuth: true } },
-  { path: '/login', name: 'Login', component: () => Profil },
+  {
+    path: '/login',
+    component: () => import('@/layouts/LayoutLogin.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Login',
+        component: () => import('@/pages/Login.vue'),
+      },
+    ],
+  },
+  {
+    path: '/',
+    component: () => import('@/layouts/LayoutUser.vue'),
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: () => import('@/pages/Home.vue'),
+      },
+      {
+        path: 'profil',
+        name: 'Profil',
+        component: () => import('@/pages/Profil.vue'),
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    component: () => import('@/layouts/LayoutAdmin.vue'),
+    meta: { requiresAuth: true, requiresAdmin: true },
+    children: [
+      {
+        path: '',
+        name: 'AdminHome',
+        component: () => import('@/pages/Admin.vue'),
+      },
+    ],
+  },
 ]
 
 export const router = createRouter({
