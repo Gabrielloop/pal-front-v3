@@ -1,8 +1,16 @@
+<script setup>
+import Logo from '@/components/ui/Logo.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+</script>
+
 <template>
-  <header class="bg-white shadow">
+  <header class="text-ivory bg-primary shadow">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
-        <h1>Titre</h1>
+        <div class="flex items-center gap-4">
+          <router-link :to="'/'"><Logo /></router-link>
+          <h1>Verso</h1>
+        </div>
         <span>recherche</span>
       </div>
     </div>
