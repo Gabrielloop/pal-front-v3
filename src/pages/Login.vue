@@ -1,13 +1,10 @@
-
-
 <template>
   <ConnexionForm @forgot-password="handleForgotPassword" />
 </template>
 
-
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import ConnexionForm from '@/components/forms/ConnexionForm.vue'
 
@@ -24,7 +21,4 @@ const handleForgotPassword = () => {
 }
 </script>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>

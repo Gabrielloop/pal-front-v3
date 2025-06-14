@@ -27,7 +27,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import FormContainer from '@/components/ui/FormContainer.vue'
 import Button from '@/components/ui/Button.vue'

@@ -3,9 +3,8 @@
     <FormContainer title="Deconnexion">
       <template #actions>
         <Button :loading="loading" @click.prevent="submit">
-          <template #icon>
-            <AppIcon name="out" class="mr-2 h-5 w-5" /> </template
-          >Se déconnecter</Button
+          <template #icon> <AppIcon name="out" class="mr-2 h-5 w-5" /> </template>Se
+          déconnecter</Button
         >
       </template>
     </FormContainer>
@@ -14,7 +13,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import FormContainer from '@/components/ui/FormContainer.vue'
 import Button from '@/components/ui/Button.vue'

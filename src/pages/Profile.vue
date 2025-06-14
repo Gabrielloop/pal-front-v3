@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import DeconnexionForm from '@/components/forms/DeconnexionForm.vue'
 
