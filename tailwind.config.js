@@ -21,7 +21,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#1e40af', // Bleu principal
+        primary: '#162432', // Bleu principal
+        ivory: '#f8efd6', // Ivoire
         background: '#f3f4f6', // Gris clair
         secondary: '#f59e0b', // Jaune/orange
         accent: '#10b981', // Vert
