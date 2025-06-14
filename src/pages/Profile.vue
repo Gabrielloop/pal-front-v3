@@ -1,12 +1,8 @@
-<template>
-  <ConnexionForm @forgot-password="handleForgotPassword" />
-</template>
-
 <script setup>
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
-import ConnexionForm from '@/components/forms/ConnexionForm.vue'
+import DeconnexionForm from '@/components/forms/DeconnexionForm.vue'
 
 const email = ref('')
 const password = ref('')
@@ -15,10 +11,15 @@ const loading = ref(false)
 
 const auth = useAuthStore()
 const router = useRouter()
-
-const handleForgotPassword = () => {
-  alert('Redirection vers la page de réinitialisation') // ou router.push('/mot-de-passe-oublie')
-}
 </script>
+
+<template>
+  <main>
+    <h3>Profil</h3>
+    <section>
+      <DeconnexionForm />
+    </section>
+  </main>
+</template>
 
 <style scoped></style>

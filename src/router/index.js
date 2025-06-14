@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore } from '@/stores/auth'
 
 const routes = [
   {
@@ -20,13 +20,17 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'Home',
-        component: () => import('@/pages/Home.vue'),
+        redirect: '/listes',
       },
       {
-        path: 'profil',
-        name: 'Profil',
-        component: () => import('@/pages/Profil.vue'),
+        path: 'listes',
+        name: 'Listes',
+        component: () => import('@/pages/Listes.vue'),
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/pages/Profile.vue'),
       },
     ],
   },

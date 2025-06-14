@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { loginRequest, logoutRequest } from '@/api/auth'
-import { useToastStore } from '@/store/toast'
+import { fetchUserLists } from '@/api/list'
+import { useToastStore } from '@/stores/toast'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -24,6 +25,9 @@ export const useAuthStore = defineStore('auth', {
 
         const toast = useToastStore()
         toast.success('Bonjour ' + this.user.name)
+
+        // Charger les données utilisateur
+        await fetchUserLists()
       } catch (err) {
         const toast = useToastStore()
         toast.warn('Connexion échoué')
@@ -57,6 +61,8 @@ export const useAuthStore = defineStore('auth', {
       if (token && user) {
         this.token = token
         this.user = JSON.parse(user)
+        // Charger les données utilisateur
+        fetchUserLists()
       }
     },
   },

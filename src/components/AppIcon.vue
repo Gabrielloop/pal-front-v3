@@ -13,7 +13,12 @@ import {
   PencilIcon,
   ArrowRightStartOnRectangleIcon,
   ArrowLeftEndOnRectangleIcon,
+  AdjustmentsHorizontalIcon,
+  ChevronLeftIcon,
+  HomeIcon,
+  ListBulletIcon,
 } from '@heroicons/vue/24/outline'
+import { list } from 'postcss'
 
 const props = defineProps({
   name: {
@@ -32,6 +37,10 @@ const icons = {
   edit: PencilIcon,
   out: ArrowRightStartOnRectangleIcon,
   in: ArrowLeftEndOnRectangleIcon,
+  options: AdjustmentsHorizontalIcon,
+  back: ChevronLeftIcon,
+  home: HomeIcon,
+  list: ListBulletIcon,
 }
 
 const iconComponent = icons[props.name] || BookOpenIcon

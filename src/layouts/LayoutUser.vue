@@ -1,8 +1,31 @@
+<script setup>
+import NavBar from '@/components/ui/NavBar.vue'
+import Header from '@/components/ui/Header.vue'
+import Menu from '@/components/ui/Menu.vue'
+import MainContent from '@/components/ui/MainContent.vue'
+</script>
+
 <template>
   <div>
-    <header class="bg-primary p-4 text-white">Header User</header>
-    <main class="p-4">
-      <router-view />
+    <main>
+      <!-- HEADER : Logo + barre de recherche -->
+      <Header />
+
+      <!-- NAV : Barre de navigation en bas de page : version mobile uniquement-->
+      <NavBar class="block md:hidden" />
+
+      <!-- MAIN : Contenu principal de la page -->
+      <MainContent>
+        <!-- ASIDE : Menu latéral pour les écrans larges -->
+        <template #aside>
+          <Menu class="hidden md:block" />
+        </template>
+
+        <!-- SECTION : Contenu principal de la page -->
+        <template #section>
+          <router-view />
+        </template>
+      </MainContent>
     </main>
   </div>
 </template>
