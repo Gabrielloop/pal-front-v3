@@ -20,8 +20,12 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'Home',
-        component: () => import('@/pages/Home.vue'),
+        redirect: '/list',
+      },
+      {
+        path: 'list',
+        name: 'List',
+        component: () => import('@/pages/List.vue'),
       },
       {
         path: 'profil',

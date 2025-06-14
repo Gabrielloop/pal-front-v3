@@ -27,6 +27,7 @@
   }
 
   /* Variantes */
+
   .btn-valider {
     @apply btn bg-primary hover:bg-primary/80 focus:ring-primary;
   }

@@ -1,17 +1,18 @@
-
 <template>
+  <article>
     <FormContainer title="Deconnexion">
       <template #actions>
         <Button :loading="loading" @click.prevent="submit">
-            <template #icon>
-                <AppIcon name="out" class="w-5 h-5 mr-2" />
-            </template>Se déconnecter</Button>
+          <template #icon>
+            <AppIcon name="out" class="mr-2 h-5 w-5" /> </template
+          >Se déconnecter</Button
+        >
       </template>
     </FormContainer>
-  </template>
-  
-  
-  <script setup>
+  </article>
+</template>
+
+<script setup>
 import { ref } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'vue-router'

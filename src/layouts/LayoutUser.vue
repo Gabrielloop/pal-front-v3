@@ -1,7 +1,11 @@
+<script setup lang="ts">
+import NavBar from '../components/ui/NavBar.vue'
+</script>
+
 <template>
   <div>
-    <header class="bg-primary p-4 text-white">Header User</header>
-    <main class="p-4">
+    <main>
+      <NavBar />
       <router-view />
     </main>
   </div>

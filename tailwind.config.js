@@ -22,6 +22,7 @@ export default {
     extend: {
       colors: {
         primary: '#1e40af', // Bleu principal
+        background: '#f3f4f6', // Gris clair
         secondary: '#f59e0b', // Jaune/orange
         accent: '#10b981', // Vert
         muted: '#6b7280', // Gris doux

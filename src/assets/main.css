@@ -37,3 +37,11 @@
   padding: 0.75rem 1.25rem !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
 }
+
+.navbar {
+  @apply bg-background shadow-md;
+}
+
+article {
+  @apply max-w-full mx-0 md:mx-16 p-8 bg-background rounded-lg shadow-lg;
+}

@@ -1,24 +1,31 @@
-
 <template>
-    <FormContainer title="Connexion">
-      <template #fields>
-        <input v-model="email" type="email" placeholder="Email" class="input input-text w-full mb-2" />
-        <input v-model="password" type="password" placeholder="Mot de passe" class="input input-text w-full mb-2" />
-        <p v-if="error" class="text-red-500">{{ error }}</p>
-      </template>
-  
-      <template #actions>
-        <Button :loading="loading" @click.prevent="submit" variant="valider">
-            <template #icon>
-                <AppIcon name="in" class="w-5 h-5 mr-2" />
-            </template>Se connecter</Button>
-        <Button variant="attente" @click="$emit('forgot-password')">Mot de passe oublié</Button>
-      </template>
-    </FormContainer>
-  </template>
-  
-  
-  <script setup>
+  <FormContainer title="Connexion">
+    <template #fields>
+      <input
+        v-model="email"
+        type="email"
+        placeholder="Email"
+        class="input input-text mb-2 w-full"
+      />
+      <input
+        v-model="password"
+        type="password"
+        placeholder="Mot de passe"
+        class="input input-text mb-2 w-full"
+      />
+      <p v-if="error" class="text-red-500">{{ error }}</p>
+    </template>
+
+    <template #actions>
+      <Button :loading="loading" @click.prevent="submit" variant="valider">
+        <template #icon> <AppIcon name="in" class="mr-2 h-5 w-5" /> </template>Se connecter</Button
+      >
+      <Button variant="attente" @click="$emit('forgot-password')">Mot de passe oublié</Button>
+    </template>
+  </FormContainer>
+</template>
+
+<script setup>
 import { ref } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'vue-router'
@@ -43,7 +50,6 @@ const submit = async () => {
   } catch (err) {
     error.value = 'Échec de la connexion'
   } finally {
-
     loading.value = false
   }
 }
