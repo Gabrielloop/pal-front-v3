@@ -2,8 +2,8 @@
   <aside class="h-screen">
     <h2 class="mb-4 text-xl font-bold">Menu</h2>
     <!-- Chargement de la liste -->
-    <div v-if="listStore.isLoading">Chargement des listes...</div>
-    <ul v-else>
+
+    <ul>
       <!-- Boucle sur les sections du store -->
       <li v-for="section in sectionStore.sections" :key="section.key">
         <RouterLink
@@ -14,13 +14,22 @@
         </RouterLink>
 
         <!-- Si "mes-listes", on affiche les listes utilisateur -->
-        <ul v-if="section.key === 'mes-listes'" class="ml-4">
-          <li v-for="list in listStore.lists" :key="list.userlist_id">
-            <RouterLink :to="`/listes/${list.userlist_id}`">
-              {{ list.userlist_name }}
+        <BaseList
+          v-if="section.key === 'mes-listes'"
+          :items="listStore.lists"
+          :loading="listStore.isLoading"
+          class="ml-4"
+        >
+          <template #default="{ item }">
+            <pre>{{ props }}</pre>
+            <RouterLink
+              :to="`/listes/${item.userlist_id}`"
+              class="block w-full rounded px-2 py-1 transition hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              {{ item.userlist_name }}
             </RouterLink>
-          </li>
-        </ul>
+          </template>
+        </BaseList>
       </li>
     </ul>
   </aside>
@@ -28,6 +37,7 @@
 
 <script setup>
 import AppIcon from '@/components/AppIcon.vue'
+import BaseList from '@/components/ui/BaseList.vue'
 import { useSectionsStore } from '@/stores/useSectionsStore'
 import { useListStore } from '@/stores/useListStore'
 import { onMounted } from 'vue'
