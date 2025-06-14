@@ -28,6 +28,16 @@ const routes = [
         component: () => import('@/pages/Listes.vue'),
       },
       {
+        path: 'listes/:id',
+        name: 'Ma liste',
+        component: () => import('@/pages/Listes.vue'),
+      },
+      {
+        path: 'recherches',
+        name: 'Recherches',
+        component: () => import('@/pages/Listes.vue'),
+      },
+      {
         path: 'profile',
         name: 'Profile',
         component: () => import('@/pages/Profile.vue'),

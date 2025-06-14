@@ -2,8 +2,6 @@ import { defineStore } from 'pinia'
 import { fetchUserLists } from '@/api/list'
 import { useToastStore } from '@/stores/toast'
 
-const toast = useToastStore()
-
 export const useListStore = defineStore('listStore', {
   state: () => ({
     lists: [],
@@ -17,8 +15,10 @@ export const useListStore = defineStore('listStore', {
         const json = await fetchUserLists()
         if (json.success) {
           this.lists = json.data
+          console.log('fetchLists :', this.lists)
         }
       } catch (err) {
+        const toast = useToastStore()
         toast.error(json.message || 'Erreur lors de la récupération des listes')
         console.error('Erreur fetchLists :', err)
       } finally {
