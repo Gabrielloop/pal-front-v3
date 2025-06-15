@@ -2,51 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer components {
   /* Bouton générique */
   .btn {
-    @apply inline-flex items-center justify-center font-medium rounded-md transition duration-150 ease-in-out;
-    @apply px-4 py-2 text-white text-sm;
+    @apply inline-flex items-center justify-center rounded-md font-medium transition duration-150 ease-in-out;
+    @apply px-4 py-2 text-sm text-white;
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
 
   /* Inputs générique */
   .input-text {
-    @apply block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary;
+    @apply block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-primary focus:ring-primary;
   }
-
 
   /* Tailles */
   .btn-sm {
-    @apply text-xs px-3 py-1;
+    @apply px-3 py-1 text-xs;
   }
 
   .btn-lg {
-    @apply text-base px-5 py-3;
+    @apply px-5 py-3 text-base;
   }
 
   /* Variantes */
 
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary/80 focus:ring-primary;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent text-primary hover:bg-accent/80 focus:ring-accent;
+  }
+
   .btn-valider {
-    @apply btn bg-primary hover:bg-primary/80 focus:ring-primary;
+    @apply btn bg-valide hover:bg-valide/80 focus:ring-valide text-white;
   }
 
   .btn-refuser {
-    @apply btn bg-danger hover:bg-danger/80 focus:ring-danger;
+    @apply btn bg-danger text-white hover:bg-danger/80 focus:ring-danger;
   }
 
   .btn-attente {
-    @apply btn bg-warning text-black hover:bg-warning/80 focus:ring-warning;
+    @apply btn bg-warning text-white hover:bg-warning/80 focus:ring-warning;
   }
 
   .btn-disabled {
-    @apply btn bg-disabled opacity-60 cursor-not-allowed;
+    @apply btn cursor-not-allowed bg-disabled text-white opacity-60;
   }
 
   /* Badge générique */
   .badge {
-    @apply inline-block px-2 py-0.5 text-xs font-semibold rounded-full;
+    @apply inline-block rounded-full px-2 py-0.5 text-xs font-semibold;
   }
 
   .badge-primary {
@@ -58,10 +64,10 @@
   }
 
   .badge-warning {
-    @apply badge bg-warning text-black;
+    @apply badge bg-warning text-white;
   }
 
   .badge-muted {
-    @apply badge bg-gray-300 text-gray-700;
+    @apply badge bg-disabled text-white;
   }
 }

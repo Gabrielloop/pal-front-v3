@@ -11,15 +11,17 @@ export const useListStore = defineStore('listStore', {
   actions: {
     async fetchLists() {
       this.isLoading = true
+      const toast = useToastStore()
       try {
-        const json = await fetchUserLists()
-        if (json.success) {
-          this.lists = json.data
+        const res = await fetchUserLists()
+        if (res.success) {
+          this.lists = res.data
           console.log('fetchLists :', this.lists)
+        } else {
+          toast.error(res.message || 'Échec récupération des listes')
         }
       } catch (err) {
-        const toast = useToastStore()
-        toast.error(json.message || 'Erreur lors de la récupération des listes')
+        toast.error(err.message || 'Erreur lors de la récupération des listes')
         console.error('Erreur fetchLists :', err)
       } finally {
         this.isLoading = false

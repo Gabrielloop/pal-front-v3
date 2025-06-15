@@ -20,7 +20,12 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: '/listes',
+        redirect: '/dashboard',
+      },
+      {
+        path: 'dashboard',
+        name: 'Accueil',
+        component: () => import('@/pages/Dashboard.vue'),
       },
       {
         path: 'listes',
@@ -35,7 +40,7 @@ const routes = [
       {
         path: 'recherches',
         name: 'Recherches',
-        component: () => import('@/pages/Listes.vue'),
+        component: () => import('@/pages/Recherches.vue'),
       },
       {
         path: 'profile',

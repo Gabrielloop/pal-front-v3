@@ -4,9 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .toastify.toast-success {
-  background: #10b981 !important;
+  background: #266b03 !important;
   color: white !important;
   font-weight: bold !important;
   border-radius: 0.5rem !important;
@@ -14,7 +13,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
 }
 .toastify.toast-info {
-  background: #1e40af !important;
+  background: #162432 !important;
   color: white !important;
   font-weight: bold !important;
   border-radius: 0.5rem !important;
@@ -22,7 +21,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
 }
 .toastify.toast-warn {
-  background: #f59e0b !important;
+  background: #6b5203 !important;
   color: white !important;
   font-weight: bold !important;
   border-radius: 0.5rem !important;
@@ -30,7 +29,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
 }
 .toastify.toast-error {
-  background: #dc2626 !important;
+  background: #6b1003 !important;
   color: white !important;
   font-weight: bold !important;
   border-radius: 0.5rem !important;
@@ -39,9 +38,25 @@
 }
 
 .navbar {
-  @apply bg-background shadow-md;
+  @apply bg-primary shadow-md;
+}
+
+aside {
+  @apply w-[250px] p-4 shadow-md;
 }
 
 article {
-  @apply max-w-full mx-0 md:mx-16 p-8 bg-background rounded-lg shadow-lg;
+  @apply mx-0 max-w-full bg-white p-2 shadow-lg sm:rounded-lg md:mx-16 md:p-8;
+}
+
+section {
+  @apply m-0 my-4 flex w-full flex-col gap-8 sm:m-8;
+}
+
+body {
+  @apply font-body bg-background text-primary;
+}
+
+.menu-block {
+  @apply w-[150px] items-center;
 }

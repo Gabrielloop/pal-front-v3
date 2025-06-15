@@ -14,12 +14,11 @@ const router = useRouter()
 </script>
 
 <template>
-  <main>
-    <h3>Profil</h3>
-    <section>
-      <DeconnexionForm />
-    </section>
-  </main>
+  <section>
+    <h3>Paramètres</h3>
+
+    <DeconnexionForm />
+  </section>
 </template>
 
 <style scoped></style>
