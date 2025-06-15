@@ -70,9 +70,9 @@ export const useSectionsStore = defineStore('sections', {
 
       // Sous-listes utilisateur (sous "Mes listes")
       const userLists = listStore.lists.map((list) => ({
-        key: `list-${list.userlist_id}`,
-        label: list.userlist_name,
-        route: `/listes/${list.userlist_id}`,
+        key: `list-${list.userlistId}`,
+        label: list.userlistName,
+        route: `/listes/${list.userlistId}`,
       }))
 
       // Sous-listes fixes pour classements

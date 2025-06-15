@@ -11,12 +11,12 @@
     <template v-else-if="items && items.length">
       <li
         v-for="item in items"
-        :key="item.id || item.userlist_id"
+        :key="item.id || item.userlistId"
         @click="$emit('select', item)"
         class="flex h-8 cursor-pointer items-center overflow-hidden rounded py-2 text-primary hover:bg-background"
       >
         <slot v-bind="{ item }">
-          {{ item.label || item.name || item.userlist_name || 'Élément' }}
+          {{ item.label || item.name || item.userlistName || 'Élément' }}
         </slot>
       </li>
     </template>

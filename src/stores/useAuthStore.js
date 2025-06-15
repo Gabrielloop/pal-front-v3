@@ -22,10 +22,10 @@ export const useAuthStore = defineStore('auth', {
       try {
         const data = await loginRequest(credentials)
 
-        this.token = data.access_token
+        this.token = data.accessToken
         this.user = data.user
 
-        localStorage.setItem('token', data.access_token)
+        localStorage.setItem('token', data.accessToken)
         localStorage.setItem('user', JSON.stringify(data.user))
 
         toast.success('Bonjour ' + this.user.name)

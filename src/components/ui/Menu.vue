@@ -21,10 +21,10 @@
           class="mb-4 ml-1 text-sm"
         >
           <template #default="{ item }">
-            <RouterLink :to="`/listes/${item.userlist_id}`">
+            <RouterLink :to="`/listes/${item.userlistId}`">
               <div class="flex items-center justify-between">
-                <span class="menu-block block truncate" :title="item.userlist_name">
-                  {{ item.userlist_name }}
+                <span class="menu-block block truncate" :title="item.userlistName">
+                  {{ item.userlistName }}
                 </span>
                 <span class="badge-primary flex min-w-6 justify-center whitespace-nowrap text-xs">{{
                   item.books?.length
