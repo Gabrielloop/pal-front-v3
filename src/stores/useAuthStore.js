@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { loginRequest, logoutRequest } from '@/api/auth'
 import { useToastStore } from '@/stores/toast'
 import { useListStore } from '@/stores/useListStore'
+import { useSectionsStore } from '@/stores/useSectionsStore'
+import { useRouter } from 'vue-router'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -37,7 +39,7 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     logout: async function () {
-      const listStore = useListStore()
+      const router = useRouter()
       const toast = useToastStore()
       try {
         await logoutRequest()
@@ -47,6 +49,13 @@ export const useAuthStore = defineStore('auth', {
       } finally {
         toast.success('À bientôt ' + (this.user?.name ?? ''))
 
+        // Vider les données utilisateur
+        const listStore = useListStore()
+        const sectionsStore = useSectionsStore()
+        listStore.$reset()
+        sectionsStore.$reset()
+
+        // Réinitialiser l'état
         this.token = null
         this.user = null
         localStorage.removeItem('token')
@@ -55,10 +64,9 @@ export const useAuthStore = defineStore('auth', {
     },
     restore: async function () {
       const listStore = useListStore()
+
       const token = localStorage.getItem('token')
       const user = localStorage.getItem('user')
-
-      console.log('[AUTH RESTORE]', { token, user })
 
       if (token && user) {
         this.token = token

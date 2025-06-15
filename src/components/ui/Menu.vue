@@ -32,12 +32,14 @@
         </BaseList>
       </li>
     </ul>
+    <DeconnexionForm type="menu" class="mt-32" />
   </aside>
 </template>
 
 <script setup>
 import AppIcon from '@/components/AppIcon.vue'
 import BaseList from '@/components/ui/BaseList.vue'
+import DeconnexionForm from '../forms/DeconnexionForm.vue'
 import { useSectionsStore } from '@/stores/useSectionsStore'
 import { useListStore } from '@/stores/useListStore'
 import { onMounted } from 'vue'
