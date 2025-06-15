@@ -42,7 +42,7 @@
 }
 
 aside {
-  @apply w-[150px];
+  @apply w-[250px] p-4 shadow-md;
 }
 
 article {
@@ -58,5 +58,5 @@ body {
 }
 
 .menu-block {
-  @apply w-[130px] items-center;
+  @apply w-[150px] items-center;
 }

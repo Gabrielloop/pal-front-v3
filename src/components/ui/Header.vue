@@ -4,8 +4,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 </script>
 
 <template>
-  <header class="text-ivory bg-primary shadow">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <header class="text-ivory sticky top-0 z-50 w-full bg-primary shadow">
+    <div class="px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center gap-4">
           <router-link :to="'/'"><Logo /></router-link>

@@ -1,5 +1,5 @@
 <template>
-  <main class="flex h-full w-full flex-row items-start bg-background">
+  <main class="flex min-h-screen w-full flex-1 flex-row items-start bg-background">
     <slot name="aside"></slot>
     <slot name="section"></slot>
   </main>

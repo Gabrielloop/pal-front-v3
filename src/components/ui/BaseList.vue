@@ -13,7 +13,7 @@
         v-for="item in items"
         :key="item.id || item.userlist_id"
         @click="$emit('select', item)"
-        class="flex h-8 cursor-pointer items-center overflow-hidden rounded px-3 py-2 text-primary hover:bg-background"
+        class="flex h-8 cursor-pointer items-center overflow-hidden rounded py-2 text-primary hover:bg-background"
       >
         <slot v-bind="{ item }">
           {{ item.label || item.name || item.userlist_name || 'Élément' }}

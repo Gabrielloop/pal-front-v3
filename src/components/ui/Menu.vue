@@ -1,5 +1,5 @@
 <template>
-  <aside class="bg-ivory h-screen">
+  <aside class="bg-ivory">
     <h2 class="mb-4 text-xl font-bold">Menu</h2>
     <!-- Chargement de la liste -->
 
@@ -8,7 +8,7 @@
       <li v-for="section in sectionStore.sections" :key="section.key">
         <RouterLink
           :to="section.route"
-          class="flex items-center gap-4 rounded px-3 py-2 text-primary hover:bg-background"
+          class="flex items-center gap-4 rounded px-1 py-2 text-primary hover:bg-background"
           ><AppIcon :name="section.icon" class="h-5 w-5" />
           <span>{{ section.label }}</span>
         </RouterLink>
@@ -18,19 +18,24 @@
           v-if="section.key === 'mes-listes'"
           :items="listStore.lists"
           :loading="listStore.isLoading"
-          class="mb-4 ml-4 text-sm"
+          class="mb-4 ml-1 text-sm"
         >
           <template #default="{ item }">
             <RouterLink :to="`/listes/${item.userlist_id}`">
-              <span class="menu-block block truncate" :title="item.userlist_name">
-                {{ item.userlist_name }}
-              </span>
+              <div class="flex items-center justify-between">
+                <span class="menu-block block truncate" :title="item.userlist_name">
+                  {{ item.userlist_name }}
+                </span>
+                <span class="badge-primary flex min-w-6 justify-center whitespace-nowrap text-xs">{{
+                  item.books?.length
+                }}</span>
+              </div>
             </RouterLink>
           </template>
         </BaseList>
 
         <!-- Affiche les sous-listes si elles existent -->
-        <BaseList v-else-if="section.children" :items="section.children" class="mb-4 ml-4 text-sm">
+        <BaseList v-else-if="section.children" :items="section.children" class="mb-4 ml-1 text-sm">
           <template #default="{ item }">
             <RouterLink :to="item.route">
               <span class="menu-block block truncate" :title="item.label">
@@ -63,10 +68,4 @@ onMounted(() => {
 console.log('Listes:', listStore.lists)
 </script>
 
-<style scoped>
-aside {
-  width: 250px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-</style>
+<style scoped></style>
