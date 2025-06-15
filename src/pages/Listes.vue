@@ -4,6 +4,10 @@ import { useAuthStore } from '@/stores/useAuthStore'
 const auth = useAuthStore()
 </script>
 
-<template>List</template>
+<template>
+  <section>
+    <h3>Liste</h3>
+  </section>
+</template>
 
 <style scoped></style>

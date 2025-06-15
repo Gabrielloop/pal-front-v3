@@ -15,7 +15,7 @@ const router = useRouter()
 
 <template>
   <section>
-    <h3>Profil</h3>
+    <h3>Paramètres</h3>
 
     <DeconnexionForm />
   </section>

@@ -24,12 +24,16 @@ export default {
         primary: '#162432', // Bleu principal
         ivory: '#f8efd6', // Ivoire             Textes enn blanc sur fond sombre
         background: '#fcf9f1', // Ivoir clair   Fond général
-        accent: '#266b03', // Vert              Validation
+        accent: '#F2E8D5', // Beige             Contraste
+        valide: '#266b03', // Vert              Validation, succès
         secondary: '#f59e0b', // a définir
         muted: '#585258', // Gris               Désactivé
         danger: '#6b1003', // Rouge             Danger, erreur, refuser
         warning: '#6b5203', // En attente       Attente, warning
         disabled: '#585258', // Gris neutre     Désactivé
+      },
+      fontFamily: {
+        title: ['"Playball"', 'cursive'],
       },
       fontSize: {
         xs: '0.75rem',

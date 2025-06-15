@@ -35,7 +35,7 @@ const routes = [
       {
         path: 'recherches',
         name: 'Recherches',
-        component: () => import('@/pages/Listes.vue'),
+        component: () => import('@/pages/Recherches.vue'),
       },
       {
         path: 'profile',

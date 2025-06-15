@@ -8,7 +8,7 @@
       <li v-for="section in sectionStore.sections" :key="section.key">
         <RouterLink
           :to="section.route"
-          class="flex items-center gap-2 rounded px-3 py-2 text-gray-700 hover:bg-blue-100"
+          class="flex items-center gap-4 rounded px-3 py-2 text-primary hover:bg-background"
           ><AppIcon :name="section.icon" class="h-5 w-5" />
           <span>{{ section.label }}</span>
         </RouterLink>
@@ -18,15 +18,24 @@
           v-if="section.key === 'mes-listes'"
           :items="listStore.lists"
           :loading="listStore.isLoading"
-          class="ml-4"
+          class="mb-4 ml-4 text-sm"
         >
           <template #default="{ item }">
-            <pre>{{ props }}</pre>
-            <RouterLink
-              :to="`/listes/${item.userlist_id}`"
-              class="block w-full rounded px-2 py-1 transition hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              {{ item.userlist_name }}
+            <RouterLink :to="`/listes/${item.userlist_id}`">
+              <span class="menu-block block truncate" :title="item.userlist_name">
+                {{ item.userlist_name }}
+              </span>
+            </RouterLink>
+          </template>
+        </BaseList>
+
+        <!-- Affiche les sous-listes si elles existent -->
+        <BaseList v-else-if="section.children" :items="section.children" class="mb-4 ml-4 text-sm">
+          <template #default="{ item }">
+            <RouterLink :to="item.route">
+              <span class="menu-block block truncate" :title="item.label">
+                {{ item.label }}
+              </span>
             </RouterLink>
           </template>
         </BaseList>

@@ -1,9 +1,9 @@
 <template>
-  <ul class="space-y-2">
+  <ul class="space-y-0">
     <!-- Loading state -->
     <template v-if="loading">
       <li v-for="n in skeletonCount" :key="n">
-        <Skeleton />
+        <Skeleton height="h-8" />
       </li>
     </template>
 
@@ -13,7 +13,7 @@
         v-for="item in items"
         :key="item.id || item.userlist_id"
         @click="$emit('select', item)"
-        class="cursor-pointer rounded-xl px-4 py-2 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+        class="flex h-8 cursor-pointer items-center overflow-hidden rounded px-3 py-2 text-primary hover:bg-background"
       >
         <slot v-bind="{ item }">
           {{ item.label || item.name || item.userlist_name || 'Élément' }}
@@ -23,7 +23,7 @@
 
     <!-- Empty state -->
     <template v-else>
-      <li class="px-4 py-2 text-sm italic text-gray-500">Aucun élément trouvé.</li>
+      <li class="px-4 py-2 text-sm italic text-primary">Aucun élément trouvé.</li>
     </template>
   </ul>
 </template>

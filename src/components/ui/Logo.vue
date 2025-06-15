@@ -1,5 +1,10 @@
 <template>
-  <div class="logo-wrapper" @mouseenter="showGif" @mouseleave="hideGif">
+  <div
+    class="logo-wrapper"
+    :style="{ width: size, height: size }"
+    @mouseenter="showGif"
+    @mouseleave="hideGif"
+  >
     <img :src="pngLogo" alt="Verso logo" class="logo-base" />
     <img :src="gifSrc" alt="Verso animation" class="logo-gif" v-show="gifVisible" />
   </div>
@@ -12,6 +17,13 @@ import gifLogo from '@/assets/verso_anim.gif'
 
 const gifVisible = ref(false)
 const gifSrc = ref(gifLogo)
+
+const props = defineProps({
+  size: {
+    type: String,
+    default: '50px',
+  },
+})
 
 function showGif() {
   gifSrc.value = gifLogo + '?t=' + new Date().getTime()
@@ -26,8 +38,6 @@ function hideGif() {
 <style scoped>
 .logo-wrapper {
   position: relative;
-  width: 50px;
-  height: 50px;
 }
 
 .logo-base,
