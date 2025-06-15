@@ -8,10 +8,9 @@
         :variant="page.isVisited ? 'attente' : 'valider'"
       >
         <template #icon>
-          <AppIcon :name="page.icon" class="mr-2 h-5 w-5" />
+          <AppIcon :name="page.icon" class="mr-0 h-7 w-7 sm:m-2 sm:h-5 sm:w-5" />
         </template>
-        <router-link :to="page.path">
-          <!-- TODO : Média querry à adapter en sm masquer le texte -->
+        <router-link :to="page.path" class="hidden sm:block">
           <span>{{ page.name }}</span></router-link
         >
       </Button>

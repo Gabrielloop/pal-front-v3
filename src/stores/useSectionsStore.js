@@ -28,6 +28,18 @@ export const useSectionsStore = defineStore('sections', {
         route: '/listes/lectures',
         icon: 'book',
       },
+      {
+        key: 'recherches',
+        label: 'Recherches',
+        route: '/recherches',
+        icon: 'search',
+      },
+      {
+        key: 'options',
+        label: 'Paramètres',
+        route: '/profile',
+        icon: 'options',
+      },
     ],
     sections: [],
   }),

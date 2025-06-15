@@ -1,5 +1,5 @@
 <template>
-  <aside class="h-screen">
+  <aside class="bg-ivory h-screen">
     <h2 class="mb-4 text-xl font-bold">Menu</h2>
     <!-- Chargement de la liste -->
 
@@ -57,7 +57,6 @@ console.log('Listes:', listStore.lists)
 <style scoped>
 aside {
   width: 250px;
-  background-color: #f8f9fa;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
