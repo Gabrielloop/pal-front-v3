@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/useAuthStore'
 
 const routes = [
   {
@@ -28,6 +28,16 @@ const routes = [
         component: () => import('@/pages/Listes.vue'),
       },
       {
+        path: 'listes/:id',
+        name: 'Ma liste',
+        component: () => import('@/pages/Listes.vue'),
+      },
+      {
+        path: 'recherches',
+        name: 'Recherches',
+        component: () => import('@/pages/Listes.vue'),
+      },
+      {
         path: 'profile',
         name: 'Profile',
         component: () => import('@/pages/Profile.vue'),
@@ -41,10 +51,14 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'AdminHome',
+        name: 'Admin',
         component: () => import('@/pages/Admin.vue'),
       },
     ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/login',
   },
 ]
 
@@ -53,15 +67,22 @@ export const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
+// Guard : Vérification de l'authentification et des permissions
+router.beforeEach(async (to, from, next) => {
+  const { useAuthStore } = await import('@/stores/useAuthStore')
   const auth = useAuthStore()
 
-  if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    return next({ name: 'Login' })
+  const isLoggedIn = auth.isAuthenticated
+  const isAdmin = auth.isAdmin
+
+  // Route nécessitant une authentification
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    return next({ name: 'Login', query: { redirect: to.fullPath } })
   }
 
-  if (to.meta.requiresAdmin && !auth.isAdmin) {
-    return next({ name: 'Home' })
+  // Route nécessitant un admin
+  if (to.meta.requiresAdmin && !isAdmin) {
+    return next({ name: 'Listes' })
   }
 
   next()

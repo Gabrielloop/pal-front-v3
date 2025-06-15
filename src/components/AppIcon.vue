@@ -18,7 +18,6 @@ import {
   HomeIcon,
   ListBulletIcon,
 } from '@heroicons/vue/24/outline'
-import { list } from 'postcss'
 
 const props = defineProps({
   name: {

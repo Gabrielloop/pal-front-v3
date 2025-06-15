@@ -1,7 +1,5 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth'
-import DeconnexionForm from '../components/forms/DeconnexionForm.vue'
-import ConnexionForm from '../components/forms/ConnexionForm.vue'
+import { useAuthStore } from '@/stores/useAuthStore'
 
 const auth = useAuthStore()
 </script>

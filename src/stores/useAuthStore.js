@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
 import { loginRequest, logoutRequest } from '@/api/auth'
-import { fetchUserLists } from '@/api/list'
 import { useToastStore } from '@/stores/toast'
+import { useListStore } from '@/stores/useListStore'
+import { useSectionsStore } from '@/stores/useSectionsStore'
+import { useRouter } from 'vue-router'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -14,6 +16,9 @@ export const useAuthStore = defineStore('auth', {
   },
   actions: {
     async login(credentials) {
+      const listStore = useListStore()
+      const toast = useToastStore()
+
       try {
         const data = await loginRequest(credentials)
 
@@ -23,46 +28,51 @@ export const useAuthStore = defineStore('auth', {
         localStorage.setItem('token', data.access_token)
         localStorage.setItem('user', JSON.stringify(data.user))
 
-        const toast = useToastStore()
         toast.success('Bonjour ' + this.user.name)
 
         // Charger les données utilisateur
-        await fetchUserLists()
+        await listStore.fetchLists()
       } catch (err) {
-        const toast = useToastStore()
         toast.warn('Connexion échoué')
         console.error(err)
         throw err
       }
     },
     logout: async function () {
+      const router = useRouter()
+      const toast = useToastStore()
       try {
         await logoutRequest()
       } catch (err) {
-        const toast = useToastStore()
         toast.warn('Déconnexion impossible')
         console.error('Erreur logout :', err)
       } finally {
-        const toast = useToastStore()
         toast.success('À bientôt ' + (this.user?.name ?? ''))
 
+        // Vider les données utilisateur
+        const listStore = useListStore()
+        const sectionsStore = useSectionsStore()
+        listStore.$reset()
+        sectionsStore.$reset()
+
+        // Réinitialiser l'état
         this.token = null
         this.user = null
         localStorage.removeItem('token')
         localStorage.removeItem('user')
       }
     },
-    restore() {
+    restore: async function () {
+      const listStore = useListStore()
+
       const token = localStorage.getItem('token')
       const user = localStorage.getItem('user')
-
-      console.log('[AUTH RESTORE]', { token, user })
 
       if (token && user) {
         this.token = token
         this.user = JSON.parse(user)
         // Charger les données utilisateur
-        fetchUserLists()
+        await listStore.fetchLists()
       }
     },
   },

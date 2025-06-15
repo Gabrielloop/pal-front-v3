@@ -4,7 +4,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/useAuthStore'
 import { useRouter } from 'vue-router'
 import ConnexionForm from '@/components/forms/ConnexionForm.vue'
 

@@ -1,11 +1,10 @@
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/useAuthStore'
 
 // Construction de la requete
 
 export async function apiFetch(path, options = {}) {
   // Vérification des paramètres
   const auth = useAuthStore()
-  console.log('Token actuel:', auth.token)
   // Lien de l'API
   const baseUrl = import.meta.env.VITE_API_BASE_URL
 
