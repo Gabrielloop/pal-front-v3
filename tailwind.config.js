@@ -3,6 +3,8 @@ export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}', './assets/**/*.css'],
   safelist: [
     'btn',
+    'btn-primary',
+    'btn-accent',
     'btn-valider',
     'btn-refuser',
     'btn-attente',
@@ -34,6 +36,7 @@ export default {
       },
       fontFamily: {
         title: ['"Playball"', 'cursive'],
+        body: ['"Mona Sans"', 'sans-serif'],
       },
       fontSize: {
         xs: '0.75rem',

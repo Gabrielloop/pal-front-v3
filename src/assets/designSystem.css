@@ -26,8 +26,16 @@
 
   /* Variantes */
 
-  .btn-valider {
+  .btn-primary {
     @apply btn bg-primary text-white hover:bg-primary/80 focus:ring-primary;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent text-primary hover:bg-accent/80 focus:ring-accent;
+  }
+
+  .btn-valider {
+    @apply btn bg-valide hover:bg-valide/80 focus:ring-valide text-white;
   }
 
   .btn-refuser {

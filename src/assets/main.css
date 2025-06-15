@@ -54,7 +54,7 @@ section {
 }
 
 body {
-  @apply bg-background text-primary;
+  @apply font-body bg-background text-primary;
 }
 
 .menu-block {

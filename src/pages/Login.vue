@@ -1,8 +1,9 @@
 <template>
-  <div class="flex h-screen w-full flex-col items-center justify-center bg-primary p-2">
+  <div class="flex h-screen w-full flex-col items-center justify-center bg-primary p-0 md:p-8">
     <Logo size="250px" />
     <h1 class="font-title text-ivory text-[5em]">Verso</h1>
-    <article class="my-8">
+    <article class="my-2 w-full sm:my-8 md:w-[500px]">
+      <!-- TODO : Passer l'action en flex col pour l'affichage mobile -->
       <ConnexionForm @forgot-password="handleForgotPassword" />
     </article>
   </div>

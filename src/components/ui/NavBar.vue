@@ -5,10 +5,10 @@
       <Button
         v-for="page in pages"
         :key="page.name"
-        :variant="page.isVisited ? 'attente' : 'valider'"
+        :variant="page.isVisited ? 'accent' : 'primary'"
       >
-        <template #icon>
-          <AppIcon :name="page.icon" class="mr-0 h-7 w-7 sm:m-2 sm:h-5 sm:w-5" />
+        <template #icon class="mr-0 h-7 w-7 sm:m-2 sm:h-5 sm:w-5">
+          <router-link :to="page.path"> <AppIcon :name="page.icon" /></router-link>
         </template>
         <router-link :to="page.path" class="hidden sm:block">
           <span>{{ page.name }}</span></router-link

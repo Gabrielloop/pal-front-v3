@@ -41,7 +41,7 @@
         </BaseList>
       </li>
     </ul>
-    <DeconnexionForm type="menu" class="mt-32" />
+    <DeconnexionForm type="menu" class="mt-8" />
   </aside>
 </template>
 
