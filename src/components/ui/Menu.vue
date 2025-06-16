@@ -52,7 +52,7 @@
       </li>
     </ul>
     <Button variant="attente" class="mt-4 w-full" @click="$router.push('/admin')" v-if="isAdmin">
-      <template #icon> <AppIcon name="out" class="mr-2 h-5 w-5" /> </template>Admin</Button
+      <template #icon> <AppIcon name="lock" class="mr-2 h-5 w-5" /> </template>Admin</Button
     >
     <DeconnexionForm type="menu" class="mt-8" />
   </aside>

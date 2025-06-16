@@ -18,6 +18,8 @@ import {
   HomeIcon,
   ListBulletIcon,
   ShoppingCartIcon,
+  CheckCircleIcon,
+  LockClosedIcon,
 } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
@@ -42,6 +44,8 @@ const icons = {
   home: HomeIcon,
   list: ListBulletIcon,
   cart: ShoppingCartIcon,
+  check: CheckCircleIcon,
+  lock: LockClosedIcon,
 }
 
 const iconComponent = icons[props.name] || BookOpenIcon

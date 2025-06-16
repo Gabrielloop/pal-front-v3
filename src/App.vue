@@ -19,7 +19,6 @@ watch(
   () => auth.user?.isDarkMode,
   (isDark) => {
     document.documentElement.classList.toggle('dark', !!isDark)
-    console.log('Dark mode:', isDark)
   },
   { immediate: true }
 )

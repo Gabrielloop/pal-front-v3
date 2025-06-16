@@ -1,39 +1,26 @@
 <template>
-  <FormContainer title="DarkMode">
-    <template #actions>
-      <Switch v-model="darkMode" class="flex items-center gap-2" :label="'Activer le mode sombre'">
-        <AppIcon name="moon" class="h-5 w-5 text-primary dark:text-ivory" />
-      </Switch>
-    </template>
-  </FormContainer>
+  <article>
+    <FormContainer title="Mode sombre">
+      <template #actions>
+        <Switch v-model="darkMode">
+          <!-- Condition sur true/false : mode sombre/clair -->
+          {{ darkMode ? 'Mode sombre activé' : 'Mode sombre désactivé' }}
+        </Switch>
+      </template>
+    </FormContainer>
+  </article>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { useAuthStore } from '@/stores/useAuthStore'
-import { useRouter } from 'vue-router'
 import FormContainer from '@/components/ui/FormContainer.vue'
-import AppIcon from '../AppIcon.vue'
-import Switch from '../ui/Switch.vue'
-
-const email = ref('')
-const password = ref('')
-const error = ref(null)
-const loading = ref(false)
+import Switch from '@/components/ui/Switch.vue'
 
 const auth = useAuthStore()
-const router = useRouter()
 
-const submit = async () => {
-  error.value = null
-  loading.value = true
-  try {
-    await auth.login({ email: email.value, password: password.value })
-    router.push('/')
-  } catch (err) {
-    error.value = 'Échec de la connexion'
-  } finally {
-    loading.value = false
-  }
-}
+const darkMode = computed({
+  get: () => auth.user?.isDarkMode ?? false,
+  set: (val) => auth.updateDarkMode(val),
+})
 </script>

@@ -60,3 +60,7 @@ body {
 .menu-block {
   @apply w-[150px] items-center dark:text-ivory;
 }
+
+input {
+  @apply bg-white text-primary dark:bg-ivory/10 dark:text-ivory;
+}

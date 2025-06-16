@@ -56,18 +56,18 @@
   }
 
   .badge-primary {
-    @apply badge bg-primary text-white;
+    @apply badge bg-primary text-white dark:bg-primaryLight;
   }
 
   .badge-danger {
-    @apply badge bg-danger text-white;
+    @apply badge bg-danger text-white dark:bg-dangerLight;
   }
 
   .badge-warning {
-    @apply badge bg-warning text-white;
+    @apply badge bg-warning text-white dark:bg-warningLight;
   }
 
   .badge-muted {
-    @apply badge bg-disabled text-white;
+    @apply badge bg-disabled text-white dark:bg-disabledDark;
   }
 }
