@@ -27,7 +27,7 @@
   /* Variantes */
 
   .btn-primary {
-    @apply btn bg-primary text-white hover:bg-primary/80 focus:ring-primary;
+    @apply btn bg-primary dark:bg-primaryLight text-white hover:bg-primary/80 focus:ring-primary;
   }
 
   .btn-accent {
@@ -35,19 +35,19 @@
   }
 
   .btn-valider {
-    @apply btn bg-valide hover:bg-valide/80 focus:ring-valide text-white;
+    @apply btn bg-valide dark:bg-valideLight hover:bg-valide/80 focus:ring-valide text-white;
   }
 
   .btn-refuser {
-    @apply btn bg-danger text-white hover:bg-danger/80 focus:ring-danger;
+    @apply btn bg-danger dark:bg-dangerLight text-white hover:bg-danger/80 focus:ring-danger;
   }
 
   .btn-attente {
-    @apply btn bg-warning text-white hover:bg-warning/80 focus:ring-warning;
+    @apply btn bg-warning dark:bg-warningLight text-white hover:bg-warning/80 focus:ring-warning;
   }
 
   .btn-disabled {
-    @apply btn cursor-not-allowed bg-disabled text-white opacity-60;
+    @apply btn cursor-not-allowed bg-disabled dark:bg-disabledDark text-white opacity-60;
   }
 
   /* Badge générique */

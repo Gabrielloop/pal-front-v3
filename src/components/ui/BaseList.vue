@@ -13,7 +13,7 @@
         v-for="item in items"
         :key="item.id || item.userlistId"
         @click="$emit('select', item)"
-        class="flex h-8 cursor-pointer items-center overflow-hidden rounded py-2 text-primary hover:bg-background"
+        class="flex h-8 cursor-pointer items-center overflow-hidden rounded py-2 text-primary hover:bg-background dark:hover:bg-ivory/10"
       >
         <slot v-bind="{ item }">
           {{ item.label || item.name || item.userlistName || 'Élément' }}
@@ -23,7 +23,7 @@
 
     <!-- Empty state -->
     <template v-else>
-      <li class="px-4 py-2 text-sm italic text-primary">Aucun élément trouvé.</li>
+      <li class="px-4 py-2 text-sm italic text-primary dark:text-ivory">Aucun élément trouvé.</li>
     </template>
   </ul>
 </template>

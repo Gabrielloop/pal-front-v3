@@ -13,6 +13,17 @@ onMounted(() => {
     console.log('User is not authenticated')
   }
 })
+
+// Watcher pour activer/désactiver la classe "dark" sur <html>
+watch(
+  () => auth.user?.isDarkMode,
+  (isDark) => {
+    document.documentElement.classList.toggle('dark', !!isDark)
+    console.log('Dark mode:', isDark)
+  },
+  { immediate: true }
+)
+
 watch(
   () => auth.user,
   (newUser) => {

@@ -32,6 +32,8 @@ export const useAuthStore = defineStore('auth', {
 
         // Charger les données utilisateur
         await listStore.fetchLists()
+
+        console.log('User connecté :', this.user)
       } catch (err) {
         toast.warn('Connexion échoué')
         console.error(err)
