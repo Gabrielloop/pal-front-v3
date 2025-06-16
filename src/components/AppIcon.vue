@@ -20,6 +20,8 @@ import {
   ShoppingCartIcon,
   CheckCircleIcon,
   LockClosedIcon,
+  PencilSquareIcon,
+  ArrowPathIcon,
 } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
@@ -46,6 +48,8 @@ const icons = {
   cart: ShoppingCartIcon,
   check: CheckCircleIcon,
   lock: LockClosedIcon,
+  edit: PencilSquareIcon,
+  refresh: ArrowPathIcon,
 }
 
 const iconComponent = icons[props.name] || BookOpenIcon

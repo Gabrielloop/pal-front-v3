@@ -1,20 +1,19 @@
 <script setup>
-import NavBar from '@/components/ui/NavBar.vue'
 import Header from '@/components/ui/Header.vue'
-import Menu from '@/components/ui/Menu.vue'
 import MainContent from '@/components/ui/MainContent.vue'
+import AdminMenu from '@/components/ui/AdminMenu.vue'
 </script>
 
 <template>
   <div>
     <main>
       <!-- HEADER : Logo + barre de recherche -->
-      <Header />
+      <Header isAdmin />
 
       <!-- MAIN : Contenu principal de la page -->
       <MainContent>
         <!-- ASIDE : Menu latéral pour les écrans larges -->
-        <template #aside> Menu Admin </template>
+        <template #aside> <AdminMenu /> </template>
 
         <!-- SECTION : Contenu principal de la page -->
         <template #section>
