@@ -94,34 +94,27 @@ export async function userlistsCollection() {
   })
 }
 
-export async function userlistUpdate(payload, userId, userlistid) {
-  return apiFetch(`/userlists/userid/${userId}/${userlistid}`, {
+export async function userlistUpdate(payload, userlistid) {
+  return apiFetch(`/userlists/userlistid/${userlistid}`, {
     method: 'PUT',
     body: JSON.stringify(payload),
   })
 }
 
-export async function userlistDelete(userId, bookId) {
-  return apiFetch(`/userlists/userid/${userId}/${bookId}`, {
+export async function userlistDelete(userlistid) {
+  return apiFetch(`/userlists/userlistid/${userlistid}`, {
     method: 'DELETE',
   })
 }
 
-export async function userlistbooksCollection() {
-  return apiFetch('/userlistbooks/all', {
+export async function userlistBooksCollection() {
+  return apiFetch('/userlistBooks/collection', {
     method: 'GET',
   })
 }
 
-export async function userlistbookUpdate(payload, userId, userlistid) {
-  return apiFetch(`/userlistbooks/userid/${userId}/${userlistid}`, {
-    method: 'PUT',
-    body: JSON.stringify(payload),
-  })
-}
-
-export async function userlistbookDelete(userId, bookId) {
-  return apiFetch(`/userlistbooks/userid/${userId}/${bookId}`, {
+export async function userlistBookDelete(userlistId, bookId) {
+  return apiFetch(`/userlistBooks/userlistid/${userlistId}/${bookId}`, {
     method: 'DELETE',
   })
 }

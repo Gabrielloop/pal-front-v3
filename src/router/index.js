@@ -94,6 +94,16 @@ const routes = [
         name: 'AdminReadings',
         component: () => import('@/pages/Admin/ReadingsTable.vue'),
       },
+      {
+        path: 'userlists',
+        name: 'AdminUserlists',
+        component: () => import('@/pages/Admin/UserlistsTable.vue'),
+      },
+      {
+        path: 'userlistBooks',
+        name: 'AdminUserlistBooks',
+        component: () => import('@/pages/Admin/UserlistBooksTable.vue'),
+      },
     ],
   },
   {

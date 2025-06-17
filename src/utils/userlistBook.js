@@ -1,7 +1,7 @@
 export const USERLIST_BOOK_FIELDS = ['userlistId', 'isbn']
 
 export const USERLIST_BOOK_COLUMNS = [
-  { key: 'userlistId', label: 'Liste ID', type: 'number' },
+  { key: 'userlistId', label: 'Liste Id', type: 'number' },
   { key: 'isbn', label: 'ISBN', type: 'text' },
 ]
 

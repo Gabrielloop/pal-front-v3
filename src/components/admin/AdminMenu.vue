@@ -42,8 +42,8 @@ const sections = {
     label: 'Utilisateurs',
     options: [
       { name: 'Utilisateurs', to: '/admin/users' },
-      { name: 'Listes', to: '/admin/sections/edit' },
-      { name: 'Livres', to: '/admin/sections/edit' },
+      { name: 'Listes', to: '/admin/userlists' },
+      { name: 'Livres', to: '/admin/userlistBooks' },
       { name: 'Commentaires', to: '/admin/comments' },
       { name: 'Notes', to: '/admin/notes' },
       { name: 'Favoris', to: '/admin/favorites' },
