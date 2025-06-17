@@ -19,7 +19,7 @@ const auth = useAuthStore()
     <article v-for="section in sectionStore.sections.filter((s) => s.dashboard)" :key="section.key">
       <RouterLink
         :to="section.route"
-        class="flex items-center gap-4 rounded px-3 py-2 text-primary hover:bg-background"
+        class="flex items-center gap-4 rounded px-3 py-2 text-primary hover:bg-background dark:text-ivory dark:hover:bg-ivory/10"
       >
         <AppIcon :name="section.icon" class="h-5 w-5" />
         <span>{{ section.label }}</span>

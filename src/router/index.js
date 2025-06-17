@@ -59,6 +59,51 @@ const routes = [
         name: 'Admin',
         component: () => import('@/pages/Admin.vue'),
       },
+      {
+        path: 'users',
+        name: 'AdminUsers',
+        component: () => import('@/pages/Admin/UsersTable.vue'),
+      },
+      {
+        path: 'books',
+        name: 'AdminBooks',
+        component: () => import('@/pages/Admin/BooksTable.vue'),
+      },
+      {
+        path: 'comments',
+        name: 'AdminComments',
+        component: () => import('@/pages/Admin/CommentsTable.vue'),
+      },
+      {
+        path: 'favorites',
+        name: 'AdminFavorites',
+        component: () => import('@/pages/Admin/FavoritesTable.vue'),
+      },
+      {
+        path: 'wishlists',
+        name: 'AdminWishlists',
+        component: () => import('@/pages/Admin/WishlistsTable.vue'),
+      },
+      {
+        path: 'notes',
+        name: 'AdminNotes',
+        component: () => import('@/pages/Admin/NotesTable.vue'),
+      },
+      {
+        path: 'readings',
+        name: 'AdminReadings',
+        component: () => import('@/pages/Admin/ReadingsTable.vue'),
+      },
+      {
+        path: 'userlists',
+        name: 'AdminUserlists',
+        component: () => import('@/pages/Admin/UserlistsTable.vue'),
+      },
+      {
+        path: 'userlistBooks',
+        name: 'AdminUserlistBooks',
+        component: () => import('@/pages/Admin/UserlistBooksTable.vue'),
+      },
     ],
   },
   {

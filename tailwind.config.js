@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}', './assets/**/*.css'],
   safelist: [
     'btn',
@@ -24,15 +25,21 @@ export default {
     extend: {
       colors: {
         primary: '#162432', // Bleu principal
+        primaryLight: '#263f57', // Bleu clair
         ivory: '#f8efd6', // Ivoire             Textes enn blanc sur fond sombre
         background: '#fcf9f1', // Ivoir clair   Fond général
         accent: '#F2E8D5', // Beige             Contraste
         valide: '#266b03', // Vert              Validation, succès
+        valideLight: '#38a003', // Vert clair
         secondary: '#f59e0b', // a définir
         muted: '#585258', // Gris               Désactivé
+        mutedDark: '#393539', // Gris Foncé
         danger: '#6b1003', // Rouge             Danger, erreur, refuser
+        dangerLight: '#a11803', // Rouge clair
         warning: '#6b5203', // En attente       Attente, warning
+        warningLight: '#957103', // Jaune clair
         disabled: '#585258', // Gris neutre     Désactivé
+        disabledDark: '#393539', // Gris foncé
       },
       fontFamily: {
         title: ['"Playball"', 'cursive'],

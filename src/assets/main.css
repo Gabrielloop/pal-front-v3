@@ -42,21 +42,25 @@
 }
 
 aside {
-  @apply w-[250px] p-4 shadow-md;
+  @apply w-[250px] p-4 shadow-md dark:bg-primary dark:text-ivory;
 }
 
 article {
-  @apply mx-0 max-w-full bg-white p-2 shadow-lg sm:rounded-lg md:mx-16 md:p-8;
+  @apply mx-0 max-w-full bg-white p-2 shadow-lg sm:rounded-lg  md:p-8 dark:bg-primary;
 }
 
 section {
-  @apply m-0 my-4 flex w-full flex-col gap-8 sm:m-8;
+  @apply m-0 my-4 flex w-full flex-col gap-8 sm:m-8 ;
 }
 
 body {
-  @apply font-body bg-background text-primary;
+  @apply font-body bg-background text-primary ;
 }
 
 .menu-block {
-  @apply w-[150px] items-center;
+  @apply w-[150px] items-center dark:text-ivory;
+}
+
+input {
+  @apply bg-white text-primary dark:bg-ivory/10 dark:text-ivory;
 }
