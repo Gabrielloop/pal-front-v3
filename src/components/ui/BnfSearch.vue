@@ -8,7 +8,7 @@
     <div v-if="loading">Chargement en cours...</div>
     <div v-if="error" class="error">{{ error }}</div>
 
-    <table v-if="results.length > 0">
+    <table v-if="results.length">
       <thead>
         <tr>
           <th>Titre</th>
@@ -16,17 +16,15 @@
           <th>Date</th>
           <th>Éditeur</th>
           <th>ISBN</th>
-          <th>Type</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="book in results" :key="book.identifier">
+        <tr v-for="book in results" :key="book.isbn + book.title + book.year">
           <td>{{ book.title }}</td>
-          <td>{{ book.creators }}</td>
-          <td>{{ book.date }}</td>
-          <td>{{ book.publisher }}</td>
-          <td>{{ book.identifier }}</td>
-          <td>{{ book.docType || '–' }}</td>
+          <td>{{ book.author || 'Auteur inconnu' }}</td>
+          <td>{{ book.year || 'Date inconnue' }}</td>
+          <td>{{ book.publisher || 'Éditeur inconnu' }}</td>
+          <td>{{ book.isbn || 'ISBN inconnu' }}</td>
         </tr>
       </tbody>
     </table>
@@ -37,14 +35,28 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useBnfSearch } from '@/composables/useBnfSearch'
+import { searchByQuery } from '@/api/bnfApi'
 
 const searchTerm = ref('')
-const { results, loading, error, search } = useBnfSearch()
+const results = ref([])
+const loading = ref(false)
+const error = ref(null)
 
-function handleSearch() {
-  if (searchTerm.value.trim()) {
-    search(searchTerm.value.trim(), 1)
+async function handleSearch() {
+  const query = searchTerm.value.trim()
+  if (!query) return
+
+  loading.value = true
+  error.value = null
+  results.value = []
+
+  try {
+    const data = await searchByQuery(query, 1)
+    results.value = data
+  } catch (e) {
+    error.value = e.message || 'Erreur inconnue'
+  } finally {
+    loading.value = false
   }
 }
 </script>
