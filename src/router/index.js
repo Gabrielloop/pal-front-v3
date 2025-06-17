@@ -69,6 +69,31 @@ const routes = [
         name: 'AdminBooks',
         component: () => import('@/pages/Admin/BooksTable.vue'),
       },
+      {
+        path: 'comments',
+        name: 'AdminComments',
+        component: () => import('@/pages/Admin/CommentsTable.vue'),
+      },
+      {
+        path: 'favorites',
+        name: 'AdminFavorites',
+        component: () => import('@/pages/Admin/FavoritesTable.vue'),
+      },
+      {
+        path: 'wishlists',
+        name: 'AdminWishlists',
+        component: () => import('@/pages/Admin/WishlistsTable.vue'),
+      },
+      {
+        path: 'notes',
+        name: 'AdminNotes',
+        component: () => import('@/pages/Admin/NotesTable.vue'),
+      },
+      {
+        path: 'readings',
+        name: 'AdminReadings',
+        component: () => import('@/pages/Admin/ReadingsTable.vue'),
+      },
     ],
   },
   {

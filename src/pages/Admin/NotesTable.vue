@@ -2,10 +2,10 @@
   <div class="w-full p-4">
     <div class="mb-4 flex flex-row items-center justify-between">
       <!-- Edit : titre de la page -->
-      <h2 class="mb-4 text-xl font-bold">Gestion des livres</h2>
+      <h2 class="mb-4 text-xl font-bold">Gestion des notes</h2>
 
       <!-- Edit : bouton pour rafraîchir la liste -->
-      <Button variant="valider" class="mb-4" @click="updateBooksCollection" :disabled="loading">
+      <Button variant="valider" class="mb-4" @click="updateNotesCollection" :disabled="loading">
         <template #icon>
           <AppIcon name="refresh" class="mr-2 h-5 w-5" />
         </template>
@@ -16,7 +16,7 @@
     <!-- Edit : définition des colonnes de la table & de la liste d'items -->
     <EditableTable
       :columns="columns"
-      :items="books"
+      :items="notes"
       :loadingById="loadingById"
       @update="handleUpdate"
       @delete="handleDelete"
@@ -57,8 +57,8 @@
 import { ref, onMounted } from 'vue'
 
 // Edit : import des fonctions API
-import { booksCollection, bookUpdate, bookDelete } from '@/api/admin'
-import { BOOK_COLUMNS, createBook, makePayload, isValidBook, getBookKey } from '@/utils/book'
+import { notesCollection, noteUpdate, noteDelete } from '@/api/admin'
+import { NOTE_COLUMNS, createNote, makePayload, isValidNote, getNoteKey } from '@/utils/notes'
 
 import { useToastStore } from '@/stores/toast'
 import EditableTable from '@/components/admin/EditableTable.vue'
@@ -66,20 +66,20 @@ import AppIcon from '@/components/AppIcon.vue'
 import Button from '@/components/ui/Button.vue'
 
 // Edit : colonnes dynamiques à partir des fields
-const columns = BOOK_COLUMNS
+const columns = NOTE_COLUMNS
 
 // Edit : nom du tableau pour stocker la data à afficher/modifier/supprimer
-const books = ref([])
+const notes = ref([])
 const toast = useToastStore()
 const loading = ref(true)
 const loadingById = ref({})
 
 // Edit : fonction pour mettre à jour la collection
-const updateBooksCollection = async () => {
+const updateNotesCollection = async () => {
   loading.value = true
   try {
-    const response = await booksCollection()
-    books.value = response.data.map(createBook)
+    const response = await notesCollection()
+    notes.value = response.data.map(createNote)
   } catch (error) {
     console.error('Erreur lors de la mise à jour :', error)
     toast.error('Erreur de chargement')
@@ -89,20 +89,20 @@ const updateBooksCollection = async () => {
 }
 
 // Edit : appel de la fonction pour charger les données au montage du composant
-onMounted(updateBooksCollection)
+onMounted(updateNotesCollection)
 
 // Edit : fonction pour mettre à jour la data
-const handleUpdate = async (book) => {
-  const key = book.key
+const handleUpdate = async (note) => {
+  const key = note.key
 
-  if (!isValidBook(book)) {
+  if (!isValidNote(note)) {
     toast.warn('Tous les champs doivent être remplis')
     return
   }
 
   loadingById.value[key] = true
   try {
-    await bookUpdate(makePayload(book), book.isbn)
+    await noteUpdate(makePayload(note), note.userId, note.isbn)
     toast.success('Donnée mise à jour avec succès')
   } catch (error) {
     console.error('Erreur API :', error)
@@ -113,16 +113,16 @@ const handleUpdate = async (book) => {
 }
 
 // Edit : fonction pour supprimer la data
-const handleDelete = async (isbn, index) => {
-  const key = getBookKey(isbn)
+const handleDelete = async (isbn, userId, index) => {
+  const key = getNoteKey(isbn, userId)
 
-  if (!confirm('Supprimer ce livre ?')) return
+  if (!confirm('Supprimer cette note ?')) return
 
   loadingById.value[key] = true
 
   try {
-    await bookDelete(isbn)
-    books.value.splice(index, 1)
+    await noteDelete(userId, isbn)
+    notes.value.splice(index, 1)
     toast.success('Donnée supprimé avec succès')
   } catch (error) {
     toast.error('Erreur lors de la suppression')

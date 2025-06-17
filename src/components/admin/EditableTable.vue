@@ -19,29 +19,7 @@
             />
           </td>
           <td class="border p-2 text-center">
-            <Button
-              variant="attente"
-              :disabled="loadingById?.[item.id]"
-              @click="$emit('update', item)"
-              class="mx-1"
-            >
-              <template #icon>
-                <AppIcon name="edit" class="h-5 w-5" />
-              </template>
-              Modifier</Button
-            >
-            <Button
-              variant="refuser"
-              :disabled="loadingById?.[item.id]"
-              @click="$emit('delete', item.id || item.isbn, index)"
-              class="mx-1"
-            >
-              <template #icon>
-                <AppIcon name="trash" class="h-5 w-5" />
-              </template>
-
-              Supprimer</Button
-            >
+            <slot name="actions" :item="item" :index="index" />
           </td>
         </tr>
       </tbody>
