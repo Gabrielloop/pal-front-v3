@@ -33,7 +33,7 @@
             <Button
               variant="refuser"
               :disabled="loadingById?.[item.id]"
-              @click="$emit('delete', item.id, index)"
+              @click="$emit('delete', item.id || item.isbn, index)"
               class="mx-1"
             >
               <template #icon>

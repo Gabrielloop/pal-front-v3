@@ -62,7 +62,12 @@ const routes = [
       {
         path: 'users',
         name: 'AdminUsers',
-        component: () => import('@/pages/Admin/UserTable.vue'),
+        component: () => import('@/pages/Admin/UsersTable.vue'),
+      },
+      {
+        path: 'books',
+        name: 'AdminBooks',
+        component: () => import('@/pages/Admin/BooksTable.vue'),
       },
     ],
   },

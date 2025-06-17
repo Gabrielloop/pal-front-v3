@@ -30,7 +30,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { userCollection, userUpdate, userDelete } from '@/api/admin'
+import { usersCollection, userUpdate, userDelete } from '@/api/admin'
 import { useToastStore } from '@/stores/toast'
 import EditableTable from '@/components/admin/EditableTable.vue'
 import AppIcon from '@/components/AppIcon.vue'
@@ -42,28 +42,11 @@ const toast = useToastStore()
 const loading = ref(true)
 const loadingById = ref({})
 
-onMounted(async () => {
-  try {
-    const response = await userCollection()
-    users.value = response.data.map((user) => ({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      isDarkMode: user.isDarkMode,
-    }))
-  } catch (error) {
-    console.error('Erreur lors du chargement des utilisateurs :', error)
-  } finally {
-    loading.value = false
-  }
-})
-
 // fonction pour mettre à jour la collection d'utilisateurs
 const updateUserCollection = async () => {
   loading.value = true
   try {
-    const response = await userCollection()
+    const response = await usersCollection()
     users.value = response.data.map((user) => ({
       id: user.id,
       name: user.name,
@@ -77,6 +60,17 @@ const updateUserCollection = async () => {
     loading.value = false
   }
 }
+
+onMounted(async () => {
+  loading.value = true
+  try {
+    await updateUserCollection()
+  } catch (error) {
+    console.error('Erreur lors du chargement des utilisateurs :', error)
+  } finally {
+    loading.value = false
+  }
+})
 
 const handleUpdate = async (user) => {
   loadingById.value[user.id] = true

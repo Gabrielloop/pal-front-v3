@@ -53,7 +53,7 @@ const sections = {
   },
   lists: {
     label: 'Gestion des données',
-    options: [{ name: 'Livres', to: '/admin/lists/create' }],
+    options: [{ name: 'Livres', to: '/admin/books' }],
   },
 }
 </script>

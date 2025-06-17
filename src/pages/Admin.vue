@@ -27,19 +27,7 @@ const submit = async () => {
 
 <template>
   <div class="mx-auto max-w-md p-4">
-    <h2 class="mb-4 text-xl font-bold">Connexion</h2>
-    <form @submit.prevent="submit">
-      <input v-model="email" placeholder="Email" type="email" class="input mb-2 w-full" required />
-      <input
-        v-model="password"
-        placeholder="Mot de passe"
-        type="password"
-        class="input mb-2 w-full"
-        required
-      />
-      <Button :loading="loading">Se connecter</Button>
-      <p v-if="error" class="mt-2 text-red-500">{{ error }}</p>
-    </form>
+    <h2 class="mb-4 text-xl font-bold">Administration</h2>
   </div>
 </template>
 
