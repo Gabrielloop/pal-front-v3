@@ -5,7 +5,7 @@
       <h2 class="mb-4 text-xl font-bold">Gestion des utilisateurs</h2>
 
       <!-- Edit : bouton pour rafraîchir la liste -->
-      <Button variant="valider" class="mb-4" @click="updateUserssCollection" :disabled="loading">
+      <Button variant="valider" class="mb-4" @click="updateUsersCollection" :disabled="loading">
         <template #icon>
           <AppIcon name="refresh" class="mr-2 h-5 w-5" />
         </template>
