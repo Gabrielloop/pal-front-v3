@@ -41,8 +41,24 @@ export async function fetchUserReadings() {
 //     method: 'POST',
 //   })
 // }
-export async function addToWishlidt(bookId) {
+export async function addToFavorites(bookId) {
+  return apiFetch(`/favorites/isbn/${bookId}`, {
+    method: 'POST',
+  })
+}
+export async function removeToFavorites(bookId) {
+  return apiFetch(`/favorites/isbn/${bookId}`, {
+    method: 'DELETE',
+  })
+}
+
+export async function addToWishlists(bookId) {
   return apiFetch(`/wishlists/isbn/${bookId}`, {
     method: 'POST',
+  })
+}
+export async function removeToWishlists(bookId) {
+  return apiFetch(`/wishlists/isbn/${bookId}`, {
+    method: 'DELETE',
   })
 }

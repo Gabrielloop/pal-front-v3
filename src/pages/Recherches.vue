@@ -11,14 +11,21 @@
         <td>
           <img :src="bnfStore.getCoverImage(book)" alt="" v-if="bnfStore.getCoverImage(book)" />
         </td>
-        <td>{{ book.title }}</td>
-        <td><button @click="">❤️</button></td>
+        <td>{{ book.title }} {{ book.isbn }}</td>
+        <td>
+          <FavoriteButton :book="book" />
+        </td>
+        <td>
+          <WishlistButton :book="book" />
+        </td>
       </tr>
     </table>
   </div>
 </template>
 
 <script setup>
+import FavoriteButton from '@/components/ui/FavoriteButton.vue'
+import WishlistButton from '@/components/ui/WishlistButton.vue'
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBnfStore } from '@/stores/useBnfStore'
