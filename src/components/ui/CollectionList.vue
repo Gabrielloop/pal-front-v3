@@ -4,7 +4,7 @@
       <CardList
         :name="item.userlistName || item.label || 'Liste sans nom'"
         :description="item.userlistDescription || item.description || 'Aucune description'"
-        :count="item.books?.length || item.count || 0"
+        :count="item.count || item.books?.length || 0"
         :icon="item.icon || item.userlistType || 'bookmark'"
       />
     </RouterLink>

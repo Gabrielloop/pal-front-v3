@@ -5,7 +5,7 @@
     :type="type"
   >
     <!-- TODO : vérifier le loader -->
-    <span v-if="loading" class="loader mr-2"></span>
+    <span v-if="loading" class="loader"></span>
     <slot name="icon" />
     <slot />
   </button>

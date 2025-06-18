@@ -2,96 +2,44 @@
   <div class="search-page">
     <h2>Résultats pour "{{ searchQuery }}"</h2>
 
-    <div v-if="loading">Chargement...</div>
-    <div v-if="error" class="error">{{ error }}</div>
+    <div v-if="bnfStore.loading">Chargement...</div>
+    <div v-else-if="bnfStore.error">{{ bnfStore.error }}</div>
+    <div v-else-if="bnfStore.results.length === 0">Aucun résultat</div>
 
-    <table v-if="results.length">
-      <thead>
-        <tr>
-          <th>Titre</th>
-          <th>Auteur</th>
-          <th>Date</th>
-          <th>Éditeur</th>
-          <th>ISBN</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="book in results" :key="book.isbn + book.title + book.year">
-          <td>{{ book.title || '–' }}</td>
-          <td>{{ book.author || '–' }}</td>
-          <td>{{ book.year || '–' }}</td>
-          <td>{{ book.publisher || '–' }}</td>
-          <td>{{ book.isbn || '–' }}</td>
-        </tr>
-      </tbody>
+    <table v-else>
+      <tr v-for="book in bnfStore.results" :key="book.isbn + book.title">
+        <td>
+          <img :src="bnfStore.getCoverImage(book)" alt="" v-if="bnfStore.getCoverImage(book)" />
+        </td>
+        <td>{{ book.title }}</td>
+        <td><button @click="">❤️</button></td>
+      </tr>
     </table>
-
-    <div v-else-if="!loading && !error">Aucun résultat</div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { searchByQuery } from '@/api/bnfApi'
+import { useBnfStore } from '@/stores/useBnfStore'
 
 const route = useRoute()
+const bnfStore = useBnfStore()
 const searchQuery = ref(route.query.q || '')
 
-const results = ref([])
-const loading = ref(false)
-const error = ref(null)
-
-async function fetchResults() {
-  if (!searchQuery.value) return
-
-  loading.value = true
-  error.value = null
-  try {
-    results.value = await searchByQuery(searchQuery.value, 1)
-  } catch (err) {
-    error.value = err.message || 'Erreur inconnue'
-  } finally {
-    loading.value = false
+onMounted(() => {
+  if (route.query.q) {
+    bnfStore.fetchResults(route.query.q, 1)
   }
-}
-
-onMounted(fetchResults)
+})
 
 watch(
   () => route.query.q,
   (newQ) => {
-    searchQuery.value = newQ || ''
-    fetchResults()
+    if (newQ) {
+      searchQuery.value = newQ
+      bnfStore.fetchResults(newQ, 1)
+    }
   }
 )
 </script>
-
-<style scoped>
-.search-page {
-  padding: 1rem;
-  max-width: 800px;
-  margin: auto;
-}
-
-.error {
-  color: red;
-  margin-top: 1rem;
-}
-
-table {
-  width: 100%;
-  margin-top: 1rem;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-}
-
-th {
-  background-color: #f0f0f0;
-}
-</style>

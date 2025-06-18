@@ -31,8 +31,7 @@ export const useAuthStore = defineStore('auth', {
 
         toast.success('Bonjour ' + this.user.name)
 
-        // Charger les données utilisateur
-        await listStore.fetchLists()
+        await listStore.fetchAll()
 
         console.log('User connecté :', this.user)
       } catch (err) {
@@ -113,8 +112,7 @@ export const useAuthStore = defineStore('auth', {
       if (token && user) {
         this.token = token
         this.user = JSON.parse(user)
-        // Charger les données utilisateur
-        await listStore.fetchLists()
+        await listStore.fetchAll()
       }
     },
   },

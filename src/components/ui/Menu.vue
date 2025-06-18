@@ -43,9 +43,14 @@
         >
           <template #default="{ item }">
             <RouterLink :to="item.route">
-              <span class="menu-block block truncate dark:text-ivory" :title="item.label">
-                {{ item.label }}
-              </span>
+              <div class="flex items-center justify-between dark:text-ivory">
+                <span class="menu-block block truncate dark:text-ivory" :title="item.label">
+                  {{ item.label }} </span
+                ><span
+                  class="badge-primary dark:badge-ivory flex min-w-6 justify-center whitespace-nowrap text-xs dark:text-primary"
+                  >{{ item.count }}</span
+                >
+              </div>
             </RouterLink>
           </template>
         </BaseList>
@@ -73,11 +78,10 @@ const listStore = useListStore()
 const auth = useAuthStore()
 const isAdmin = auth.isAdmin
 
-onMounted(() => {
-  sectionStore.buildSections()
+onMounted(async () => {
+  await listStore.fetchAll()
+  await sectionStore.buildSections()
 })
-
-console.log('Listes:', listStore.lists)
 </script>
 
 <style scoped></style>
