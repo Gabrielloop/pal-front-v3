@@ -1,5 +1,7 @@
 import { apiFetch } from './http'
 
+// TODO : centraliser les méthodes facultatif
+
 export async function usersCollection() {
   return apiFetch('/users', {
     method: 'GET',
