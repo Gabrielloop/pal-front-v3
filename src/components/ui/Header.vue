@@ -1,5 +1,6 @@
 <script setup>
 import Logo from '@/components/ui/Logo.vue'
+import SearchBar from '@/components/ui/SearchBar.vue'
 
 const props = defineProps({
   isAdmin: {
@@ -20,7 +21,7 @@ const props = defineProps({
           <router-link :to="'/'"><Logo /></router-link>
           <h1 class="font-title text-title">Verso</h1>
         </div>
-        <span :class="{ hidden: isAdmin }">recherche</span>
+        <SearchBar class="max-w-md flex-1" />
       </div>
     </div>
   </header>
