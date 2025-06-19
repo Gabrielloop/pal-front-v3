@@ -4,6 +4,7 @@ import {
   fetchUserFavorites,
   fetchUserWishlists,
   fetchUserReadings,
+  createNewList,
 } from '@/api/list'
 import { useToastStore } from '@/stores/toast'
 import { addToFavorites, removeToFavorites, addToWishlists, removeToWishlists } from '@/api/list'
@@ -213,6 +214,22 @@ export const useListStore = defineStore('listStore', {
       } catch (error) {
         console.error('Erreur lors de la suppression du livre en wishlist:', error)
         toast.error(error.message || 'Erreur lors de la suppression du livre en wishlist')
+      }
+    },
+    async createNewList(list) {
+      const toast = useToastStore()
+      try {
+        const response = await createNewList(list)
+
+        if (!response.success) {
+          throw new Error('Erreur lors de la création de la liste')
+        }
+
+        toast.success(response.message)
+        this.fetchLists()
+      } catch (error) {
+        console.error('Erreur lors de la création de la liste:', error)
+        toast.error(error.message || 'Erreur lors de la création de la liste')
       }
     },
   },

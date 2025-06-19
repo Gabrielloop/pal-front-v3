@@ -21,7 +21,7 @@
           placeholder="Répéter le mot de passe"
           class="input input-text mb-2 w-full"
         />
-        <p v-if="error" class="text-red-500">{{ error }}</p>
+        <p v-if="error" class="text-danger">{{ error }}</p>
       </template>
 
       <template #actions>
