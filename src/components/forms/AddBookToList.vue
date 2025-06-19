@@ -1,16 +1,16 @@
 <template>
-  <FormContainer title="Connexion">
+  <FormContainer title="Ajouter un livre à une liste">
     <template #fields>
       <input
-        v-model="email"
-        type="email"
-        placeholder="Email"
+        v-model="isbn"
+        type="text"
+        placeholder="isbn du livre"
         class="input input-text mb-2 w-full"
       />
       <input
-        v-model="password"
-        type="password"
-        placeholder="Mot de passe"
+        v-model="userlistId"
+        type="text"
+        placeholder="userlistId"
         class="input input-text mb-2 w-full"
       />
       <p v-if="error" class="text-danger">{{ error }}</p>
@@ -18,32 +18,42 @@
 
     <template #actions>
       <Button :loading="loading" @click.prevent="submit" type="submit" variant="valider">
-        <template #icon> <AppIcon name="in" class="mr-2 h-5 w-5" /> </template>Se connecter</Button
+        <template #icon> <AppIcon name="plus" class="mr-2 h-5 w-5" /> </template>Ajouter</Button
       >
-      <Button variant="attente" @click="$emit('forgot-password')">Mot de passe oublié</Button>
     </template>
   </FormContainer>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '@/stores/useAuthStore'
 import { useRouter } from 'vue-router'
+import { useListStore } from '@/stores/useListStore'
 import FormContainer from '@/components/ui/FormContainer.vue'
 import Button from '@/components/ui/Button.vue'
-import AppIcon from '../AppIcon.vue'
+import AppIcon from '@/components/AppIcon.vue'
 
-const email = ref('')
-const password = ref('')
+const props = defineProps({
+  isbn: {
+    type: String,
+    required: true,
+  },
+  userlistId: {
+    type: String,
+    required: true,
+  },
+})
+
+const titre = ref('')
+const description = ref('')
 const error = ref(null)
 const loading = ref(false)
 
-const auth = useAuthStore()
 const router = useRouter()
+const listStore = useListStore()
 
 function validateForm() {
-  if (!email.value.trim()) return 'Veuillez entrer votre email.'
-  if (!password.value.trim()) return 'Veuillez entrer votre mot de passe.'
+  if (!titre.value.trim()) return 'Le titre est requis.'
+  if (!description.value.trim()) return 'La description est requise.'
   return null
 }
 
@@ -58,10 +68,14 @@ const submit = async () => {
   loading.value = true
 
   try {
-    await auth.login({ email: email.value, password: password.value })
-    router.push('/')
+    await listStore.createNewList({
+      userlistName: titre.value,
+      userlistDescription: description.value,
+      userlistType: 'list',
+    })
+    router.push('/listes')
   } catch (err) {
-    error.value = 'Échec de la connexion'
+    error.value = 'Impossible de créer la liste.'
   } finally {
     loading.value = false
   }

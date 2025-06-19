@@ -62,3 +62,10 @@ export async function removeToWishlists(bookId) {
     method: 'DELETE',
   })
 }
+
+export async function createNewList(list) {
+  return apiFetch('/userlists', {
+    method: 'POST',
+    body: JSON.stringify(list),
+  })
+}

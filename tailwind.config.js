@@ -20,6 +20,9 @@ export default {
     'toast-success',
     'toast-error',
     'toast-info',
+    {
+      pattern: /(grid-cols|sm:grid-cols|md:grid-cols|lg:grid-cols)-(1|2|3|4|5|6|7|8)/,
+    },
   ],
   theme: {
     extend: {

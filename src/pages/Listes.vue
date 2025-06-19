@@ -1,17 +1,22 @@
 <template>
-  <section v-if="userlist && !loading">
-    <h3>{{ userlist.userlistName || 'Liste' }}</h3>
-    <p>{{ userlist.userlistDescription || 'Ma liste' }}</p>
-    <BookGrid :cols="{ base: 1, sm: 2, md: 3, lg: 4 }">
-      <BookCard v-for="book in userlist.books" :key="book.isbn" :book="book" />
-    </BookGrid>
-  </section>
-  <section v-else-if="loading">
-    <p>Chargement.</p>
-  </section>
-  <section v-else>
-    <p>Aucune liste trouvée.</p>
-  </section>
+  <div class="flex min-h-screen w-full flex-col items-center p-4">
+    <section v-if="loading">
+      <LoadingLogo />
+    </section>
+    <section v-else-if="userlist && !loading">
+      <h3>{{ userlist.userlistName || 'Liste' }}</h3>
+      <p>{{ userlist.userlistDescription || 'Ma liste' }}</p>
+      <BookGrid>
+        <BookCard v-for="book in userlist.books" :key="book.isbn" :book="book" />
+      </BookGrid>
+    </section>
+    <section v-else>
+      <BookGrid>
+        <CollectionList :items="listStore.lists" />
+      </BookGrid>
+      <CreateListForm />
+    </section>
+  </div>
 </template>
 
 <script setup>
@@ -20,6 +25,9 @@ import { useListStore } from '@/stores/useListStore'
 import { ref, onMounted, watch } from 'vue'
 import BookGrid from '@/components/ui/BookGrid.vue'
 import BookCard from '@/components/ui/BookCard.vue'
+import LoadingLogo from '@/components/ui/LoadingLogo.vue'
+import CreateListForm from '@/components/forms/CreateListForm.vue'
+import CollectionList from '@/components/ui/CollectionList.vue'
 
 const listStore = useListStore()
 const route = useRoute()
