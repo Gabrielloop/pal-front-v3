@@ -3,7 +3,6 @@
     <FormContainer title="Mode sombre">
       <template #actions>
         <Switch v-model="darkMode">
-          <!-- Condition sur true/false : mode sombre/clair -->
           {{ darkMode ? 'Mode sombre activé' : 'Mode sombre désactivé' }}
         </Switch>
       </template>

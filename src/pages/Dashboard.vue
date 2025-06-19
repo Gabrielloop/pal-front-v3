@@ -7,8 +7,6 @@ import { useSectionsStore } from '@/stores/useSectionsStore'
 
 const listStore = useListStore()
 const sectionStore = useSectionsStore()
-
-const auth = useAuthStore()
 </script>
 
 <template>

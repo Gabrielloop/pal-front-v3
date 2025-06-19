@@ -33,7 +33,7 @@ const routes = [
         component: () => import('@/pages/Listes.vue'),
       },
       {
-        path: 'listes/:id',
+        path: 'listes/:type/:id',
         name: 'Ma liste',
         component: () => import('@/pages/Listes.vue'),
       },

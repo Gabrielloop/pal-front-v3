@@ -72,7 +72,7 @@ export const useSectionsStore = defineStore('sections', {
       const userLists = listStore.lists.map((list) => ({
         key: `list-${list.userlistId}`,
         label: list.userlistName,
-        route: `/listes/${list.userlistId}`,
+        route: `/listes/list/${list.userlistId}`,
       }))
 
       // Sous-listes fixes pour classements
@@ -83,7 +83,9 @@ export const useSectionsStore = defineStore('sections', {
           route: '/listes/classements/5',
           icon: 'star',
           description: 'Les meilleures lectures',
-          count: 0,
+          count: listStore.hasStars(5)
+            ? listStore.notes.filter((note) => note.stars === 5).length
+            : 0,
         },
         {
           key: 'rating-4',
@@ -91,7 +93,9 @@ export const useSectionsStore = defineStore('sections', {
           route: '/listes/classements/4',
           icon: 'star',
           description: 'Les meilleures lectures',
-          count: 0,
+          count: listStore.hasStars(5)
+            ? listStore.notes.filter((note) => note.stars === 4).length
+            : 0,
         },
         {
           key: 'rating-3',
@@ -99,7 +103,9 @@ export const useSectionsStore = defineStore('sections', {
           route: '/listes/classements/3',
           icon: 'star',
           description: 'Les bonnes lectures',
-          count: 0,
+          count: listStore.hasStars(5)
+            ? listStore.notes.filter((note) => note.stars === 3).length
+            : 0,
         },
         {
           key: 'rating-2',
@@ -107,7 +113,9 @@ export const useSectionsStore = defineStore('sections', {
           route: '/listes/classements/2',
           icon: 'star',
           description: 'Les lectures moyennes',
-          count: 0,
+          count: listStore.hasStars(5)
+            ? listStore.notes.filter((note) => note.stars === 2).length
+            : 0,
         },
         {
           key: 'rating-1',
@@ -115,7 +123,9 @@ export const useSectionsStore = defineStore('sections', {
           route: '/listes/classements/1',
           icon: 'star',
           description: 'Les moins bonnes lectures',
-          count: 0,
+          count: listStore.hasStars(5)
+            ? listStore.notes.filter((note) => note.stars === 1).length
+            : 0,
         },
         {
           key: 'rating-0',
@@ -123,7 +133,9 @@ export const useSectionsStore = defineStore('sections', {
           route: '/listes/classements/0',
           icon: 'star',
           description: "Livres que je n'ai pas notés",
-          count: 0,
+          count: listStore.hasStars(5)
+            ? listStore.notes.filter((note) => note.stars === 0).length
+            : 0,
         },
       ]
 
@@ -135,7 +147,7 @@ export const useSectionsStore = defineStore('sections', {
           route: '/listes/lectures/a-commencer',
           icon: 'book',
           description: "Livres que je n'ai pas commencés",
-          count: 0,
+          count: listStore.countHasNotStartedReadings,
         },
         {
           key: 'reading-in',
@@ -143,15 +155,23 @@ export const useSectionsStore = defineStore('sections', {
           route: '/listes/lectures/en-cours',
           icon: 'book',
           description: 'Lectures en cours',
-          count: 0,
+          count: listStore.countHasStartedReadings,
         },
         {
           key: 'reading-done',
           label: 'Terminé',
           route: '/listes/lectures/termine',
           icon: 'book',
-          description: 'Lectures terminées ou abandonnées',
-          count: 0,
+          description: 'Lectures terminées',
+          count: listStore.countHasFinishedReadings,
+        },
+        {
+          key: 'reading-abandoned',
+          label: 'Abandonné',
+          route: '/listes/lectures/abandonne',
+          icon: 'book',
+          description: 'Lectures abandonnées',
+          count: listStore.countHasAbandonedReadings,
         },
       ]
 
