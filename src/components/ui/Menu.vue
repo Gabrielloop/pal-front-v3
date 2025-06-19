@@ -21,7 +21,7 @@
           class="mb-4 ml-1 text-sm dark:text-ivory"
         >
           <template #default="{ item }">
-            <RouterLink :to="`/listes/${item.userlistId}`">
+            <RouterLink :to="`/listes/list/${item.userlistId}`">
               <div class="flex items-center justify-between dark:text-ivory">
                 <span class="menu-block block truncate dark:text-ivory" :title="item.userlistName">
                   {{ item.userlistName }}

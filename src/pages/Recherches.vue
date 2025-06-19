@@ -1,26 +1,7 @@
 <template>
-  <div class="search-page">
-    <h2>Résultats pour "{{ searchQuery }}"</h2>
-
-    <div v-if="bnfStore.loading">Chargement...</div>
-    <div v-else-if="bnfStore.error">{{ bnfStore.error }}</div>
-    <div v-else-if="bnfStore.results.length === 0">Aucun résultat</div>
-
-    <table v-else>
-      <tr v-for="book in bnfStore.results" :key="book.isbn + book.title">
-        <td>
-          <img :src="bnfStore.getCoverImage(book)" alt="" v-if="bnfStore.getCoverImage(book)" />
-        </td>
-        <td>{{ book.title }} {{ book.isbn }}</td>
-        <td>
-          <FavoriteButton :book="book" />
-        </td>
-        <td>
-          <WishlistButton :book="book" />
-        </td>
-      </tr>
-    </table>
-  </div>
+  <BookGrid :cols="{ base: 1, sm: 2, md: 3, lg: 4 }">
+    <BookCard v-for="book in bnfStore.results" :key="book.isbn" :book="book" />
+  </BookGrid>
 </template>
 
 <script setup>
@@ -29,6 +10,8 @@ import WishlistButton from '@/components/ui/WishlistButton.vue'
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBnfStore } from '@/stores/useBnfStore'
+import BookCard from '../components/ui/BookCard.vue'
+import BookGrid from '../components/ui/BookGrid.vue'
 
 const route = useRoute()
 const bnfStore = useBnfStore()

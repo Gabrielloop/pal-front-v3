@@ -19,6 +19,9 @@ export const useListStore = defineStore('listStore', {
     isLoading: false,
   }),
   getters: {
+    getListbyId: (state) => (id) => {
+      return state.lists.find((list) => list.userlistId === id)
+    },
     hasLists: (state) => state.lists.length > 0,
     hasFavorites: (state) => state.favorites.length > 0,
     hasWishlists: (state) => state.wishlists.length > 0,
