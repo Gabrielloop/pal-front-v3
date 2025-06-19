@@ -69,3 +69,22 @@ export async function createNewList(list) {
     body: JSON.stringify(list),
   })
 }
+
+export async function deleteUserList(listId) {
+  return apiFetch(`/userlists/id/${listId}`, {
+    method: 'DELETE',
+  })
+}
+
+export async function addBookToUserList(payload) {
+  return apiFetch(`/userlistBooks`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export async function removeBookFromUserList(userlist, bookId) {
+  return apiFetch(`/userlistBooks/${userlist}/${bookId}`, {
+    method: 'DELETE',
+  })
+}

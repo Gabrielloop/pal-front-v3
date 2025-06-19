@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/stores/useAuthStore'
 
 const routes = [
   {
@@ -36,6 +35,16 @@ const routes = [
         path: 'listes/:type/:id',
         name: 'Ma liste',
         component: () => import('@/pages/Listes.vue'),
+      },
+      {
+        path: 'book',
+        name: 'Livre',
+        component: () => import('@/pages/Book.vue'),
+      },
+      {
+        path: 'book/:isbn',
+        name: 'Livre',
+        component: () => import('@/pages/Book.vue'),
       },
       {
         path: 'recherches',

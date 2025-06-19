@@ -2,13 +2,13 @@
   <FormContainer title="Ajouter un livre à une liste">
     <template #fields>
       <input
-        v-model="isbn"
+        v-model="localIsbn"
         type="text"
         placeholder="isbn du livre"
         class="input input-text mb-2 w-full"
       />
       <input
-        v-model="userlistId"
+        v-model="localUserlistId"
         type="text"
         placeholder="userlistId"
         class="input input-text mb-2 w-full"
@@ -28,6 +28,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useListStore } from '@/stores/useListStore'
+import { useBookStore } from '@/stores/useBookStore'
 import FormContainer from '@/components/ui/FormContainer.vue'
 import Button from '@/components/ui/Button.vue'
 import AppIcon from '@/components/AppIcon.vue'
@@ -43,17 +44,18 @@ const props = defineProps({
   },
 })
 
-const titre = ref('')
-const description = ref('')
+const localIsbn = ref(props.isbn)
+const localUserlistId = ref(props.userlistId)
 const error = ref(null)
 const loading = ref(false)
 
 const router = useRouter()
 const listStore = useListStore()
+const bookStore = useBookStore()
 
 function validateForm() {
-  if (!titre.value.trim()) return 'Le titre est requis.'
-  if (!description.value.trim()) return 'La description est requise.'
+  if (!localIsbn.value.trim()) return "l'ISBN est requis."
+  if (!localUserlistId.value.trim()) return 'La liste est requise.'
   return null
 }
 
@@ -68,14 +70,12 @@ const submit = async () => {
   loading.value = true
 
   try {
-    await listStore.createNewList({
-      userlistName: titre.value,
-      userlistDescription: description.value,
-      userlistType: 'list',
+    await bookStore.addBookToList({
+      userlistId: localUserlistId.value,
+      isbn: localIsbn.value,
     })
-    router.push('/listes')
   } catch (err) {
-    error.value = 'Impossible de créer la liste.'
+    error.value = "Impossible d'ajouter à la liste."
   } finally {
     loading.value = false
   }
