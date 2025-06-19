@@ -2,15 +2,15 @@
   <FormContainer title="Ajouter un livre à une liste">
     <template #fields>
       <input
-        v-model="titre"
+        v-model="isbn"
         type="text"
-        placeholder="Ma liste de livres"
+        placeholder="isbn du livre"
         class="input input-text mb-2 w-full"
       />
       <input
-        v-model="description"
+        v-model="userlistId"
         type="text"
-        placeholder="Description de la liste"
+        placeholder="userlistId"
         class="input input-text mb-2 w-full"
       />
       <p v-if="error" class="text-danger">{{ error }}</p>
@@ -31,6 +31,17 @@ import { useListStore } from '@/stores/useListStore'
 import FormContainer from '@/components/ui/FormContainer.vue'
 import Button from '@/components/ui/Button.vue'
 import AppIcon from '@/components/AppIcon.vue'
+
+const props = defineProps({
+  isbn: {
+    type: String,
+    required: true,
+  },
+  userlistId: {
+    type: String,
+    required: true,
+  },
+})
 
 const titre = ref('')
 const description = ref('')
