@@ -3,6 +3,7 @@ import { addBookToUserList, removeBookFromUserList } from '@/api/list'
 import { useListStore } from '@/stores/useListStore'
 import { useToastStore } from '@/stores/toast'
 import { searchByISBNs } from '@/api/bnfApi'
+import de from '../../dist/assets/LayoutUser-BaG4mWzr'
 
 export const useBookStore = defineStore('bookStore', {
   state: () => ({
@@ -51,12 +52,14 @@ export const useBookStore = defineStore('bookStore', {
       }
     },
     async fetchBookByIsbn(isbn) {
+      const listeStore = useListStore()
       const toast = useToastStore()
       try {
         const results = await searchByISBNs([isbn])
-
-        if (results.length > 0) {
-          this.storeBook(results[0])
+        const bookDecorate = []
+        bookDecorate = listeStore.decorateBooks(results)
+        if (bookDecorate.length > 0) {
+          this.storeBook(bookDecorate[0])
         } else {
           toast.error('Livre non trouvé')
         }

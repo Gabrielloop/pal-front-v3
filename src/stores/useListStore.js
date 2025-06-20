@@ -145,6 +145,7 @@ export const useListStore = defineStore('listStore', {
           inReading: this.readings.some((r) => r.isReading && r.isbn === isbn),
           inFinished: this.readings.some((r) => r.isFinished && r.isbn === isbn),
           inAbandoned: this.readings.some((r) => r.isAbandoned && r.isbn === isbn),
+          bookCover: `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`,
         }
       })
     },

@@ -1,7 +1,8 @@
 <template>
   <aside class="bg-ivory">
-    <h2 class="mb-4 text-xl font-bold">Menu</h2>
-    <!-- Chargement de la liste -->
+    <PageTitle>
+      <template #title>Menu</template>
+    </PageTitle>
 
     <ul>
       <!-- Boucle sur les sections du store -->
@@ -71,6 +72,7 @@ import { useSectionsStore } from '@/stores/useSectionsStore'
 import { useListStore } from '@/stores/useListStore'
 import { onMounted } from 'vue'
 import { useAuthStore } from '@/stores/useAuthStore'
+import PageTitle from './PageTitle.vue'
 
 const sectionStore = useSectionsStore()
 const listStore = useListStore()
