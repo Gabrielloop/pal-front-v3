@@ -57,12 +57,14 @@ const submit = async () => {
   loading.value = true
 
   try {
-    await listStore.createNewList({
+    const success = await listStore.createList({
       userlistName: titre.value,
       userlistDescription: description.value,
       userlistType: 'list',
     })
-    router.push('/listes')
+    if (success) {
+      router.push('/listes')
+    }
   } catch (err) {
     error.value = 'Impossible de créer la liste.'
   } finally {

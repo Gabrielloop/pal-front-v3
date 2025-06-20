@@ -216,20 +216,35 @@ export const useListStore = defineStore('listStore', {
         toast.error(error.message || 'Erreur lors de la suppression du livre en wishlist')
       }
     },
-    async createNewList(list) {
+    async createList(list) {
       const toast = useToastStore()
       try {
         const response = await createNewList(list)
-
         if (!response.success) {
           throw new Error('Erreur lors de la création de la liste')
         }
 
         toast.success(response.message)
-        this.fetchLists()
+        await this.fetchLists()
+        return true
       } catch (error) {
         console.error('Erreur lors de la création de la liste:', error)
         toast.error(error.message || 'Erreur lors de la création de la liste')
+        return false
+      }
+    },
+    async deleteList(id) {
+      const toast = useToastStore()
+      try {
+        const response = await deleteUserList(id)
+        if (!response.success) {
+          throw new Error('Erreur lors de la suppression de la liste')
+        }
+        toast.success(response.message)
+        await this.fetchLists()
+      } catch (error) {
+        console.error('Erreur suppression liste :', error)
+        toast.error(error.message || 'Erreur lors de la suppression de la liste')
       }
     },
   },
