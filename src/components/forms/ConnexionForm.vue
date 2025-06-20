@@ -50,6 +50,7 @@ function validateForm() {
 const submit = async () => {
   error.value = null
 
+  // TODO : ajouter une vérification sur l'email
   const validationError = validateForm()
   if (validationError) {
     error.value = validationError

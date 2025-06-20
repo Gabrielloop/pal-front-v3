@@ -26,10 +26,9 @@
                 <span class="menu-block block truncate dark:text-ivory" :title="item.userlistName">
                   {{ item.userlistName }}
                 </span>
-                <span
-                  class="badge-primary dark:badge-ivory flex min-w-6 justify-center whitespace-nowrap text-xs dark:text-primary"
-                  >{{ item.books?.length }}</span
-                >
+                <span class="badge-primary flex min-w-6 justify-center whitespace-nowrap text-xs">{{
+                  item.books?.length
+                }}</span>
               </div>
             </RouterLink>
           </template>
@@ -47,7 +46,7 @@
                 <span class="menu-block block truncate dark:text-ivory" :title="item.label">
                   {{ item.label }} </span
                 ><span
-                  class="badge-primary dark:badge-ivory flex min-w-6 justify-center whitespace-nowrap text-xs dark:text-primary"
+                  class="badge-primary flex min-w-6 justify-center whitespace-nowrap text-xs"
                   >{{ item.count }}</span
                 >
               </div>

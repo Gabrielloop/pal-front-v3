@@ -4,12 +4,17 @@
       <input
         v-model="titre"
         type="text"
+        maxlength="100"
+        minlenght="3"
+        required
         placeholder="Ma liste de livres"
         class="input input-text mb-2 w-full"
       />
       <input
         v-model="description"
         type="text"
+        maxlength="255"
+        required
         placeholder="Description de la liste"
         class="input input-text mb-2 w-full"
       />
@@ -41,8 +46,12 @@ const router = useRouter()
 const listStore = useListStore()
 
 function validateForm() {
-  if (!titre.value.trim()) return 'Le titre est requis.'
   if (!description.value.trim()) return 'La description est requise.'
+  if (description.value.length > 255) return 'La description ne doit pas dépasser 255 caractères.'
+
+  if (!titre.value.trim()) return 'Le titre est requis.'
+  if (titre.value.length > 100) return 'Le titre ne doit pas dépasser 100 caractères.'
+  if (titre.value.length < 3) return 'Le titre doit contenir au moins 3 caractères.'
   return null
 }
 

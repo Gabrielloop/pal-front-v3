@@ -31,7 +31,7 @@ export const useBookStore = defineStore('bookStore', {
       try {
         const response = await addBookToUserList(listId, isbn)
         toast.success(response.message)
-        listStore.fetchUserLists()
+        listStore.fetchLists()
       } catch (error) {
         console.error("Erreur lors de l'ajout :", error)
         toast.error(error?.message || 'Erreur inconnue')
@@ -44,7 +44,7 @@ export const useBookStore = defineStore('bookStore', {
       try {
         const response = await removeBookFromUserList(listId, isbn)
         toast.success(response.message)
-        listStore.fetchUserLists()
+        listStore.fetchLists()
       } catch (error) {
         console.error("Erreur lors de l'ajout :", error)
         toast.error(error?.message || 'Erreur inconnue')
@@ -54,6 +54,7 @@ export const useBookStore = defineStore('bookStore', {
       const toast = useToastStore()
       try {
         const results = await searchByISBNs([isbn])
+
         if (results.length > 0) {
           this.storeBook(results[0])
         } else {

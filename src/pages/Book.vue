@@ -14,13 +14,14 @@ if (!bookStore.book) {
 
 <template>
   <div v-if="bookStore.book">
-    <h1 class="text-xl font-bold">{{ bookStore.book.title }}</h1>
+    <h1 class="text-xl font-bold">{{ bookStore.book.bookTitle }}</h1>
     <img :src="bookStore.coverImage" alt="Couverture" />
-    <p v-if="bookStore.book.author">Auteur : {{ bookStore.book.author }}</p>
+    <p v-if="bookStore.book.bookAuthor">Auteur : {{ bookStore.book.bookAuthor }}</p>
     <AddBookToList :isbn="bookStore.book.isbn" :userlistId="bookStore.book.userlistId" />
   </div>
 
   <div v-else>
     <p>Livre non chargé.</p>
   </div>
+  <pre>{{ bookStore.book }}</pre>
 </template>
