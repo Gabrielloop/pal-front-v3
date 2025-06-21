@@ -1,8 +1,12 @@
 <template>
   <button
     @click="toggleWishlist"
-    :class="book.inWishlists ? 'text-warning' : 'text-disable'"
-    class="text-primary transition-colors duration-200 hover:text-warning/50"
+    :class="
+      book.isWished
+        ? 'bg-danger text-white hover:text-white/50'
+        : 'bg-primary text-white hover:bg-danger/50'
+    "
+    class="rounded-full p-2 transition-colors duration-200 hover:text-danger/50"
   >
     <AppIcon name="cart" class="h-5 w-5" />
   </button>
@@ -23,12 +27,12 @@ const props = defineProps({
 const listStore = useListStore()
 
 const toggleWishlist = async () => {
-  if (props.book.inWishlists) {
-    await listStore.removeToWishlists(props.book)
-    props.book.inWishlists = false
+  if (props.book.isWished) {
+    await listStore.removeToWishlist(props.book)
+    props.book.isWished = false
   } else {
-    await listStore.addToWishlists(props.book)
-    props.book.inWishlists = true
+    await listStore.addToWishlist(props.book)
+    props.book.isWished = true
   }
 }
 </script>

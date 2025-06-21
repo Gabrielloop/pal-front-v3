@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia'
-import { addBookToUserList, removeBookFromUserList } from '@/api/list'
+import {
+  addBookToUserList,
+  removeBookFromUserList,
+  addOrUpdateComment,
+  addOrUpdateNote,
+} from '@/api/book'
 import { useListStore } from '@/stores/useListStore'
 import { useToastStore } from '@/stores/toast'
 import { searchByISBNs } from '@/api/bnfApi'
@@ -31,7 +36,7 @@ export const useBookStore = defineStore('bookStore', {
       try {
         const response = await addBookToUserList(listId, isbn)
         toast.success(response.message)
-        listStore.fetchUserLists()
+        listStore.fetchLists()
       } catch (error) {
         console.error("Erreur lors de l'ajout :", error)
         toast.error(error?.message || 'Erreur inconnue')
@@ -44,24 +49,58 @@ export const useBookStore = defineStore('bookStore', {
       try {
         const response = await removeBookFromUserList(listId, isbn)
         toast.success(response.message)
-        listStore.fetchUserLists()
+        listStore.fetchLists()
       } catch (error) {
         console.error("Erreur lors de l'ajout :", error)
         toast.error(error?.message || 'Erreur inconnue')
       }
     },
     async fetchBookByIsbn(isbn) {
+      const listeStore = useListStore()
       const toast = useToastStore()
+
       try {
         const results = await searchByISBNs([isbn])
-        if (results.length > 0) {
-          this.storeBook(results[0])
-        } else {
+
+        if (!Array.isArray(results) || results.length === 0) {
           toast.error('Livre non trouvé')
+          return
+        }
+
+        const decoratedBooks = listeStore.decorateBooks(results)
+
+        if (decoratedBooks.length > 0) {
+          this.storeBook(decoratedBooks[0])
+        } else {
+          toast.error('Aucun livre décoré')
         }
       } catch (error) {
         console.error('Erreur lors de la récupération du livre:', error)
         toast.error(error.message || 'Erreur lors de la récupération du livre')
+      }
+    },
+    async postComment(comment) {
+      const listStore = useListStore()
+      const toast = useToastStore()
+      try {
+        const response = await addOrUpdateComment(comment)
+        listStore.fetchComments()
+        toast.success(response.message)
+      } catch (error) {
+        console.error("Erreur lors de l'ajout du commentaire :", error)
+        toast.error(error?.message || 'Erreur inconnue')
+      }
+    },
+    async postNote(note) {
+      const listStore = useListStore()
+      const toast = useToastStore()
+      try {
+        const response = await addOrUpdateNote(note, note.isbn)
+        listStore.fetchNotes()
+        toast.success(response.message)
+      } catch (error) {
+        console.error("Erreur lors de l'ajout de la note :", error)
+        toast.error(error?.message || 'Erreur inconnue')
       }
     },
   },

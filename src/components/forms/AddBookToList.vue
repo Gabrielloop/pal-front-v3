@@ -49,8 +49,6 @@ const localUserlistId = ref(props.userlistId)
 const error = ref(null)
 const loading = ref(false)
 
-const router = useRouter()
-const listStore = useListStore()
 const bookStore = useBookStore()
 
 function validateForm() {

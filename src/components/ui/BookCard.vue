@@ -4,12 +4,7 @@
     @click="handleClick"
   >
     <div class="flex items-start gap-3">
-      <img
-        v-if="cover"
-        :src="cover"
-        alt="cover"
-        class="h-20 w-14 flex-none rounded-sm object-cover shadow-sm"
-      />
+      <Cover :cover="cover" :loading="!cover" component="card" />
       <div class="flex-grow">
         <h3 class="truncate text-lg font-semibold">{{ displayTitle }}</h3>
         <p class="truncate text-sm text-gray-600">{{ displayAuthor }}</p>
@@ -32,7 +27,8 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useBookStore } from '@/stores/useBookStore'
-import FavoriteButton from '@/components/ui/FavoriteButton.vue'
+import FavoriteButton from '@/components/ui/BookActions/FavoriteButton.vue'
+import Cover from '@/components/ui/Cover.vue'
 
 const props = defineProps({
   book: {
@@ -45,13 +41,13 @@ const router = useRouter()
 const bookStore = useBookStore()
 const book = props.book
 
-// ✅ Fallbacks pour compatibilité entre les formats (BnF, DB, etc.)
-const displayTitle = computed(() => book.title || book.bookTitle || 'Titre inconnu')
-const displayAuthor = computed(() => book.author || book.bookAuthor || 'Auteur inconnu')
-const displayIsbn = computed(() => book.isbn || book.bookIsbn || 'ISBN inconnu')
-const displayPublisher = computed(() => book.publisher || book.bookPublisher || 'Inconnu')
-const displayYear = computed(() => book.year || book.bookYear || 'Date inconnue')
-const displayDescription = computed(() => book.description || book.bookDescription || '')
+// TODO : a retirer : Fallbacks pour compatibilité entre les formats (BnF, DB, etc.)
+const displayTitle = computed(() => book.title || 'Titre inconnu')
+const displayAuthor = computed(() => book.author || 'Auteur inconnu')
+const displayIsbn = computed(() => book.isbn || 'ISBN inconnu')
+const displayPublisher = computed(() => book.publisher || 'Inconnu')
+const displayYear = computed(() => book.year || 'Date inconnue')
+const displayDescription = computed(() => book.description || '')
 const cover = computed(() => book.cover || null)
 
 function handleClick() {

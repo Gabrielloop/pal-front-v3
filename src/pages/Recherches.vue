@@ -1,7 +1,7 @@
 <template>
-  <BookGrid>
+  <Grid>
     <BookCard v-for="book in bnfStore.results" :key="book.isbn" :book="book" />
-  </BookGrid>
+  </Grid>
 </template>
 
 <script setup>
@@ -9,7 +9,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBnfStore } from '@/stores/useBnfStore'
 import BookCard from '@/components/ui/BookCard.vue'
-import BookGrid from '@/components/ui/BookGrid.vue'
+import Grid from '@/components/ui/Grid.vue'
 
 const route = useRoute()
 const bnfStore = useBnfStore()

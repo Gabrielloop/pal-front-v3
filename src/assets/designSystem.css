@@ -56,7 +56,7 @@
   }
 
   .badge-primary {
-    @apply badge bg-primary text-white dark:bg-primaryLight;
+    @apply badge bg-primary text-white dark:bg-primaryLight dark:text-ivory;
   }
 
   .badge-danger {

@@ -1,10 +1,12 @@
 <script setup>
 import { useAuthStore } from '@/stores/useAuthStore'
 import { watch, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 import '@/style.css'
 
 const auth = useAuthStore()
+const router = useRouter()
 
 onMounted(() => {
   if (auth.isAuthenticated) {
@@ -14,7 +16,6 @@ onMounted(() => {
   }
 })
 
-// Watcher pour activer/désactiver la classe "dark" sur <html>
 watch(
   () => auth.user?.isDarkMode,
   (isDark) => {
@@ -30,6 +31,14 @@ watch(
   },
   { immediate: true }
 )
+
+router.afterEach((to) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  } else {
+    document.title = 'Verso'
+  }
+})
 </script>
 
 <template>
