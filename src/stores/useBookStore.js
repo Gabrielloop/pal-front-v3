@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia'
-import { addBookToUserList, removeBookFromUserList } from '@/api/list'
+import {
+  addBookToUserList,
+  removeBookFromUserList,
+  addOrUpdateComment,
+  addOrUpdateNote,
+} from '@/api/book'
 import { useListStore } from '@/stores/useListStore'
 import { useToastStore } from '@/stores/toast'
 import { searchByISBNs } from '@/api/bnfApi'
@@ -57,7 +62,6 @@ export const useBookStore = defineStore('bookStore', {
       try {
         const results = await searchByISBNs([isbn])
 
-        // Assure-toi que `results` est un tableau
         if (!Array.isArray(results) || results.length === 0) {
           toast.error('Livre non trouvé')
           return
@@ -73,6 +77,30 @@ export const useBookStore = defineStore('bookStore', {
       } catch (error) {
         console.error('Erreur lors de la récupération du livre:', error)
         toast.error(error.message || 'Erreur lors de la récupération du livre')
+      }
+    },
+    async postComment(comment) {
+      const listStore = useListStore()
+      const toast = useToastStore()
+      try {
+        const response = await addOrUpdateComment(comment)
+        listStore.fetchComments()
+        toast.success(response.message)
+      } catch (error) {
+        console.error("Erreur lors de l'ajout du commentaire :", error)
+        toast.error(error?.message || 'Erreur inconnue')
+      }
+    },
+    async postNote(note) {
+      const listStore = useListStore()
+      const toast = useToastStore()
+      try {
+        const response = await addOrUpdateNote(note, note.isbn)
+        listStore.fetchNotes()
+        toast.success(response.message)
+      } catch (error) {
+        console.error("Erreur lors de l'ajout de la note :", error)
+        toast.error(error?.message || 'Erreur inconnue')
       }
     },
   },

@@ -1,6 +1,6 @@
 <template>
-  <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-    <article>
+  <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+    <article class="flex flex-col items-center justify-center gap-4">
       <PageTitle>
         <template #title>{{ book.title }}</template>
       </PageTitle>
@@ -8,18 +8,21 @@
     </article>
     <article>
       <p class="text-lg font-semibold">Auteur : {{ book.author }}</p>
-      <p class="text-gray-600">{{ book.description }}</p>
-      <p class="text-sm text-gray-500">ISBN: {{ book.isbn }}</p>
-      <p class="text-sm text-gray-500">Publisher: {{ book.publisher }}</p>
-      <p class="text-sm text-gray-500">Year: {{ book.year }}</p>
+      <p class="text-sm">ISBN : {{ book.isbn }}</p>
+      <p class="text-sm">Editeur : {{ book.publisher }}</p>
+      <p class="text-sm">Année : {{ book.year }}</p>
     </article>
-    <article>
+    <article class="flex flex-col gap-4">
       <div class="flex flex-row gap-2">
         <FavoriteButton :book="book" />
         <WishlistButton :book="book" />
+        <Note :book="book" />
       </div>
+      <Comment :book="book" />
     </article>
-    <pre>{{ book }}</pre>
+    <article class="overflow-hidden rounded-lg bg-white shadow">
+      <pre>{{ book }}</pre>
+    </article>
   </div>
 </template>
 
@@ -28,6 +31,8 @@ import PageTitle from '@/components/ui/PageTitle.vue'
 import Cover from './Cover.vue'
 import FavoriteButton from '@/components/ui/BookActions/FavoriteButton.vue'
 import WishlistButton from '@/components/ui/BookActions/WishlistButton.vue'
+import Comment from '@/components/ui/BookActions/Comment.vue'
+import Note from './BookActions/Note.vue'
 
 const props = defineProps({
   book: {

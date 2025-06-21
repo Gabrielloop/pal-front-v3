@@ -1,7 +1,11 @@
 <template>
   <button
     @click="toggleWishlist"
-    :class="book.isWished ? 'bg-danger text-white' : 'bg-primary text-white'"
+    :class="
+      book.isWished
+        ? 'bg-danger text-white hover:text-white/50'
+        : 'bg-primary text-white hover:bg-danger/50'
+    "
     class="rounded-full p-2 transition-colors duration-200 hover:text-danger/50"
   >
     <AppIcon name="cart" class="h-5 w-5" />

@@ -23,7 +23,10 @@ import {
   PencilSquareIcon,
   ArrowPathIcon,
   PlusIcon,
+  ChatBubbleLeftEllipsisIcon,
 } from '@heroicons/vue/24/outline'
+import { HeartIcon as heartSolid, StarIcon as starSolid } from '@heroicons/vue/24/solid'
+import { computed } from 'vue'
 
 const props = defineProps({
   name: {
@@ -52,7 +55,12 @@ const icons = {
   edit: PencilSquareIcon,
   refresh: ArrowPathIcon,
   plus: PlusIcon,
+  comment: ChatBubbleLeftEllipsisIcon,
+  heartSolid: heartSolid,
+  starSolid: starSolid,
 }
 
-const iconComponent = icons[props.name] || BookOpenIcon
+const iconComponent = computed(() => {
+  return icons[props.name] || BookOpenIcon
+})
 </script>

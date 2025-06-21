@@ -4,10 +4,12 @@ import {
   fetchUserFavorites,
   fetchUserWishlists,
   fetchUserReadings,
+  fetchUserComments,
+  fetchUserNotes,
   createNewList,
 } from '@/api/list'
 import { useToastStore } from '@/stores/toast'
-import { postFavorites, deleteFavorites, postWishlists, deleteWishlists } from '@/api/list'
+import { postFavorites, deleteFavorites, postWishlists, deleteWishlists } from '@/api/book'
 
 export const useListStore = defineStore('listStore', {
   state: () => ({
@@ -126,11 +128,49 @@ export const useListStore = defineStore('listStore', {
         this.isLoading = false
       }
     },
+    async fetchComments() {
+      this.isLoading = true
+      const toast = useToastStore()
+      try {
+        const res = await fetchUserComments('comments')
+        if (res.success) {
+          this.comments = res.data
+          console.log('fetchComments :', this.comments)
+        } else {
+          toast.error(res.message || 'Échec récupération de vos avis')
+        }
+      } catch (err) {
+        toast.error(err.message || 'Erreur lors de la récupération de vos avis')
+        console.error('Erreur fetchComments :', err)
+      } finally {
+        this.isLoading = false
+      }
+    },
+    async fetchNotes() {
+      this.isLoading = true
+      const toast = useToastStore()
+      try {
+        const res = await fetchUserNotes('notes')
+        if (res.success) {
+          this.notes = res.data
+          console.log('fetchNotes :', this.notes)
+        } else {
+          toast.error(res.message || 'Échec récupération des notes')
+        }
+      } catch (err) {
+        toast.error(err.message || 'Erreur lors de la récupération des notes')
+        console.error('Erreur fetchNotes :', err)
+      } finally {
+        this.isLoading = false
+      }
+    },
     async fetchAll() {
       await this.fetchLists()
       await this.fetchFavorites()
       await this.fetchWishlists()
       await this.fetchReadings()
+      await this.fetchComments()
+      await this.fetchNotes()
     },
     decorateBooks(books) {
       return books.map((book) => {
@@ -159,7 +199,6 @@ export const useListStore = defineStore('listStore', {
         }
 
         toast.success(response.message)
-        await this.fetchLists()
         await this.fetchFavorites()
       } catch (error) {
         console.error("Erreur lors de l'ajout du livre au favoris :", error)
@@ -176,7 +215,6 @@ export const useListStore = defineStore('listStore', {
         }
 
         toast.success(response.message)
-        await this.fetchLists()
         await this.fetchFavorites()
       } catch (error) {
         console.error('Erreur lors de la suppression du livre au favoris:', error)
@@ -193,7 +231,6 @@ export const useListStore = defineStore('listStore', {
         }
 
         toast.success(response.message)
-        await this.fetchLists()
         await this.fetchWishlists()
       } catch (error) {
         console.error("Erreur lors de l'ajout du livre en wishlist :", error)
@@ -210,7 +247,6 @@ export const useListStore = defineStore('listStore', {
         }
 
         toast.success(response.message)
-        await this.fetchLists()
         await this.fetchWishlists()
       } catch (error) {
         console.error('Erreur lors de la suppression du livre en wishlist:', error)
