@@ -3,7 +3,6 @@ import { addBookToUserList, removeBookFromUserList } from '@/api/list'
 import { useListStore } from '@/stores/useListStore'
 import { useToastStore } from '@/stores/toast'
 import { searchByISBNs } from '@/api/bnfApi'
-import de from '../../dist/assets/LayoutUser-BaG4mWzr'
 
 export const useBookStore = defineStore('bookStore', {
   state: () => ({
@@ -54,14 +53,22 @@ export const useBookStore = defineStore('bookStore', {
     async fetchBookByIsbn(isbn) {
       const listeStore = useListStore()
       const toast = useToastStore()
+
       try {
         const results = await searchByISBNs([isbn])
-        const bookDecorate = []
-        bookDecorate = listeStore.decorateBooks(results)
-        if (bookDecorate.length > 0) {
-          this.storeBook(bookDecorate[0])
-        } else {
+
+        // Assure-toi que `results` est un tableau
+        if (!Array.isArray(results) || results.length === 0) {
           toast.error('Livre non trouvé')
+          return
+        }
+
+        const decoratedBooks = listeStore.decorateBooks(results)
+
+        if (decoratedBooks.length > 0) {
+          this.storeBook(decoratedBooks[0])
+        } else {
+          toast.error('Aucun livre décoré')
         }
       } catch (error) {
         console.error('Erreur lors de la récupération du livre:', error)

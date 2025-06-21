@@ -41,23 +41,23 @@ export async function fetchUserReadings() {
 //     method: 'POST',
 //   })
 // }
-export async function addToFavorites(bookId) {
+export async function postFavorites(bookId) {
   return apiFetch(`/favorites/isbn/${bookId}`, {
     method: 'POST',
   })
 }
-export async function removeToFavorites(bookId) {
+export async function deleteFavorites(bookId) {
   return apiFetch(`/favorites/isbn/${bookId}`, {
     method: 'DELETE',
   })
 }
 
-export async function addToWishlists(bookId) {
+export async function postWishlists(bookId) {
   return apiFetch(`/wishlists/isbn/${bookId}`, {
     method: 'POST',
   })
 }
-export async function removeToWishlists(bookId) {
+export async function deleteWishlists(bookId) {
   return apiFetch(`/wishlists/isbn/${bookId}`, {
     method: 'DELETE',
   })

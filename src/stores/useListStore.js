@@ -7,7 +7,7 @@ import {
   createNewList,
 } from '@/api/list'
 import { useToastStore } from '@/stores/toast'
-import { addToFavorites, removeToFavorites, addToWishlists, removeToWishlists } from '@/api/list'
+import { postFavorites, deleteFavorites, postWishlists, deleteWishlists } from '@/api/list'
 
 export const useListStore = defineStore('listStore', {
   state: () => ({
@@ -145,22 +145,22 @@ export const useListStore = defineStore('listStore', {
           inReading: this.readings.some((r) => r.isReading && r.isbn === isbn),
           inFinished: this.readings.some((r) => r.isFinished && r.isbn === isbn),
           inAbandoned: this.readings.some((r) => r.isAbandoned && r.isbn === isbn),
-          bookCover: `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`,
+          cover: `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`,
         }
       })
     },
     async addToFavorites(book) {
       const toast = useToastStore()
       try {
-        const response = await addToFavorites(book.isbn)
+        const response = await postFavorites(book.isbn)
 
         if (!response.success) {
           throw new Error("Erreur lors de l'ajout du livre au favoris :")
         }
 
         toast.success(response.message)
-        this.fetchLists()
-        this.fetchFavorites()
+        await this.fetchLists()
+        await this.fetchFavorites()
       } catch (error) {
         console.error("Erreur lors de l'ajout du livre au favoris :", error)
         toast.error(error.message || "Erreur lors de l'ajout du livre au favoris :")
@@ -169,49 +169,49 @@ export const useListStore = defineStore('listStore', {
     async removeToFavorites(book) {
       const toast = useToastStore()
       try {
-        const response = await removeToFavorites(book.isbn)
+        const response = await deleteFavorites(book.isbn)
 
         if (!response.success) {
           throw new Error('Erreur lors de la suppression du livre au favoris')
         }
 
         toast.success(response.message)
-        this.fetchLists()
-        this.fetchFavorites()
+        await this.fetchLists()
+        await this.fetchFavorites()
       } catch (error) {
         console.error('Erreur lors de la suppression du livre au favoris:', error)
         toast.error(error.message || 'Erreur lors de la suppression du livre au favoris')
       }
     },
-    async addToWishlists(book) {
+    async addToWishlist(book) {
       const toast = useToastStore()
       try {
-        const response = await addToWishlists(book.isbn)
+        const response = await postWishlists(book.isbn)
 
         if (!response.success) {
           throw new Error("Erreur lors de l'ajout du livre en wishlist :")
         }
 
         toast.success(response.message)
-        this.fetchLists()
-        this.fetchWishlists()
+        await this.fetchLists()
+        await this.fetchWishlists()
       } catch (error) {
         console.error("Erreur lors de l'ajout du livre en wishlist :", error)
         toast.error(error.message || "Erreur lors de l'ajout du livre en wishlist :")
       }
     },
-    async removeToWishlists(book) {
+    async removeToWishlist(book) {
       const toast = useToastStore()
       try {
-        const response = await removeToWishlists(book.isbn)
+        const response = await deleteWishlists(book.isbn)
 
         if (!response.success) {
           throw new Error('Erreur lors de la suppression du livre en wishlist')
         }
 
         toast.success(response.message)
-        this.fetchLists()
-        this.fetchWishlists()
+        await this.fetchLists()
+        await this.fetchWishlists()
       } catch (error) {
         console.error('Erreur lors de la suppression du livre en wishlist:', error)
         toast.error(error.message || 'Erreur lors de la suppression du livre en wishlist')

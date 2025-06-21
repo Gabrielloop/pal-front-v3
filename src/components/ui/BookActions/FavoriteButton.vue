@@ -1,8 +1,8 @@
 <template>
   <button
     @click="toggleFavorite"
-    :class="book.inFavorites ? 'text-danger' : 'text-disable'"
-    class="text-primary transition-colors duration-200 hover:text-danger/50"
+    :class="book.isFavorite ? 'bg-danger text-white' : 'bg-primary text-white'"
+    class="rounded-full p-2 transition-colors duration-200 hover:text-danger/50"
   >
     <AppIcon name="heart" class="h-5 w-5" />
   </button>
@@ -23,12 +23,14 @@ const props = defineProps({
 const listStore = useListStore()
 
 const toggleFavorite = async () => {
-  if (props.book.inFavorites) {
+  if (props.book.isFavorite) {
     await listStore.removeToFavorites(props.book)
-    props.book.inFavorites = false
+    await listStore.fetchFavorites()
+    props.book.isFavorite = false
   } else {
     await listStore.addToFavorites(props.book)
-    props.book.inFavorites = true
+    await listStore.fetchFavorites()
+    props.book.isFavorite = true
   }
 }
 </script>

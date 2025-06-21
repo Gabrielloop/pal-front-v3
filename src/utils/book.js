@@ -1,11 +1,11 @@
-export const BOOK_FIELDS = ['isbn', 'bookTitle', 'bookAuthor', 'bookPublisher', 'bookYear']
+export const BOOK_FIELDS = ['isbn', 'title', 'author', 'publisher', 'year']
 
 export const BOOK_COLUMNS = [
   { key: 'isbn', label: 'Isbn', type: 'text' },
-  { key: 'bookTitle', label: 'Titre', type: 'text' },
-  { key: 'bookAuthor', label: 'Auteur', type: 'text' },
-  { key: 'bookPublisher', label: 'Éditeur', type: 'text' },
-  { key: 'bookYear', label: 'Année', type: 'number' },
+  { key: 'title', label: 'Titre', type: 'text' },
+  { key: 'author', label: 'Auteur', type: 'text' },
+  { key: 'publisher', label: 'Éditeur', type: 'text' },
+  { key: 'year', label: 'Année', type: 'number' },
 ]
 
 // Fabrique un livre enrichi
@@ -15,10 +15,10 @@ export function createBook(data) {
   }
   return {
     isbn: data.isbn,
-    bookTitle: data.bookTitle ?? '',
-    bookAuthor: data.bookAuthor ?? '',
-    bookPublisher: data.bookPublisher ?? '',
-    bookYear: data.bookYear ?? null,
+    title: data.title ?? '',
+    author: data.author ?? '',
+    publisher: data.publisher ?? '',
+    year: data.year ?? null,
     key: `${data.isbn}`,
   }
 }
@@ -27,8 +27,8 @@ export function createBook(data) {
 export const makePayload = (book) => Object.fromEntries(BOOK_FIELDS.map((key) => [key, book[key]]))
 
 // Vérifie si un livre est valide
-export const isValidBook = ({ isbn, bookTitle, bookAuthor, bookPublisher, bookYear }) =>
-  !!isbn && !!bookTitle && !!bookAuthor && !!bookPublisher && !!bookYear
+export const isValidBook = ({ isbn, title, author, publisher, year }) =>
+  !!isbn && !!title && !!author && !!publisher && !!year
 
 // Clé unique
 export const getBookKey = (isbn) => `${isbn}`
