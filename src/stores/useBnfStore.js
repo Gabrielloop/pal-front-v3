@@ -26,7 +26,7 @@ export const useBnfStore = defineStore('bnf', {
         const listStore = useListStore()
         const raw = await searchByQuery(query, page)
 
-        this.results = listStore.decorateBooks(raw)
+        this.results = raw
         console.log('Résultats de recherche BNF :', this.results)
       } catch (e) {
         this.error = e.message || 'Erreur API'

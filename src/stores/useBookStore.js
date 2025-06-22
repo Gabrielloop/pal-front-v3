@@ -4,6 +4,9 @@ import {
   removeBookFromUserList,
   addOrUpdateComment,
   addOrUpdateNote,
+  postReadingAdd,
+  postReadingSet,
+  postReadingAbandon,
 } from '@/api/book'
 import { useListStore } from '@/stores/useListStore'
 import { useToastStore } from '@/stores/toast'
@@ -56,7 +59,6 @@ export const useBookStore = defineStore('bookStore', {
       }
     },
     async fetchBookByIsbn(isbn) {
-      const listeStore = useListStore()
       const toast = useToastStore()
 
       try {
@@ -64,16 +66,10 @@ export const useBookStore = defineStore('bookStore', {
 
         if (!Array.isArray(results) || results.length === 0) {
           toast.error('Livre non trouvé')
+          this.book = null
           return
         }
-
-        const decoratedBooks = listeStore.decorateBooks(results)
-
-        if (decoratedBooks.length > 0) {
-          this.storeBook(decoratedBooks[0])
-        } else {
-          toast.error('Aucun livre décoré')
-        }
+        this.book = results[0]
       } catch (error) {
         console.error('Erreur lors de la récupération du livre:', error)
         toast.error(error.message || 'Erreur lors de la récupération du livre')
@@ -101,6 +97,32 @@ export const useBookStore = defineStore('bookStore', {
       } catch (error) {
         console.error("Erreur lors de l'ajout de la note :", error)
         toast.error(error?.message || 'Erreur inconnue')
+      }
+    },
+    async saveReadingProgress(isbn, payload) {
+      const toast = useToastStore()
+      try {
+        await postReadingSet(isbn, payload)
+
+        toast.success(response.message || 'Lecture mise à jour')
+        return true
+      } catch (err) {
+        console.error('Erreur lecture :', err)
+        toast.error('Erreur lors de la mise à jour de la lecture')
+        return false
+      }
+    },
+
+    async abandonReading(isbn) {
+      const toast = useToastStore()
+      try {
+        const response = await postReadingAbandon(isbn)
+        toast.success(response.message || 'Lecture abandonnée')
+        return true
+      } catch (err) {
+        console.error('Erreur abandon :', err)
+        toast.error("Erreur lors de l'abandon")
+        return false
       }
     },
   },

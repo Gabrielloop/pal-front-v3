@@ -172,23 +172,6 @@ export const useListStore = defineStore('listStore', {
       await this.fetchComments()
       await this.fetchNotes()
     },
-    decorateBooks(books) {
-      return books.map((book) => {
-        const isbn = book.isbn
-
-        return {
-          ...book,
-          inFavorites: this.favorites.some((fav) => fav.isbn === isbn),
-          inWishlist: this.wishlists.some((wish) => wish.isbn === isbn),
-          // inUserLists: this.lists.some((list) => list.books?.some((b) => b.isbn === isbn)),
-          inNotStarted: this.readings.some((r) => !r.isStarted && r.isbn === isbn),
-          inReading: this.readings.some((r) => r.isReading && r.isbn === isbn),
-          inFinished: this.readings.some((r) => r.isFinished && r.isbn === isbn),
-          inAbandoned: this.readings.some((r) => r.isAbandoned && r.isbn === isbn),
-          cover: `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`,
-        }
-      })
-    },
     async addToFavorites(book) {
       const toast = useToastStore()
       try {

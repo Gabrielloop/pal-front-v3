@@ -63,7 +63,7 @@ async function loadList() {
     userlist.value = {
       userlistName: 'Favoris',
       userlistDescription: 'Livres marqués comme favoris',
-      books: listStore.decorateBooks(listStore.favorites),
+      books: listStore.favorites,
     }
   }
 
@@ -72,7 +72,7 @@ async function loadList() {
     userlist.value = {
       userlistName: 'Wishlist',
       userlistDescription: 'Livres à lire plus tard',
-      books: listStore.decorateBooks(listStore.wishlists),
+      books: listStore.wishlists,
     }
   }
 
@@ -97,7 +97,7 @@ async function loadList() {
       userlist.value = {
         userlistName: labelMap[id],
         userlistDescription: 'Livres selon l’état de lecture',
-        books: listStore.decorateBooks(filtered),
+        books: filtered,
       }
     }
   }
@@ -106,7 +106,7 @@ async function loadList() {
   else if (type === 'classements' && id !== undefined) {
     const stars = parseInt(id)
     const filteredNotes = listStore.notes.filter((n) => n.stars === stars)
-    const books = listStore.decorateBooks(filteredNotes.map((n) => n.book))
+    const books = listStore.filteredNotes.map((n) => n.book)
 
     userlist.value = {
       userlistName: `Classement ${stars} ★`,
