@@ -3,7 +3,8 @@
     <LoadingLogo />
   </section>
   <section v-else>
-    <BookDetails :book="bookStore.book" />
+    <BookDetails v-if="bookStore.book" :book="bookStore.book" />
+    <div v-else class="p-4 text-center text-red-500">Livre introuvable ou inexistant.</div>
   </section>
 </template>
 <script setup>

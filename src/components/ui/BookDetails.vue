@@ -5,8 +5,6 @@
         <template #title>{{ book.title }}</template>
       </PageTitle>
       <Cover :cover="book.cover" :loading="!book.cover" component="details" />
-    </article>
-    <article>
       <p class="text-lg font-semibold">Auteur : {{ book.author }}</p>
       <p class="text-sm">ISBN : {{ book.isbn }}</p>
       <p class="text-sm">Editeur : {{ book.publisher }}</p>
@@ -20,6 +18,7 @@
       </div>
       <Comment :book="book" />
     </article>
+    <article><ReadingProgress :book="book" /></article>
     <article class="overflow-hidden rounded-lg bg-white shadow">
       <pre>{{ book }}</pre>
     </article>
@@ -28,11 +27,12 @@
 
 <script setup>
 import PageTitle from '@/components/ui/PageTitle.vue'
-import Cover from './Cover.vue'
+import Cover from '@/components/ui/Cover.vue'
 import FavoriteButton from '@/components/ui/BookActions/FavoriteButton.vue'
 import WishlistButton from '@/components/ui/BookActions/WishlistButton.vue'
 import Comment from '@/components/ui/BookActions/Comment.vue'
 import Note from './BookActions/Note.vue'
+import ReadingProgress from '@/components/ui/BookActions/Reading.vue'
 
 const props = defineProps({
   book: {

@@ -43,8 +43,28 @@ export async function addOrUpdateComment(payload) {
 }
 
 export async function addOrUpdateNote(payload, isbn) {
-  return apiFetch(`/notes/isbn/{isbn}`, {
+  return apiFetch(`/notes/isbn/${isbn}`, {
     method: 'POST',
     body: JSON.stringify(payload),
+  })
+}
+
+export async function postReadingAdd(isbn, payload) {
+  return apiFetch(`/reading/add/${isbn}`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export async function postReadingSet(isbn, payload) {
+  return apiFetch(`/reading/set/${isbn}`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export async function postReadingAbandon(isbn) {
+  return apiFetch(`/reading/abandon/${isbn}`, {
+    method: 'POST',
   })
 }
