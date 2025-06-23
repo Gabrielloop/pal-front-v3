@@ -1,15 +1,17 @@
 <template>
   <div class="flex min-h-screen w-full flex-col items-center p-4">
-    <section v-if="bnfStore.results.length === 0">
+    <section v-if="bnfStore.results.length === 0" aria-label="Résultats">
       <PageTitle>
-        <template #title>Aucun résultat pour "{{ searchQuery }}</template>
-        <template #subtitle>Essayez une autre recherche.</template>
+        <template #title>Aucun résultat pour "{{ searchQuery }}"</template>
+        <template #subtitle
+          >Essayez une autre recherche. Par exemple : <strong>"Zola"</strong> ou un ISBN.</template
+        >
       </PageTitle>
     </section>
-    <section v-else-if="!loading">
+    <section v-else-if="!loading" aria-live="polite">
       <PageTitle>
         <template #title
-          >Résultat{{ bnfStore.results.length > 0 ? 's' : '' }} pour "{{ searchQuery }}</template
+          >Résultat{{ bnfStore.results.length > 0 ? 's' : '' }} pour "{{ searchQuery }}"</template
         >
         <template #subtitle>Recherche par titre ou ISBN dans la barre de recherches.</template>
       </PageTitle>
@@ -18,7 +20,7 @@
       </Grid>
     </section>
 
-    <section v-else>
+    <section v-else aria-live="polite">
       <LoadingLogo />
     </section>
   </div>
@@ -32,26 +34,20 @@ import BookCard from '@/components/ui/BookCard.vue'
 import Grid from '@/components/ui/Grid.vue'
 import PageTitle from '@/components/ui/PageTitle.vue'
 import LoadingLogo from '@/components/ui/LoadingLogo.vue'
+import { computed } from 'vue'
+import { watchEffect } from 'vue'
 
 const route = useRoute()
 const bnfStore = useBnfStore()
-const searchQuery = ref(route.query.q || '')
+const searchQuery = computed(() => bnfStore.query)
 
-const loading = ref(bnfStore.loading)
+const loading = computed(() => bnfStore.loading)
 
-onMounted(() => {
-  if (route.query.q) {
-    bnfStore.fetchResults(route.query.q, 1)
+watchEffect(() => {
+  const q = route.query.q
+  if (q) {
+    searchQuery.value = q
+    bnfStore.fetchResults(q, 1)
   }
 })
-
-watch(
-  () => route.query.q,
-  (newQ) => {
-    if (newQ) {
-      searchQuery.value = newQ
-      bnfStore.fetchResults(newQ, 1)
-    }
-  }
-)
 </script>
