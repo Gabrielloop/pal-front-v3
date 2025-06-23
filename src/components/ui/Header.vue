@@ -17,10 +17,11 @@ const props = defineProps({
   >
     <div class="px-2 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between gap-2">
-        <div class="flex items-center gap-4">
-          <router-link :to="'/'"><Logo /></router-link>
-          <h1 class="hidden font-title text-title text-ivory md:block">Verso</h1>
-        </div>
+        <router-link :to="'/'" class="flex items-center gap-4"
+          ><Logo />
+          <h1 class="hidden font-title text-title text-ivory md:block">Verso</h1></router-link
+        >
+
         <SearchBar class="max-w-md flex-1" />
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="w-full border-collapse border border-gray-300">
+    <table class="w-full border-collapse border border-ivory">
       <thead class="bg-primary text-ivory">
         <tr>
           <th v-for="col in columns" :key="col.key" class="border p-2">

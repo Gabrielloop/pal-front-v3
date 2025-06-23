@@ -35,18 +35,32 @@ export const useBnfStore = defineStore('bnf', {
       }
     },
 
-    getCoverImage(book) {
+    async resolveBestCover(book) {
       const isbn = book.isbn?.replace(/[^0-9X]/g, '')
       if (!isbn || isbn === 'inconnu') return null
 
-      return `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`
+      const openLibraryURL = `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`
+      const fallbackURL = `${import.meta.env.VITE_API_BASE_URL}/cover/${isbn}?t=${Date.now()}`
+
+      try {
+        const res = await fetch(openLibraryURL)
+        const blob = await res.blob()
+
+        console.log('[OpenLibrary] Size:', blob.size)
+
+        const isValidImage = res.ok && blob.size > 500
+
+        if (isValidImage) {
+          return openLibraryURL
+        } else {
+          console.warn('[OpenLibrary] Image trop petite ou invalide.')
+        }
+      } catch (e) {
+        console.error('[OpenLibrary] Échec:', e)
+      }
+
+      console.log('[Fallback] On passe à Laravel/BnF →', fallbackURL)
+      return fallbackURL
     },
   },
 })
-{
-  /* <img
-              :src="'https://couverture.geobib.fr/api/v1/' + book.isbn + '/medium'"
-              alt="Couverture du livre"
-              class="h-24 w-16 object-cover"
-            /> */
-}

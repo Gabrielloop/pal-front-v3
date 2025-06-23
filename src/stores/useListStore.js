@@ -9,7 +9,14 @@ import {
   createNewList,
 } from '@/api/list'
 import { useToastStore } from '@/stores/toast'
-import { postFavorites, deleteFavorites, postWishlists, deleteWishlists } from '@/api/book'
+import {
+  postFavorites,
+  deleteFavorites,
+  postWishlists,
+  deleteWishlists,
+  addBookToUserList,
+  removeBookFromUserList,
+} from '@/api/book'
 
 export const useListStore = defineStore('listStore', {
   state: () => ({
@@ -265,6 +272,38 @@ export const useListStore = defineStore('listStore', {
       } catch (error) {
         console.error('Erreur suppression liste :', error)
         toast.error(error.message || 'Erreur lors de la suppression de la liste')
+      }
+    },
+    async addToList(book, userlistId) {
+      const toast = useToastStore()
+      const payload = {
+        userlistId: userlistId,
+        isbn: book.isbn,
+      }
+      try {
+        const response = await addBookToUserList(payload)
+        if (!response.success) {
+          throw new Error("Erreur lors de l'ajout du livre à la liste")
+        }
+        toast.success(response.message)
+        this.fetchLists()
+      } catch (error) {
+        console.error('Erreur ajout livre à la liste :', error)
+        toast.error(error.message || "Erreur lors de l'ajout du livre à la liste")
+      }
+    },
+    async removeFromList(userlistId, isbn) {
+      const toast = useToastStore()
+      try {
+        const response = await removeBookFromUserList(userlistId, isbn)
+        if (!response.success) {
+          throw new Error('Erreur lors de la suppression du livre de la liste')
+        }
+        toast.success(response.message)
+        this.fetchLists()
+      } catch (error) {
+        console.error('Erreur suppression livre de la liste :', error)
+        toast.error(error.message || 'Erreur lors de la suppression du livre de la liste')
       }
     },
   },

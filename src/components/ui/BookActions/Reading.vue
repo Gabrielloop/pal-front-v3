@@ -17,32 +17,34 @@
     </template>
 
     <template #actions>
-      <Button
-        :loading="loading"
-        :disabled="loading || readingContent == 0"
-        @click.prevent="saveProgress"
-        type="submit"
-        variant="valider"
-      >
-        <template #icon>
-          <AppIcon name="book" class="mr-2 h-5 w-5" />
-        </template>
-        <span v-if="isAbandoned">Reprendre</span>
-        <span v-else-if="readingContent == 100">Terminer</span>
-        <span v-else-if="readingContent < 100">Modifier</span>
-        <span v-else>Sauvegarder</span></Button
-      >
-      <Button
-        :loading="loading"
-        :disabled="isAbandoned"
-        @click.prevent="abandonReading"
-        variant="refuser"
-      >
-        <template #icon>
-          <AppIcon name="book" class="mr-2 h-5 w-5" />
-        </template>
-        Abandonner</Button
-      >
+      <div class="flex w-full flex-col gap-2">
+        <Button
+          :loading="loading"
+          :disabled="loading || readingContent == 0"
+          @click.prevent="saveProgress"
+          type="submit"
+          variant="valider"
+        >
+          <template #icon>
+            <AppIcon name="book" class="mr-2 h-5 w-5" />
+          </template>
+          <span v-if="isAbandoned">Reprendre</span>
+          <span v-else-if="readingContent == 100">Terminer</span>
+          <span v-else-if="readingContent < 100">Mettre à jour</span>
+          <span v-else>Sauvegarder</span></Button
+        >
+        <Button
+          :loading="loading"
+          :disabled="isAbandoned"
+          @click.prevent="abandonReading"
+          variant="refuser"
+        >
+          <template #icon>
+            <AppIcon name="book" class="mr-2 h-5 w-5" />
+          </template>
+          Abandonner</Button
+        >
+      </div>
     </template>
   </FormContainer>
 </template>
@@ -100,10 +102,9 @@ const saveProgress = async () => {
 
 const abandonReading = async () => {
   loading.value = true
-  const success = await bookStore.abandonReading(isbn)
-  if (success) {
+  const response = await bookStore.abandonReading(isbn)
+  if (response.success) {
     readingContent.value = 0
-    readingContent.value = initialReading.readingContent
     isAbandoned.value = true
     console.log('isAbandoned:', isAbandoned.value)
   }

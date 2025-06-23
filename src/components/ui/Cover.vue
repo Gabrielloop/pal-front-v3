@@ -8,8 +8,8 @@
     </div>
 
     <img
-      v-if="cover"
-      :src="cover"
+      v-if="dynamicCover"
+      :src="dynamicCover"
       alt="cover"
       class="rounded-sm object-cover shadow-sm"
       :class="getCoverSize()"
@@ -21,11 +21,17 @@
 <script setup>
 import { ref, watch, defineProps } from 'vue'
 import LoadingLogo from '@/components/ui/LoadingLogo.vue'
+import { useBnfStore } from '@/stores/useBnfStore'
 
 const props = defineProps({
+  book: {
+    type: Object,
+    required: false,
+  },
   cover: {
     type: String,
-    required: true,
+    required: false,
+    default: '',
   },
   loading: {
     type: Boolean,
@@ -37,26 +43,49 @@ const props = defineProps({
   },
 })
 
+const dynamicCover = ref('')
 const isImageLoaded = ref(false)
+const bnfStore = useBnfStore()
+
+watch(
+  () => [props.book, props.cover],
+  async () => {
+    isImageLoaded.value = false
+
+    if (props.cover) {
+      dynamicCover.value = props.cover
+      return
+    }
+
+    if (props.book) {
+      const url = await bnfStore.resolveBestCover(props.book)
+      dynamicCover.value = url || ''
+    }
+  },
+  { immediate: true }
+)
 
 const handleImageLoad = () => {
   isImageLoaded.value = true
 }
 
-// récupération de la props components pour définir la w et h de la cover
 const getCoverSize = () => {
   if (props.component === 'details') {
     return 'w-[200px] h-[300px]'
   } else if (props.component === 'card') {
-    return 'w-[50px] h-[70px]'
+    return 'w-[140px] h-[200px]'
   }
   return 'w-[50px] h-[70px]'
 }
-
-watch(
-  () => props.cover,
-  () => {
-    isImageLoaded.value = false
-  }
-)
 </script>
+<style scoped>
+.crop-bottom {
+  height: 250px;
+  overflow: hidden;
+}
+
+.crop-bottom img {
+  object-fit: cover;
+  object-position: top;
+}
+</style>
