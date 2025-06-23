@@ -4,11 +4,13 @@
       <PageTitle>
         <template #title>{{ book.title }}</template>
       </PageTitle>
-      <Cover :cover="book.cover" :loading="!book.cover" component="details" />
-      <p class="text-lg font-semibold">Auteur : {{ book.author }}</p>
-      <p class="text-sm">ISBN : {{ book.isbn }}</p>
-      <p class="text-sm">Editeur : {{ book.publisher }}</p>
-      <p class="text-sm">Année : {{ book.year }}</p>
+      <Cover :book="book" :cover="book.cover ?? ''" :loading="!book.cover" component="details" />
+      <div>
+        <p class="text-lg font-semibold">Auteur : {{ book.author }}</p>
+        <p class="text-sm">ISBN : {{ book.isbn }}</p>
+        <p class="text-sm">Editeur : {{ book.publisher }}</p>
+        <p class="text-sm">Année : {{ book.year }}</p>
+      </div>
     </article>
     <article class="flex flex-col gap-4">
       <div class="flex flex-row gap-2">
@@ -19,6 +21,7 @@
       <Comment :book="book" />
     </article>
     <article><ReadingProgress :book="book" /></article>
+    <article><UserLists :book="book" /></article>
     <article class="overflow-hidden rounded-lg bg-white shadow">
       <pre>{{ book }}</pre>
     </article>
@@ -33,6 +36,7 @@ import WishlistButton from '@/components/ui/BookActions/WishlistButton.vue'
 import Comment from '@/components/ui/BookActions/Comment.vue'
 import Note from './BookActions/Note.vue'
 import ReadingProgress from '@/components/ui/BookActions/Reading.vue'
+import UserLists from '@/components/ui/BookActions/UserLists.vue'
 
 const props = defineProps({
   book: {
@@ -40,8 +44,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-const book = props.book
 
 console.log('BookDetails props:', props)
 </script>

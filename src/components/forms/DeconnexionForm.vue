@@ -7,7 +7,7 @@
   <article v-else>
     <FormContainer title="Deconnexion">
       <template #actions>
-        <Button :loading="loading" @click.prevent="submit">
+        <Button :loading="loading" @click.prevent="submit" variant="refuser">
           <template #icon> <AppIcon name="out" class="mr-2 h-5 w-5" /> </template>Se
           déconnecter</Button
         >

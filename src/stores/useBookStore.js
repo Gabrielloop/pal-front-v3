@@ -102,14 +102,12 @@ export const useBookStore = defineStore('bookStore', {
     async saveReadingProgress(isbn, payload) {
       const toast = useToastStore()
       try {
-        await postReadingSet(isbn, payload)
-
+        const response = await postReadingSet(isbn, payload)
         toast.success(response.message || 'Lecture mise à jour')
-        return true
+        return response
       } catch (err) {
         console.error('Erreur lecture :', err)
         toast.error('Erreur lors de la mise à jour de la lecture')
-        return false
       }
     },
 
@@ -118,11 +116,10 @@ export const useBookStore = defineStore('bookStore', {
       try {
         const response = await postReadingAbandon(isbn)
         toast.success(response.message || 'Lecture abandonnée')
-        return true
+        return response
       } catch (err) {
         console.error('Erreur abandon :', err)
         toast.error("Erreur lors de l'abandon")
-        return false
       }
     },
   },

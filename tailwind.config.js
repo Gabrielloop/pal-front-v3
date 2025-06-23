@@ -33,20 +33,20 @@ export default {
         background: '#fcf9f1', // Ivoir clair   Fond général
         accent: '#F2E8D5', // Beige             Contraste
         valide: '#266b03', // Vert              Validation, succès
-        valideLight: '#38a003', // Vert clair
+        valideLight: '#226501', // Vert clair
         secondary: '#f59e0b', // a définir
         muted: '#585258', // Gris               Désactivé
         mutedDark: '#393539', // Gris Foncé
         danger: '#6b1003', // Rouge             Danger, erreur, refuser
         dangerLight: '#a11803', // Rouge clair
         warning: '#6b5203', // En attente       Attente, warning
-        warningLight: '#957103', // Jaune clair
+        warningLight: '#705400', // Jaune clair
         disabled: '#585258', // Gris neutre     Désactivé
         disabledDark: '#393539', // Gris foncé
       },
       fontFamily: {
         title: ['"Playball"', 'cursive'],
-        body: ['"Mona Sans"', 'sans-serif'],
+        body: ['"Mona Sans"', 'sans-serif', '400'],
       },
       fontSize: {
         xs: '0.75rem',

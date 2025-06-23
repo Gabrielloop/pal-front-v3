@@ -19,9 +19,9 @@
       <PageTitle>
         <template #title>Mes listes</template>
       </PageTitle>
-      <Grid>
-        <CollectionList :items="listStore.lists" />
-      </Grid>
+
+      <CollectionList :items="listStore.lists" />
+
       <article>
         <CreateListForm />
       </article>

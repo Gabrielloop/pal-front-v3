@@ -7,7 +7,7 @@ import MainContent from '@/components/ui/MainContent.vue'
 
 <template>
   <div>
-    <main>
+    <main class="mb-16 sm:mb-0">
       <!-- HEADER : Logo + barre de recherche -->
       <Header />
 
