@@ -4,7 +4,6 @@ import {
   removeBookFromUserList,
   addOrUpdateComment,
   addOrUpdateNote,
-  postReadingAdd,
   postReadingSet,
   postReadingAbandon,
 } from '@/api/book'
@@ -100,9 +99,11 @@ export const useBookStore = defineStore('bookStore', {
       }
     },
     async saveReadingProgress(isbn, payload) {
+      const listStore = useListStore()
       const toast = useToastStore()
       try {
         const response = await postReadingSet(isbn, payload)
+        listStore.fetchReadings()
         toast.success(response.message || 'Lecture mise à jour')
         return response
       } catch (err) {
@@ -112,9 +113,11 @@ export const useBookStore = defineStore('bookStore', {
     },
 
     async abandonReading(isbn) {
+      const listStore = useListStore()
       const toast = useToastStore()
       try {
         const response = await postReadingAbandon(isbn)
+        listStore.fetchReadings()
         toast.success(response.message || 'Lecture abandonnée')
         return response
       } catch (err) {

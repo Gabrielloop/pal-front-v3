@@ -37,29 +37,33 @@ export const useListStore = defineStore('listStore', {
     hasWishlists: (state) => state.wishlists.length > 0,
     hasReadings: (state) => state.readings.length > 0,
     countHasNotStartedReadings: (state) => {
-      return state.readings.filter((reading) => !reading.isFinished).length
+      return state.readings.filter((book) => !book.reading.isStarted && !book.reading.isAbandoned)
+        .length
     },
     countHasStartedReadings: (state) => {
-      return state.readings.filter((reading) => reading.isReading).length
+      return state.readings.filter((book) => book.reading.isReading).length
     },
     countHasFinishedReadings: (state) => {
-      return state.readings.filter((reading) => reading.isFinished === true).length
-    },
-    countHasNotFinishedReadings: (state) => {
-      return state.readings.filter((reading) => !reading.isFinished).length
+      return state.readings.filter((book) => book.reading.isFinished === true).length
     },
     countHasAbandonedReadings: (state) => {
-      return state.readings.filter((reading) => reading.isAbandoned).length
+      return state.readings.filter((book) => book.reading.isAbandoned).length
     },
-    countHasNotAbandonedReadings: (state) => {
-      return state.readings.filter((reading) => !reading.isAbandoned).length
+
+    countStarsByValue: (state) => {
+      const counts = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+
+      state.notes.forEach((note) => {
+        const stars = parseInt(note.noteContent)
+        if (!isNaN(stars) && stars >= 0 && stars <= 5) {
+          counts[stars]++
+        }
+      })
+
+      return counts
     },
 
     hasComments: (state) => state.comments.length > 0,
-    hasNotes: (state) => state.notes.length > 0,
-    hasStars: (state) => (stars) => {
-      return state.notes.some((note) => note.stars === stars)
-    },
   },
 
   actions: {

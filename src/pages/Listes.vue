@@ -6,13 +6,13 @@
       </PageTitle>
       <LoadingLogo />
     </section>
-    <section v-else-if="userlist && !loading">
+    <section v-else-if="LocalUser && !loading">
       <PageTitle>
-        <template #title>{{ userlist.userlistName || 'Liste' }}</template>
-        <template #subtitle>{{ userlist.userlistDescription || 'Ma liste' }}</template>
+        <template #title>{{ LocalUser.LocalUserName || 'Liste' }}</template>
+        <template #subtitle>{{ LocalUser.LocalUserDescription || 'Ma liste' }}</template>
       </PageTitle>
       <Grid>
-        <BookCard v-for="book in userlist.books" :key="book.isbn" :book="book" />
+        <BookCard v-for="book in LocalUser.LocalUserBooks" :key="book.isbn" :book="book" />
       </Grid>
     </section>
     <section v-else>
@@ -33,6 +33,7 @@
 import { useRoute } from 'vue-router'
 import { useListStore } from '@/stores/useListStore'
 import { ref, onMounted, watch } from 'vue'
+
 import BookCard from '@/components/ui/BookCard.vue'
 import LoadingLogo from '@/components/ui/LoadingLogo.vue'
 import CreateListForm from '@/components/forms/CreateListForm.vue'
@@ -43,41 +44,42 @@ import Grid from '@/components/ui/Grid.vue'
 const listStore = useListStore()
 const route = useRoute()
 
-const userlist = ref(null)
+const LocalUser = ref(null)
 const loading = ref(true)
 
+// Fonction de chargement de la liste selon les paramètres d'URL
 async function loadList() {
   const type = route.params.type
   const id = route.params.id
 
   loading.value = true
-  userlist.value = null
+  LocalUser.value = null
 
-  // 🟢 Cas 1 : liste utilisateur
+  console.log('type de route :', type, id)
+
   if (type === 'list' && id) {
-    userlist.value = listStore.getListbyId(parseInt(id))
-  }
-
-  // 🟢 Cas 2 : favoris
-  else if (type === 'favoris') {
-    userlist.value = {
-      userlistName: 'Favoris',
-      userlistDescription: 'Livres marqués comme favoris',
-      books: listStore.favorites,
+    const list = listStore.getListbyId(parseInt(id))
+    if (list) {
+      LocalUser.value = {
+        LocalUserName: list.name,
+        LocalUserDescription: list.description,
+        LocalUserBooks: list.books,
+      }
     }
-  }
-
-  // 🟢 Cas 3 : wishlist
-  else if (type === 'wishlist') {
-    userlist.value = {
-      userlistName: 'Wishlist',
-      userlistDescription: 'Livres à lire plus tard',
-      books: listStore.wishlists,
+  } else if (type === 'favoris') {
+    console.log('Favoris:', listStore.favorites),
+      (LocalUser.value = {
+        LocalUserName: 'Favoris',
+        LocalUserDescription: 'Livres marqués comme favoris',
+        LocalUserBooks: listStore.favorites,
+      })
+  } else if (type === 'wishlist') {
+    LocalUser.value = {
+      LocalUserName: 'Wishlist',
+      LocalUserDescription: 'Livres à lire plus tard',
+      LocalUserBooks: listStore.wishlists,
     }
-  }
-
-  // 🟢 Cas 4 : lectures (en-cours / terminé / abandonné / a-commencer)
-  else if (type === 'lectures' && id) {
+  } else if (type === 'lectures' && id) {
     const labelMap = {
       'en-cours': 'Lectures en cours',
       termine: 'Lectures terminées',
@@ -86,45 +88,41 @@ async function loadList() {
     }
 
     const filterMap = {
-      'en-cours': (r) => r.isReading,
-      termine: (r) => r.isFinished,
-      abandonne: (r) => r.isAbandoned,
-      'a-commencer': (r) => !r.isStarted,
+      all: () => true, // Tous les livres
+      'en-cours': (r) => r.reading.isReading,
+      termine: (r) => r.reading.isFinished,
+      abandonne: (r) => r.reading.isAbandoned,
+      'a-commencer': (r) => !r.reading.isStarted,
     }
 
     if (filterMap[id]) {
       const filtered = listStore.readings.filter(filterMap[id])
-      userlist.value = {
-        userlistName: labelMap[id],
-        userlistDescription: 'Livres selon l’état de lecture',
-        books: filtered,
+      LocalUser.value = {
+        LocalUserName: labelMap[id],
+        LocalUserDescription: 'Livres selon l’état de lecture',
+        LocalUserBooks: filtered,
       }
     }
-  }
-
-  // 🟢 Cas 5 : classement par étoiles
-  else if (type === 'classements' && id !== undefined) {
+  } else if (type === 'classements' && id !== undefined) {
     const stars = parseInt(id)
-    const filteredNotes = listStore.notes.filter((n) => n.stars === stars)
-    const books = listStore.filteredNotes.map((n) => n.book)
 
-    userlist.value = {
-      userlistName: `Classement ${stars} ★`,
-      userlistDescription: `Livres notés ${stars} étoile${stars > 1 ? 's' : ''}`,
-      books,
+    const filteredNotes = listStore.notes.filter((n) => parseInt(n.noteContent) === stars)
+    const books = filteredNotes.map((n) => n.book ?? n)
+
+    LocalUser.value = {
+      LocalUserName: `Classement ${stars} ★`,
+      LocalUserDescription: `Livres notés ${stars} étoile${stars > 1 ? 's' : ''}`,
+      LocalUserBooks: books,
     }
-  }
-
-  // ❌ Aucun cas reconnu
-  else {
-    userlist.value = null
+  } else {
+    // Aucun type reconnu
+    LocalUser.value = null
   }
 
   loading.value = false
 }
 
+// Charger la liste au montage et lors des changements de route
 watch(() => route.fullPath, loadList)
 onMounted(loadList)
-
-watch(() => route.params, loadList)
 </script>

@@ -19,7 +19,7 @@ export async function fetchUserWishlists() {
 }
 
 export async function fetchUserReadings() {
-  return apiFetch('/reading/all', {
+  return apiFetch('/reading/collection', {
     method: 'GET',
   })
 }
