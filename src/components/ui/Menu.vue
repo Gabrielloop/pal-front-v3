@@ -45,11 +45,11 @@
             <RouterLink :to="item.route">
               <div class="flex items-center justify-between dark:text-ivory">
                 <span class="menu-block block truncate dark:text-ivory" :title="item.label">
-                  {{ item.label }} </span
-                ><span
-                  class="badge-primary flex min-w-6 justify-center whitespace-nowrap text-xs"
-                  >{{ item.count }}</span
-                >
+                  {{ item.label }}
+                </span>
+                <!-- <span class="badge-primary flex min-w-6 justify-center whitespace-nowrap text-xs">{{
+                  item.count
+                }}</span> -->
               </div>
             </RouterLink>
           </template>

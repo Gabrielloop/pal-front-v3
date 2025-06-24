@@ -1,4 +1,5 @@
 <template>
+  <pre>{{ route }}</pre>
   <Grid>
     <RouterLink
       v-for="item in items"
@@ -22,6 +23,9 @@ defineProps({
   items: {
     type: Array,
     default: () => [],
+  },
+  route: {
+    type: String,
   },
 })
 </script>

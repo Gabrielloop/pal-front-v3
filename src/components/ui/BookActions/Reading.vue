@@ -20,7 +20,7 @@
       <div class="flex w-full flex-col gap-2">
         <Button
           :loading="loading"
-          :disabled="loading || readingContent == 0"
+          :disabled="loading"
           @click.prevent="saveProgress"
           type="submit"
           variant="valider"
@@ -29,6 +29,7 @@
             <AppIcon name="book" class="mr-2 h-5 w-5" />
           </template>
           <span v-if="isAbandoned">Reprendre</span>
+          <span v-else-if="readingContent == 0">Commencer</span>
           <span v-else-if="readingContent == 100">Terminer</span>
           <span v-else-if="readingContent < 100">Mettre à jour</span>
           <span v-else>Sauvegarder</span></Button
