@@ -215,7 +215,6 @@ export const router = createRouter({
   routes,
 })
 
-// Guard : Vérification de l'authentification et des permissions
 router.beforeEach(async (to, from, next) => {
   const { useAuthStore } = await import('@/stores/useAuthStore')
   const auth = useAuthStore()
@@ -223,15 +222,13 @@ router.beforeEach(async (to, from, next) => {
   const isLoggedIn = auth.isAuthenticated
   const isAdmin = auth.isAdmin
 
-  // Route nécessitant une authentification
   if (to.meta.requiresAuth && !isLoggedIn) {
     return next({ name: 'Login', query: { redirect: to.fullPath } })
   }
 
-  // Route nécessitant un admin
-  if (to.meta.requiresAdmin && !isAdmin) {
+  if (to.meta.requiresAdmin && (!isLoggedIn || !isAdmin)) {
     return next({ name: 'Listes' })
   }
 
-  next()
+  return next()
 })

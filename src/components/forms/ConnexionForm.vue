@@ -17,7 +17,13 @@
     </template>
 
     <template #actions>
-      <Button :loading="loading" @click.prevent="submit" type="submit" variant="valider">
+      <Button
+        :disabled="!isFormValid"
+        :loading="loading"
+        @click.prevent="submit"
+        type="submit"
+        variant="valider"
+      >
         <template #icon> <AppIcon name="in" class="mr-2 h-5 w-5" /> </template>Se connecter</Button
       >
       <Button variant="attente" @click="$emit('forgot-password')">Mot de passe oublié</Button>
@@ -29,6 +35,7 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useRouter } from 'vue-router'
+import { computed } from 'vue'
 import FormContainer from '@/components/ui/FormContainer.vue'
 import Button from '@/components/ui/Button.vue'
 import AppIcon from '../AppIcon.vue'
@@ -41,16 +48,24 @@ const loading = ref(false)
 const auth = useAuthStore()
 const router = useRouter()
 
+const isEmailValid = computed(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()))
+const isPasswordValid = computed(() => password.value.trim().length > 0)
+const isFormValid = computed(() => isEmailValid.value && isPasswordValid.value)
+
 function validateForm() {
   if (!email.value.trim()) return 'Veuillez entrer votre email.'
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email.value.trim())) return 'Adresse email invalide.'
+
   if (!password.value.trim()) return 'Veuillez entrer votre mot de passe.'
+
   return null
 }
 
 const submit = async () => {
   error.value = null
 
-  // TODO : ajouter une vérification sur l'email
   const validationError = validateForm()
   if (validationError) {
     error.value = validationError
@@ -62,7 +77,11 @@ const submit = async () => {
     await auth.login({ email: email.value, password: password.value })
     router.push('/')
   } catch (err) {
-    error.value = 'Échec de la connexion'
+    if (err.response?.status === 401) {
+      error.value = 'Email ou mot de passe incorrect'
+    } else {
+      error.value = 'Erreur serveur. Veuillez réessayer.'
+    }
   } finally {
     loading.value = false
   }

@@ -1,23 +1,22 @@
 <template>
   <div class="flex h-screen w-full flex-col items-center justify-center bg-primary p-0 md:p-8">
     <Logo size="250px" />
-    <h1 class="font-title text-[5em] text-ivory">Verso</h1>
+    <h1 class="mb-4 font-title text-[5em] text-ivory">Verso</h1>
     <article class="my-2 w-full sm:my-8 md:w-[500px]">
-      <!-- TODO : Passer l'action en flex col pour l'affichage mobile -->
-      <!-- TODO : ajouter un lien vers une page d'inscription -->
-      <ConnexionForm @forgot-password="handleForgotPassword" />
+      <component
+        :is="showForgotPassword ? PasswordForm : ConnexionForm"
+        @forgot-password="showForgotPassword = true"
+        @back="showForgotPassword = false"
+      />
     </article>
   </div>
 </template>
 
 <script setup>
-import ConnexionForm from '@/components/forms/ConnexionForm.vue'
+import { ref } from 'vue'
 import Logo from '@/components/ui/Logo.vue'
+import ConnexionForm from '@/components/forms/ConnexionForm.vue'
+import PasswordForm from '@/components/forms/PasswordForm.vue'
 
-// TODO : Gérer le mot de passe oublié
-const handleForgotPassword = () => {
-  alert('Redirection vers la page de réinitialisation') // ou router.push('/mot-de-passe-oublie')
-}
+const showForgotPassword = ref(false)
 </script>
-
-<style scoped></style>
