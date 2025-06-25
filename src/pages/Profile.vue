@@ -13,7 +13,7 @@ const isAdmin = computed(() => auth.isAdmin)
 
 <template>
   <section>
-    <PageTitle>
+    <PageTitle backButton>
       <template #title>Paramètres utilisateurs</template>
       <template #subtitle></template>
     </PageTitle>

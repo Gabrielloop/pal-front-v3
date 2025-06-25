@@ -1,9 +1,9 @@
 <template>
+  <PageTitle backButton>
+    <template #title>{{ book.title }}</template>
+  </PageTitle>
   <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
     <article class="flex flex-col items-center justify-center gap-4">
-      <PageTitle>
-        <template #title>{{ book.title }}</template>
-      </PageTitle>
       <Cover :book="book" :cover="book.cover ?? ''" :loading="!book.cover" component="details" />
       <div>
         <p class="text-lg font-semibold">Auteur : {{ book.author }}</p>

@@ -6,6 +6,26 @@ export async function fetchUserLists() {
   })
 }
 
+export async function createNewList(list) {
+  return apiFetch('/userlists', {
+    method: 'POST',
+    body: JSON.stringify(list),
+  })
+}
+
+export async function updateUserList(listId, data) {
+  return apiFetch(`/userlists/id/${listId}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function deleteUserList(listId) {
+  return apiFetch(`/userlists/id/${listId}`, {
+    method: 'DELETE',
+  })
+}
+
 export async function fetchUserFavorites() {
   return apiFetch('/favorites', {
     method: 'GET',
@@ -33,18 +53,5 @@ export async function fetchUserComments() {
 export async function fetchUserNotes() {
   return apiFetch('/notes', {
     method: 'GET',
-  })
-}
-
-export async function createNewList(list) {
-  return apiFetch('/userlists', {
-    method: 'POST',
-    body: JSON.stringify(list),
-  })
-}
-
-export async function deleteUserList(listId) {
-  return apiFetch(`/userlists/id/${listId}`, {
-    method: 'DELETE',
   })
 }

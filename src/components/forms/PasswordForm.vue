@@ -59,8 +59,10 @@ const back = () => {
   emit('back')
 }
 
+const ADMIN_MAIL = import.meta.env.VITE_ADMIN_MAIL
+
 const mailtoLink = computed(() => {
-  const to = 'admin@tonsite.com'
+  const to = ADMIN_MAIL
   const subject = encodeURIComponent('Demande de réinitialisation de mot de passe')
   const body = encodeURIComponent(
     `Bonjour,\n\nL'utilisateur avec l'adresse ${email.value || '[non précisé]'} demande une réinitialisation de mot de passe.\n\nMerci.`

@@ -7,6 +7,8 @@ import {
   fetchUserComments,
   fetchUserNotes,
   createNewList,
+  updateUserList,
+  deleteUserList,
 } from '@/api/list'
 import { useToastStore } from '@/stores/toast'
 import {
@@ -264,10 +266,10 @@ export const useListStore = defineStore('listStore', {
         return false
       }
     },
-    async deleteList(id) {
+    async deleteList(listId) {
       const toast = useToastStore()
       try {
-        const response = await deleteUserList(id)
+        const response = await deleteUserList(listId)
         if (!response.success) {
           throw new Error('Erreur lors de la suppression de la liste')
         }
@@ -278,6 +280,28 @@ export const useListStore = defineStore('listStore', {
         toast.error(error.message || 'Erreur lors de la suppression de la liste')
       }
     },
+    async updateList(listId, { userlistName, userlistDescription }) {
+      const toast = useToastStore()
+      try {
+        const response = await updateUserList(listId, {
+          userlistName,
+          userlistDescription,
+        })
+
+        if (!response.success) {
+          throw new Error('Erreur lors de la mise à jour de la liste')
+        }
+
+        toast.success(response.message || 'Liste mise à jour avec succès')
+        await this.fetchLists()
+        return true
+      } catch (error) {
+        console.error('Erreur updateList :', error)
+        toast.error(error.message || 'Erreur lors de la mise à jour de la liste')
+        return false
+      }
+    },
+
     async addToList(book, userlistId) {
       const toast = useToastStore()
       const payload = {

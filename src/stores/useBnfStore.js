@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { searchByQuery } from '@/api/bnfApi'
-import { useListStore } from '@/stores/useListStore'
 
 export const useBnfStore = defineStore('bnf', {
   state: () => ({
@@ -23,11 +22,9 @@ export const useBnfStore = defineStore('bnf', {
       this.error = null
 
       try {
-        const listStore = useListStore()
         const raw = await searchByQuery(query, page)
 
         this.results = raw
-        console.log('Résultats de recherche BNF :', this.results)
       } catch (e) {
         this.error = e.message || 'Erreur API'
       } finally {
@@ -46,20 +43,14 @@ export const useBnfStore = defineStore('bnf', {
         const res = await fetch(openLibraryURL)
         const blob = await res.blob()
 
-        console.log('[OpenLibrary] Size:', blob.size)
-
         const isValidImage = res.ok && blob.size > 500
 
         if (isValidImage) {
           return openLibraryURL
         } else {
-          console.warn('[OpenLibrary] Image trop petite ou invalide.')
         }
-      } catch (e) {
-        console.error('[OpenLibrary] Échec:', e)
-      }
+      } catch (e) {}
 
-      console.log('[Fallback] On passe à Laravel/BnF →', fallbackURL)
       return fallbackURL
     },
   },

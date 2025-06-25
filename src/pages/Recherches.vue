@@ -1,33 +1,30 @@
 <template>
-  <div class="flex min-h-screen w-full flex-col items-center p-4">
-    <section v-if="bnfStore.results.length === 0" aria-label="Résultats">
-      <PageTitle>
-        <template #title>Aucun résultat pour "{{ searchQuery }}"</template>
-        <template #subtitle
-          >Essayez une autre recherche. Par exemple : <strong>"Zola"</strong> ou un ISBN.</template
-        >
-      </PageTitle>
-    </section>
-    <section v-else-if="!loading" aria-live="polite">
-      <PageTitle>
-        <template #title
-          >Résultat{{ bnfStore.results.length > 0 ? 's' : '' }} pour "{{ searchQuery }}"</template
-        >
-        <template #subtitle>Recherche par titre ou ISBN dans la barre de recherches.</template>
-      </PageTitle>
-      <Grid>
-        <BookCard v-for="book in bnfStore.results" :key="book.isbn" :book="book" />
-      </Grid>
-    </section>
+  <section v-if="bnfStore.results.length === 0" aria-label="Résultats">
+    <PageTitle backButton>
+      <template #title>Aucun résultat pour "{{ searchQuery }}"</template>
+      <template #subtitle
+        >Essayez une autre recherche. Par exemple : <strong>"Zola"</strong> ou un ISBN.</template
+      >
+    </PageTitle>
+  </section>
+  <section v-else-if="!loading" aria-live="polite">
+    <PageTitle backButton>
+      <template #title
+        >Résultat{{ bnfStore.results.length > 0 ? 's' : '' }} pour "{{ searchQuery }}"</template
+      >
+      <template #subtitle>Recherche par titre ou ISBN dans la barre de recherches.</template>
+    </PageTitle backButton>
+    <Grid>
+      <BookCard v-for="book in bnfStore.results" :key="book.isbn" :book="book" />
+    </Grid>
+  </section>
 
-    <section v-else aria-live="polite">
-      <LoadingLogo />
-    </section>
-  </div>
+  <section v-else aria-live="polite">
+    <LoadingLogo />
+  </section>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBnfStore } from '@/stores/useBnfStore'
 import BookCard from '@/components/ui/BookCard.vue'

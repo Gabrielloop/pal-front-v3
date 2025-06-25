@@ -50,7 +50,7 @@ article {
 }
 
 section {
-  @apply m-0 my-4 flex w-full flex-col gap-8 sm:m-8;
+  @apply m-1 my-4 flex w-full flex-col gap-8 sm:m-8;
 }
 
 body {

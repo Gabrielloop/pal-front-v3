@@ -1,32 +1,34 @@
 <template>
-  <div class="flex min-h-screen w-full flex-col items-center p-4">
-    <section v-if="loading">
-      <PageTitle>
-        <template #title>Mes listes</template>
-      </PageTitle>
-      <LoadingLogo />
-    </section>
-    <section v-else-if="LocalUser && !loading">
-      <PageTitle>
-        <template #title>{{ LocalUser.LocalUserName || 'Liste' }}</template>
-        <template #subtitle>{{ LocalUser.LocalUserDescription || 'Ma liste' }}</template>
-      </PageTitle>
-      <Grid>
-        <BookCard v-for="book in LocalUser.LocalUserBooks" :key="book.isbn" :book="book" />
-      </Grid>
-    </section>
-    <section v-else>
-      <PageTitle>
-        <template #title>Mes listes</template>
-      </PageTitle>
+  <section v-if="LocalUser && !loading">
+    <PageTitle backButton>
+      <template #title>{{ LocalUser.LocalUserName || 'Liste' }}</template>
+      <template #subtitle>{{ LocalUser.LocalUserDescription || 'Ma liste' }}</template>
+    </PageTitle>
+    <Grid>
+      <BookCard v-for="book in LocalUser.LocalUserBooks" :key="book.isbn" :book="book" />
+    </Grid>
+    <article v-if="LocalUser && route.params.type === 'list'">
+      <ListEditor
+        :name="LocalUser.LocalUserName"
+        :description="LocalUser.LocalUserDescription"
+        :list-id="parseInt(route.params.id)"
+        :editable="true"
+        @update="updateLocalUser"
+      />
+    </article>
+  </section>
+  <section v-else>
+    <PageTitle backButton>
+      <template #title>Mes listes</template>
+    </PageTitle>
 
-      <CollectionList :items="listStore.lists" />
+    <LoadingLogo v-if="loading" />
+    <CollectionList :items="listStore.lists" v-else />
 
-      <article>
-        <CreateListForm />
-      </article>
-    </section>
-  </div>
+    <article>
+      <CreateListForm />
+    </article>
+  </section>
 </template>
 
 <script setup>
@@ -40,6 +42,7 @@ import CreateListForm from '@/components/forms/CreateListForm.vue'
 import CollectionList from '@/components/ui/CollectionList.vue'
 import PageTitle from '@/components/ui/PageTitle.vue'
 import Grid from '@/components/ui/Grid.vue'
+import ListEditor from '@/components/forms/ListEditor.vue'
 
 const listStore = useListStore()
 const route = useRoute()
@@ -47,7 +50,6 @@ const route = useRoute()
 const LocalUser = ref(null)
 const loading = ref(true)
 
-// Fonction de chargement de la liste selon les paramètres d'URL
 async function loadList() {
   const type = route.params.type
   const id = route.params.id
@@ -55,24 +57,21 @@ async function loadList() {
   loading.value = true
   LocalUser.value = null
 
-  console.log('type de route :', type, id)
-
   if (type === 'list' && id) {
     const list = listStore.getListbyId(parseInt(id))
     if (list) {
       LocalUser.value = {
-        LocalUserName: list.name,
-        LocalUserDescription: list.description,
+        LocalUserName: list.userlistName,
+        LocalUserDescription: list.userlistDescription,
         LocalUserBooks: list.books,
       }
     }
   } else if (type === 'favoris') {
-    console.log('Favoris:', listStore.favorites),
-      (LocalUser.value = {
-        LocalUserName: 'Favoris',
-        LocalUserDescription: 'Livres marqués comme favoris',
-        LocalUserBooks: listStore.favorites,
-      })
+    LocalUser.value = {
+      LocalUserName: 'Favoris',
+      LocalUserDescription: 'Livres marqués comme favoris',
+      LocalUserBooks: listStore.favorites,
+    }
   } else if (type === 'wishlist') {
     LocalUser.value = {
       LocalUserName: 'Wishlist',
@@ -88,7 +87,7 @@ async function loadList() {
     }
 
     const filterMap = {
-      all: () => true, // Tous les livres
+      all: () => true,
       'en-cours': (r) => r.reading.isReading,
       termine: (r) => r.reading.isFinished,
       abandonne: (r) => r.reading.isAbandoned,
@@ -115,14 +114,19 @@ async function loadList() {
       LocalUserBooks: books,
     }
   } else {
-    // Aucun type reconnu
     LocalUser.value = null
   }
 
   loading.value = false
 }
 
-// Charger la liste au montage et lors des changements de route
+function updateLocalUser({ name, description }) {
+  if (LocalUser.value) {
+    LocalUser.value.LocalUserName = name
+    LocalUser.value.LocalUserDescription = description
+  }
+}
+
 watch(() => route.fullPath, loadList)
 onMounted(loadList)
 </script>
