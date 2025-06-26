@@ -118,17 +118,16 @@ export const useSectionsStore = defineStore('sections', {
           description: 'Les moins bonnes lectures',
           count: starCounts[1] || 0,
         },
-        {
-          key: 'rating-0',
-          label: '0 étoiles',
-          route: '/listes/classements/0',
-          icon: 'star',
-          description: "Livres que je n'ai pas notés",
-          count: starCounts[0] || 0,
-        },
+        // {
+        //   key: 'rating-0',
+        //   label: '0 étoiles',
+        //   route: '/listes/classements/0',
+        //   icon: 'star',
+        //   description: "Livres que je n'ai pas notés",
+        //   count: starCounts[0] || 0,
+        // },
       ]
 
-      // Sous-listes fixes pour lectures
       const readingStatusLists = [
         {
           key: 'reading-start',
@@ -164,7 +163,6 @@ export const useSectionsStore = defineStore('sections', {
         },
       ]
 
-      // Construit les sections dynamiquement
       this.sections = this.baseSections.map((section) => {
         if (section.key === 'mes-listes') {
           return {

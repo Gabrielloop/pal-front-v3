@@ -69,6 +69,11 @@ const handleImageLoad = () => {
   isImageLoaded.value = true
 }
 
+const handleImageError = () => {
+  isImageLoaded.value = true
+  dynamicCover.value = '/images/cover-fallback.png'
+}
+
 const getCoverSize = () => {
   if (props.component === 'details') {
     return 'w-[200px] h-[300px]'

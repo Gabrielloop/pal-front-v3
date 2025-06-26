@@ -1,19 +1,29 @@
 <template>
-  <section v-if="LocalUser && !loading">
+  <section v-if="localLists && !loading">
     <PageTitle backButton>
-      <template #title>{{ LocalUser.LocalUserName || 'Liste' }}</template>
-      <template #subtitle>{{ LocalUser.LocalUserDescription || 'Ma liste' }}</template>
+      <template #title>{{ localLists.name || 'Liste' }}</template>
+      <template #subtitle>{{ localLists.description || 'Ma liste' }}</template>
     </PageTitle>
+    <article
+      v-if="localLists.books?.length === 0"
+      class="flex flex-col items-center justify-center gap-4"
+    >
+      <p>
+        Aucun livre trouvé dans cette liste.<br />
+        Lancer une recherche :
+      </p>
+      <SearchBar />
+    </article>
     <Grid>
-      <BookCard v-for="book in LocalUser.LocalUserBooks" :key="book.isbn" :book="book" />
+      <BookCard v-for="book in localLists.books" :key="book.isbn" :book="book" />
     </Grid>
-    <article v-if="LocalUser && route.params.type === 'list'">
+    <article v-if="localLists && route.params.type === 'list'">
       <ListEditor
-        :name="LocalUser.LocalUserName"
-        :description="LocalUser.LocalUserDescription"
+        :name="localLists.name"
+        :description="localLists.description"
         :list-id="parseInt(route.params.id)"
         :editable="true"
-        @update="updateLocalUser"
+        @update="updateLocalLists"
       />
     </article>
   </section>
@@ -43,11 +53,12 @@ import CollectionList from '@/components/ui/CollectionList.vue'
 import PageTitle from '@/components/ui/PageTitle.vue'
 import Grid from '@/components/ui/Grid.vue'
 import ListEditor from '@/components/forms/ListEditor.vue'
+import SearchBar from '../components/ui/SearchBar.vue'
 
 const listStore = useListStore()
 const route = useRoute()
 
-const LocalUser = ref(null)
+const localLists = ref(null)
 const loading = ref(true)
 
 async function loadList() {
@@ -55,28 +66,28 @@ async function loadList() {
   const id = route.params.id
 
   loading.value = true
-  LocalUser.value = null
+  localLists.value = null
 
   if (type === 'list' && id) {
-    const list = listStore.getListbyId(parseInt(id))
+    const list = await listStore.getListbyId(parseInt(id))
     if (list) {
-      LocalUser.value = {
-        LocalUserName: list.userlistName,
-        LocalUserDescription: list.userlistDescription,
-        LocalUserBooks: list.books,
+      localLists.value = {
+        name: list.userlistName,
+        description: list.userlistDescription,
+        books: list.books,
       }
     }
   } else if (type === 'favoris') {
-    LocalUser.value = {
-      LocalUserName: 'Favoris',
-      LocalUserDescription: 'Livres marqués comme favoris',
-      LocalUserBooks: listStore.favorites,
+    localLists.value = {
+      name: 'Favoris',
+      description: 'Livres marqués comme favoris',
+      books: listStore.favorites,
     }
   } else if (type === 'wishlist') {
-    LocalUser.value = {
-      LocalUserName: 'Wishlist',
-      LocalUserDescription: 'Livres à lire plus tard',
-      LocalUserBooks: listStore.wishlists,
+    localLists.value = {
+      name: 'Wishlist',
+      description: 'Livres à lire plus tard',
+      books: listStore.wishlists,
     }
   } else if (type === 'lectures' && id) {
     const labelMap = {
@@ -96,34 +107,39 @@ async function loadList() {
 
     if (filterMap[id]) {
       const filtered = listStore.readings.filter(filterMap[id])
-      LocalUser.value = {
-        LocalUserName: labelMap[id],
-        LocalUserDescription: 'Livres selon l’état de lecture',
-        LocalUserBooks: filtered,
+      localLists.value = {
+        name: labelMap[id],
+        description: 'Livres selon l’état de lecture',
+        books: filtered,
       }
     }
   } else if (type === 'classements' && id !== undefined) {
+    if (isNaN(id) || parseInt(id) <= 0) {
+      loading.value = false
+      return
+    }
+
     const stars = parseInt(id)
 
     const filteredNotes = listStore.notes.filter((n) => parseInt(n.noteContent) === stars)
     const books = filteredNotes.map((n) => n.book ?? n)
 
-    LocalUser.value = {
-      LocalUserName: `Classement ${stars} ★`,
-      LocalUserDescription: `Livres notés ${stars} étoile${stars > 1 ? 's' : ''}`,
-      LocalUserBooks: books,
+    localLists.value = {
+      name: `Classement ${stars} ★`,
+      description: `Livres notés ${stars} étoile${stars > 1 ? 's' : ''}`,
+      books: books,
     }
   } else {
-    LocalUser.value = null
+    localLists.value = null
   }
 
   loading.value = false
 }
 
-function updateLocalUser({ name, description }) {
-  if (LocalUser.value) {
-    LocalUser.value.LocalUserName = name
-    LocalUser.value.LocalUserDescription = description
+function updateLocalLists({ name, description }) {
+  if (localLists.value) {
+    localLists.value.name = name
+    localLists.value.description = description
   }
 }
 

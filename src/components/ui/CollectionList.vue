@@ -1,10 +1,9 @@
 <template>
-  <pre>{{ route }}</pre>
   <Grid>
     <RouterLink
       v-for="item in items"
       :key="item.userlistId"
-      :to="`/listes/list/${item.userlistId}`"
+      :to="item.route ? item.route : `/listes/list/${item.userlistId}`"
     >
       <CardList
         :name="item.userlistName || item.label || 'Liste sans nom'"
@@ -23,9 +22,6 @@ defineProps({
   items: {
     type: Array,
     default: () => [],
-  },
-  route: {
-    type: String,
   },
 })
 </script>

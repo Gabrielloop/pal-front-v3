@@ -80,7 +80,6 @@ const auth = useAuthStore()
 const isAdmin = auth.isAdmin
 
 onMounted(async () => {
-  await listStore.fetchAll()
   await sectionStore.buildSections()
 })
 </script>

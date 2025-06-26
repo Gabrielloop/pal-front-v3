@@ -10,10 +10,16 @@
 <script setup>
 import AppIcon from '@/components/AppIcon.vue'
 import { useRouter } from 'vue-router'
+import { useNavHistory } from '@/utils/useNavigationGuard'
 
 const router = useRouter()
+const { hasPrev } = useNavHistory()
 
-const goBack = () => {
-  router.back()
+function goBack() {
+  if (hasPrev.value) {
+    router.back()
+  } else {
+    router.replace('/')
+  }
 }
 </script>

@@ -25,7 +25,7 @@
         <template #icon> <AppIcon name="back" class="h-5 w-5" /> </template>
         Annuler</Button
       >
-      <Button @click="save" :disabled="loading" :loading="loading" variant="valider">
+      <Button @click="save" type="submit" :disabled="loading" :loading="loading" variant="valider">
         <template #icon> <AppIcon name="edit" class="h-5 w-5" /> </template>
         {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
       </Button>
@@ -47,7 +47,7 @@
   </FormContainer>
   <FormContainer title="Modifier ou supprimer la liste" v-else
     ><template #actions>
-      <Button @click="isEditing = true" :loading="loading" :disabled="loading">
+      <Button @click="isEditing = true" type="submit" :loading="loading" :disabled="loading">
         <template #icon> <AppIcon name="edit" class="h-5 w-5" /> </template>Editer
       </Button>
       <Button @click="confirmDelete" variant="refuser" :loading="loading" :disabled="loading">
