@@ -3,7 +3,7 @@
     <!-- Loading state -->
     <template v-if="loading">
       <li v-for="n in skeletonCount" :key="n">
-        <Skeleton height="h-8" />
+        <Skeleton height="h-8" fullWidth />
       </li>
     </template>
 

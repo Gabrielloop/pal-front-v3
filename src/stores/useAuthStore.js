@@ -4,7 +4,6 @@ import { switchIsDarkMode, updateUser } from '@/api/user'
 import { useToastStore } from '@/stores/toast'
 import { useListStore } from '@/stores/useListStore'
 import { useSectionsStore } from '@/stores/useSectionsStore'
-import { useRouter } from 'vue-router'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -17,7 +16,6 @@ export const useAuthStore = defineStore('auth', {
   },
   actions: {
     async login(credentials) {
-      const listStore = useListStore()
       const toast = useToastStore()
 
       try {
@@ -30,25 +28,19 @@ export const useAuthStore = defineStore('auth', {
         localStorage.setItem('user', JSON.stringify(data.user))
 
         toast.success('Bonjour ' + this.user.name)
-
-        // await listStore.fetchAll()
-
-        console.log('User connecté :', this.user)
       } catch (err) {
-        toast.warn('Connexion échoué')
-        console.error(err)
+        toast.warn('Connexion échouée')
+
         throw err
       }
     },
     async updateDarkMode(value) {
-      console.log('[updateDarkMode] called with:', value)
-
-      // appliquer immédiatement pour éviter le flash
+      const toast = useToastStore()
       document.documentElement.classList.toggle('dark', value)
 
-      // mise à jour locale
       if (this.user) {
         this.user = { ...this.user, isDarkMode: value }
+
         localStorage.setItem('user', JSON.stringify(this.user))
       }
 
@@ -57,46 +49,45 @@ export const useAuthStore = defineStore('auth', {
 
         this.user = { ...this.user, isDarkMode: data.data.isDarkMode }
         document.documentElement.classList.toggle('dark', data.data.isDarkMode)
+        toast.success('Changement de mode enregistré')
         localStorage.setItem('user', JSON.stringify(this.user))
       } catch (err) {
         console.error('Erreur API dark mode :', err)
         this.user = { ...this.user, isDarkMode: !value }
         document.documentElement.classList.toggle('dark', !value)
+        toast.warn('Erreur lors du changement de mode')
         localStorage.setItem('user', JSON.stringify(this.user))
       }
     },
     async updateProfile(payload) {
+      const toast = useToastStore()
       try {
         const response = await updateUser(payload)
 
         const updatedUser = response.data
         this.user = updatedUser
         localStorage.setItem('user', JSON.stringify(this.user))
-
-        console.log('[updateProfile] Profil mis à jour :', updatedUser)
+        toast.success('Profil mis à jour avec succès')
       } catch (err) {
         console.error('[updateProfile] Échec de la mise à jour :', err)
+        toast.warn('Échec de la mise à jour du profil')
         throw err
       }
     },
     logout: async function () {
-      const router = useRouter()
       const toast = useToastStore()
       try {
         await logoutRequest()
       } catch (err) {
         toast.warn('Déconnexion impossible')
-        console.error('Erreur logout :', err)
       } finally {
         toast.success('À bientôt ' + (this.user?.name ?? ''))
 
-        // Vider les données utilisateur
         const listStore = useListStore()
         const sectionsStore = useSectionsStore()
         listStore.$reset()
         sectionsStore.$reset()
 
-        // Réinitialiser l'état
         this.token = null
         this.user = null
         localStorage.removeItem('token')
@@ -104,15 +95,12 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     restore: async function () {
-      const listStore = useListStore()
-
       const token = localStorage.getItem('token')
       const user = localStorage.getItem('user')
 
       if (token && user) {
         this.token = token
         this.user = JSON.parse(user)
-        // await listStore.fetchAll()
       }
     },
   },

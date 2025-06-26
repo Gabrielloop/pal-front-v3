@@ -3,6 +3,23 @@ import NavBar from '@/components/ui/NavBar.vue'
 import Header from '@/components/ui/Header.vue'
 import Menu from '@/components/ui/Menu.vue'
 import MainContent from '@/components/ui/MainContent.vue'
+import { useListStore } from '@/stores/useListStore'
+import { onMounted, ref } from 'vue'
+import LoadingLogo from '@/components/ui/LoadingLogo.vue'
+
+const listStore = useListStore()
+
+const loading = ref(true)
+
+onMounted(async () => {
+  try {
+    await listStore.fetchAll()
+  } catch (error) {
+    console.error('Error fetching lists:', error)
+  } finally {
+    loading.value = false
+  }
+})
 </script>
 
 <template>
@@ -23,7 +40,13 @@ import MainContent from '@/components/ui/MainContent.vue'
 
         <!-- SECTION : Contenu principal de la page -->
         <template #section>
-          <router-view />
+          <div
+            class="flex h-[50vh] w-full items-center justify-center overflow-hidden"
+            v-if="loading"
+          >
+            <LoadingLogo />
+          </div>
+          <router-view v-else />
         </template>
       </MainContent>
     </main>

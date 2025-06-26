@@ -21,10 +21,9 @@ const sectionStore = useSectionsStore()
         class="flex items-center gap-4 rounded px-3 py-2 text-primary hover:bg-background dark:text-ivory dark:hover:bg-ivory/10"
       >
         <AppIcon :name="section.icon" class="h-5 w-5" />
-        <span>{{ section.label }}</span>
+        <span class="text-xl">{{ section.label }}</span>
       </RouterLink>
-
-      <CollectionList :items="listStore.lists" v-if="section.key === 'mes-listes'" />
+      <CollectionList :items="listStore.lists" route="" v-if="section.key === 'mes-listes'" />
       <CollectionList :items="section.children" v-else-if="section.children" />
     </article>
   </section>

@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'animate-pulse rounded bg-gray-200 dark:bg-gray-700',
+      'm-1 animate-pulse rounded bg-accent dark:bg-ivory/10',
       fullWidth ? 'w-full' : width,
       height,
       extraClasses,

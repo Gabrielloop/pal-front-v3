@@ -1,49 +1,64 @@
 <template>
-  <div class="flex min-h-screen w-full flex-col items-center p-4">
-    <section v-if="loading">
-      <PageTitle>
-        <template #title>Mes listes</template>
-      </PageTitle>
-      <LoadingLogo />
-    </section>
-    <section v-else-if="userlist && !loading">
-      <PageTitle>
-        <template #title>{{ userlist.userlistName || 'Liste' }}</template>
-        <template #subtitle>{{ userlist.userlistDescription || 'Ma liste' }}</template>
-      </PageTitle>
-      <Grid>
-        <BookCard v-for="book in userlist.books" :key="book.isbn" :book="book" />
-      </Grid>
-    </section>
-    <section v-else>
-      <PageTitle>
-        <template #title>Mes listes</template>
-      </PageTitle>
+  <section v-if="localLists && !loading">
+    <PageTitle backButton>
+      <template #title>{{ localLists.name || 'Liste' }}</template>
+      <template #subtitle>{{ localLists.description || 'Ma liste' }}</template>
+    </PageTitle>
+    <article
+      v-if="localLists.books?.length === 0"
+      class="flex flex-col items-center justify-center gap-4"
+    >
+      <p>
+        Aucun livre trouvé dans cette liste.<br />
+        Lancer une recherche :
+      </p>
+      <SearchBar />
+    </article>
+    <Grid>
+      <BookCard v-for="book in localLists.books" :key="book.isbn" :book="book" />
+    </Grid>
+    <article v-if="localLists && route.params.type === 'list'">
+      <ListEditor
+        :name="localLists.name"
+        :description="localLists.description"
+        :list-id="parseInt(route.params.id)"
+        :editable="true"
+        @update="updateLocalLists"
+      />
+    </article>
+  </section>
+  <section v-else>
+    <PageTitle backButton>
+      <template #title>Mes listes</template>
+    </PageTitle>
 
-      <CollectionList :items="listStore.lists" />
+    <LoadingLogo v-if="loading" />
+    <CollectionList :items="listStore.lists" v-else />
 
-      <article>
-        <CreateListForm />
-      </article>
-    </section>
-  </div>
+    <article>
+      <CreateListForm />
+    </article>
+  </section>
 </template>
 
 <script setup>
 import { useRoute } from 'vue-router'
 import { useListStore } from '@/stores/useListStore'
 import { ref, onMounted, watch } from 'vue'
+
 import BookCard from '@/components/ui/BookCard.vue'
 import LoadingLogo from '@/components/ui/LoadingLogo.vue'
 import CreateListForm from '@/components/forms/CreateListForm.vue'
 import CollectionList from '@/components/ui/CollectionList.vue'
 import PageTitle from '@/components/ui/PageTitle.vue'
 import Grid from '@/components/ui/Grid.vue'
+import ListEditor from '@/components/forms/ListEditor.vue'
+import SearchBar from '../components/ui/SearchBar.vue'
 
 const listStore = useListStore()
 const route = useRoute()
 
-const userlist = ref(null)
+const localLists = ref(null)
 const loading = ref(true)
 
 async function loadList() {
@@ -51,33 +66,30 @@ async function loadList() {
   const id = route.params.id
 
   loading.value = true
-  userlist.value = null
+  localLists.value = null
 
-  // 🟢 Cas 1 : liste utilisateur
   if (type === 'list' && id) {
-    userlist.value = listStore.getListbyId(parseInt(id))
-  }
-
-  // 🟢 Cas 2 : favoris
-  else if (type === 'favoris') {
-    userlist.value = {
-      userlistName: 'Favoris',
-      userlistDescription: 'Livres marqués comme favoris',
+    const list = await listStore.getListbyId(parseInt(id))
+    if (list) {
+      localLists.value = {
+        name: list.userlistName,
+        description: list.userlistDescription,
+        books: list.books,
+      }
+    }
+  } else if (type === 'favoris') {
+    localLists.value = {
+      name: 'Favoris',
+      description: 'Livres marqués comme favoris',
       books: listStore.favorites,
     }
-  }
-
-  // 🟢 Cas 3 : wishlist
-  else if (type === 'wishlist') {
-    userlist.value = {
-      userlistName: 'Wishlist',
-      userlistDescription: 'Livres à lire plus tard',
+  } else if (type === 'wishlist') {
+    localLists.value = {
+      name: 'Wishlist',
+      description: 'Livres à lire plus tard',
       books: listStore.wishlists,
     }
-  }
-
-  // 🟢 Cas 4 : lectures (en-cours / terminé / abandonné / a-commencer)
-  else if (type === 'lectures' && id) {
+  } else if (type === 'lectures' && id) {
     const labelMap = {
       'en-cours': 'Lectures en cours',
       termine: 'Lectures terminées',
@@ -86,45 +98,51 @@ async function loadList() {
     }
 
     const filterMap = {
-      'en-cours': (r) => r.isReading,
-      termine: (r) => r.isFinished,
-      abandonne: (r) => r.isAbandoned,
-      'a-commencer': (r) => !r.isStarted,
+      all: () => true,
+      'en-cours': (r) => r.reading.isReading,
+      termine: (r) => r.reading.isFinished,
+      abandonne: (r) => r.reading.isAbandoned,
+      'a-commencer': (r) => !r.reading.isStarted,
     }
 
     if (filterMap[id]) {
       const filtered = listStore.readings.filter(filterMap[id])
-      userlist.value = {
-        userlistName: labelMap[id],
-        userlistDescription: 'Livres selon l’état de lecture',
+      localLists.value = {
+        name: labelMap[id],
+        description: 'Livres selon l’état de lecture',
         books: filtered,
       }
     }
-  }
-
-  // 🟢 Cas 5 : classement par étoiles
-  else if (type === 'classements' && id !== undefined) {
-    const stars = parseInt(id)
-    const filteredNotes = listStore.notes.filter((n) => n.stars === stars)
-    const books = listStore.filteredNotes.map((n) => n.book)
-
-    userlist.value = {
-      userlistName: `Classement ${stars} ★`,
-      userlistDescription: `Livres notés ${stars} étoile${stars > 1 ? 's' : ''}`,
-      books,
+  } else if (type === 'classements' && id !== undefined) {
+    if (isNaN(id) || parseInt(id) <= 0) {
+      loading.value = false
+      return
     }
-  }
 
-  // ❌ Aucun cas reconnu
-  else {
-    userlist.value = null
+    const stars = parseInt(id)
+
+    const filteredNotes = listStore.notes.filter((n) => parseInt(n.noteContent) === stars)
+    const books = filteredNotes.map((n) => n.book ?? n)
+
+    localLists.value = {
+      name: `Classement ${stars} ★`,
+      description: `Livres notés ${stars} étoile${stars > 1 ? 's' : ''}`,
+      books: books,
+    }
+  } else {
+    localLists.value = null
   }
 
   loading.value = false
 }
 
+function updateLocalLists({ name, description }) {
+  if (localLists.value) {
+    localLists.value.name = name
+    localLists.value.description = description
+  }
+}
+
 watch(() => route.fullPath, loadList)
 onMounted(loadList)
-
-watch(() => route.params, loadList)
 </script>

@@ -10,13 +10,13 @@
         placeholder="Ma liste de livres"
         class="input input-text mb-2 w-full"
       />
-      <input
+      <textarea
         v-model="description"
         type="text"
         maxlength="255"
         required
         placeholder="Description de la liste"
-        class="input input-text mb-2 w-full"
+        class="input input-text dar:k:bg-primary/10 mb-2 w-full dark:bg-white/10"
       />
       <p v-if="error" class="text-danger">{{ error }}</p>
     </template>
