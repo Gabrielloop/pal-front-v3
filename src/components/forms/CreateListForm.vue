@@ -72,7 +72,7 @@ const submit = async () => {
       userlistType: 'list',
     })
     if (success) {
-      router.push('/listes')
+      router.push('/list')
     }
   } catch (err) {
     error.value = 'Impossible de créer la liste.'

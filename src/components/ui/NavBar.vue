@@ -32,8 +32,8 @@ const route = useRoute()
 // Liste des pages
 const rawPages = [
   { name: 'Home', path: '/dashboard', icon: 'home' },
-  { name: 'Listes', path: '/listes', icon: 'list' },
-  { name: 'Recherches', path: '/recherches', icon: 'search' },
+  { name: 'Listes', path: '/list', icon: 'list' },
+  { name: 'Recherches', path: '/search', icon: 'search' },
   { name: 'Profile', path: '/profile', icon: 'user' },
 ]
 

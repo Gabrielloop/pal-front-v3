@@ -36,9 +36,9 @@ const routes = [
         },
       },
       {
-        path: 'listes',
+        path: 'list',
         name: 'Listes',
-        component: () => import('@/pages/Listes.vue'),
+        component: () => import('@/pages/List.vue'),
         meta: {
           title: 'Verso - Mes listes',
         },
@@ -46,7 +46,7 @@ const routes = [
       {
         path: 'list/:type/:id',
         name: 'Ma liste',
-        component: () => import('@/pages/Listes.vue'),
+        component: () => import('@/pages/List.vue'),
         meta: {
           title: 'Verso - Mes listes',
         },
@@ -54,7 +54,7 @@ const routes = [
       {
         path: 'list/classements',
         name: 'Classements',
-        component: () => import('@/pages/Listes.vue'),
+        component: () => import('@/pages/List.vue'),
         meta: {
           title: 'Verso - Classements',
         },
@@ -62,7 +62,7 @@ const routes = [
       {
         path: 'list/favoris',
         name: 'Mes favoris',
-        component: () => import('@/pages/Listes.vue'),
+        component: () => import('@/pages/List.vue'),
         meta: {
           title: 'Verso - Mes favoris',
         },
@@ -70,7 +70,7 @@ const routes = [
       {
         path: 'list/wishlist',
         name: 'Ma wishlist',
-        component: () => import('@/pages/Listes.vue'),
+        component: () => import('@/pages/List.vue'),
         meta: {
           title: 'Verso - Ma wishlist',
         },
@@ -78,7 +78,7 @@ const routes = [
       {
         path: 'list/lectures',
         name: 'Mes lectures',
-        component: () => import('@/pages/Listes.vue'),
+        component: () => import('@/pages/List.vue'),
         meta: {
           title: 'Verso - Mes lectures',
         },

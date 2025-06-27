@@ -128,6 +128,6 @@ function confirmDelete() {
 async function remove() {
   loading.value = true
   await listStore.deleteList(listId.value)
-  router.push('/listes')
+  router.push('/list')
 }
 </script>

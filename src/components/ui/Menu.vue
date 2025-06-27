@@ -59,14 +59,14 @@
     <Button variant="attente" class="mt-4 w-full" @click="$router.push('/admin')" v-if="isAdmin">
       <template #icon> <AppIcon name="lock" class="mr-2 h-5 w-5" /> </template>Admin</Button
     >
-    <DeconnexionForm type="menu" class="mt-8" />
+    <LogoutForm type="menu" class="mt-8" />
   </aside>
 </template>
 
 <script setup>
 import AppIcon from '@/components/AppIcon.vue'
 import BaseList from '@/components/ui/BaseList.vue'
-import DeconnexionForm from '../forms/LogoutForm.vue'
+import LogoutForm from '../forms/LogoutForm.vue'
 import Button from '@/components/ui/Button.vue'
 import { useSectionsStore } from '@/stores/useSectionsStore'
 import { useListStore } from '@/stores/useListStore'

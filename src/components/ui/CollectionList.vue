@@ -3,7 +3,7 @@
     <RouterLink
       v-for="item in items"
       :key="item.userlistId"
-      :to="item.route ? item.route : `/listes/list/${item.userlistId}`"
+      :to="item.route ? item.route : `/list/list/${item.userlistId}`"
     >
       <CardList
         :name="item.userlistName || item.label || 'Liste sans nom'"

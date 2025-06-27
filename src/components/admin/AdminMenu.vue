@@ -22,14 +22,14 @@
     >
       <template #icon> <AppIcon name="book" class="mr-2 h-5 w-5" /> </template>Utilisateur</Button
     >
-    <DeconnexionForm type="menu" class="mt-8" />
+    <LogoutForm type="menu" class="mt-8" />
   </aside>
 </template>
 
 <script setup>
 import AppIcon from '@/components/AppIcon.vue'
 import BaseList from '@/components/ui/BaseList.vue'
-import DeconnexionForm from '@/components/forms/DeconnexionForm.vue'
+import LogoutForm from '@/components/forms/LogoutForm.vue'
 import Button from '@/components/ui/Button.vue'
 import { useAuthStore } from '@/stores/useAuthStore'
 

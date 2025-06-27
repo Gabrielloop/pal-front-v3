@@ -4,7 +4,7 @@
     <h1 class="mb-4 font-title text-[5em] text-ivory">Verso</h1>
     <article class="my-2 w-full sm:my-8 md:w-[500px]">
       <component
-        :is="showForgotPassword ? PasswordForm : ConnexionForm"
+        :is="showForgotPassword ? PasswordForm : LoginForm"
         @forgot-password="showForgotPassword = true"
         @back="showForgotPassword = false"
       />
@@ -15,7 +15,7 @@
 <script setup>
 import { ref } from 'vue'
 import Logo from '@/components/ui/Logo.vue'
-import ConnexionForm from '@/components/forms/ConnexionForm.vue'
+import LoginForm from '@/components/forms/LoginForm.vue'
 import PasswordForm from '@/components/forms/PasswordForm.vue'
 
 const showForgotPassword = ref(false)

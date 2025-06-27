@@ -1,5 +1,5 @@
 <script setup>
-import DeconnexionForm from '@/components/forms/DeconnexionForm.vue'
+import LogoutForm from '@/components/forms/LogoutForm.vue'
 import DarkModeForm from '@/components/forms/DarkModeForm.vue'
 import UpdateUserForm from '../components/forms/UpdateUserForm.vue'
 import PageTitle from '@/components/ui/PageTitle.vue'
@@ -20,7 +20,7 @@ const isAdmin = computed(() => auth.isAdmin)
     <Button variant="attente" @click="$router.push('/admin')" v-if="isAdmin" class="w-[200px]">
       <template #icon> <AppIcon name="lock" class="mr-2 h-5 w-5" /> </template>Admin</Button
     >
-    <DeconnexionForm />
+    <LogoutForm />
     <DarkModeForm />
     <UpdateUserForm />
   </section>
