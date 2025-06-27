@@ -53,7 +53,7 @@ import CollectionList from '@/components/ui/CollectionList.vue'
 import PageTitle from '@/components/ui/PageTitle.vue'
 import Grid from '@/components/ui/Grid.vue'
 import ListEditor from '@/components/forms/ListEditor.vue'
-import SearchBar from '../components/ui/SearchBar.vue'
+import SearchBar from '@/components/ui/SearchBar.vue'
 
 const listStore = useListStore()
 const route = useRoute()

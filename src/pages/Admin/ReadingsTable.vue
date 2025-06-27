@@ -87,7 +87,6 @@ const updateReadingsCollection = async () => {
     const response = await readingsCollection()
     readings.value = response.data.map(createReading)
   } catch (error) {
-    console.error('Erreur lors de la mise à jour :', error)
     toast.error('Erreur de chargement')
   } finally {
     loading.value = false
@@ -111,7 +110,6 @@ const handleUpdate = async (reading) => {
     await readingUpdate(makePayload(reading), reading.userId, reading.isbn)
     toast.success('Donnée mise à jour avec succès')
   } catch (error) {
-    console.error('Erreur API :', error)
     toast.error('Erreur lors de la mise à jour')
   } finally {
     loadingById.value[key] = false

@@ -9,7 +9,7 @@
     <tbody class="bg-ivory/10 dark:bg-white/10">
       <tr v-for="list in localLists" :key="list.userlistId">
         <td class="border px-1 py-1">
-          <RouterLink :to="'/listes/list/' + list.userlistId">
+          <RouterLink :to="'/list/list/' + list.userlistId">
             {{ list.userlistName }} ({{ list.books.length }})
           </RouterLink>
         </td>

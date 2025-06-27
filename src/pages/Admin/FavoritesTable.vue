@@ -69,7 +69,6 @@ const updateFavoritesCollection = async () => {
     const response = await favoritesCollection()
     favorites.value = response.data.map(createFavorite)
   } catch (error) {
-    console.error('Erreur lors de la mise à jour :', error)
     toast.error('Erreur de chargement')
   } finally {
     loading.value = false

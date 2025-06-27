@@ -5,7 +5,6 @@ export async function searchByQuery(query, page = 1) {
     const response = await apiFetch(`/bnf?query=${encodeURIComponent(query)}&page=${page}`)
     return Array.isArray(response.data) ? response.data : []
   } catch (error) {
-    console.error('Erreur BNF API :', error.message)
     return []
   }
 }

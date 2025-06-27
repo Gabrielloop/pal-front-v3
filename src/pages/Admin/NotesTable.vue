@@ -81,7 +81,6 @@ const updateNotesCollection = async () => {
     const response = await notesCollection()
     notes.value = response.data.map(createNote)
   } catch (error) {
-    console.error('Erreur lors de la mise à jour :', error)
     toast.error('Erreur de chargement')
   } finally {
     loading.value = false
@@ -105,7 +104,6 @@ const handleUpdate = async (note) => {
     await noteUpdate(makePayload(note), note.userId, note.isbn)
     toast.success('Donnée mise à jour avec succès')
   } catch (error) {
-    console.error('Erreur API :', error)
     toast.error('Erreur lors de la mise à jour')
   } finally {
     loadingById.value[key] = false

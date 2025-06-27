@@ -87,7 +87,6 @@ const updateCommentsCollection = async () => {
     const response = await commentsCollection()
     comments.value = response.data.map(createComment)
   } catch (error) {
-    console.error('Erreur lors de la mise à jour :', error)
     toast.error('Erreur de chargement')
   } finally {
     loading.value = false
@@ -111,7 +110,6 @@ const handleUpdate = async (comment) => {
     await commentUpdate(makePayload(comment), comment.userId, comment.isbn)
     toast.success('Donnée mise à jour avec succès')
   } catch (error) {
-    console.error('Erreur API :', error)
     toast.error('Erreur lors de la mise à jour')
   } finally {
     loadingById.value[key] = false

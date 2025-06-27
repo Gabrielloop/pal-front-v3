@@ -14,42 +14,42 @@ export const useSectionsStore = defineStore('sections', {
       {
         key: 'mes-listes',
         label: 'Mes listes',
-        route: '/listes',
+        route: '/list',
         icon: 'list',
         dashboard: true,
       },
       {
         key: 'classements',
         label: 'Classements',
-        route: '/listes/classements/all',
+        route: '/list/classements/all',
         icon: 'star',
         dashboard: true,
       },
       {
         key: 'favoris',
         label: 'Favoris',
-        route: '/listes/favoris/all',
+        route: '/list/favoris/all',
         icon: 'heart',
         dashboard: true,
       },
       {
         key: 'wishlist',
         label: 'Wishlist',
-        route: '/listes/wishlist/all',
+        route: '/list/wishlist/all',
         icon: 'cart',
         dashboard: true,
       },
       {
         key: 'lectures',
         label: 'Mes lectures',
-        route: '/listes/lectures/all',
+        route: '/list/lectures/all',
         icon: 'book',
         dashboard: true,
       },
       {
         key: 'recherches',
         label: 'Recherches',
-        route: '/recherches',
+        route: '/search',
         icon: 'search',
         dashboard: false,
       },
@@ -73,7 +73,7 @@ export const useSectionsStore = defineStore('sections', {
       const userLists = listStore.lists.map((list) => ({
         key: `list-${list.userlistId}`,
         label: list.userlistName,
-        route: `/listes/list/${list.userlistId}`,
+        route: `/list/list/${list.userlistId}`,
       }))
 
       // Sous-listes fixes pour classements
@@ -81,7 +81,7 @@ export const useSectionsStore = defineStore('sections', {
         {
           key: 'rating-5',
           label: '5 étoiles',
-          route: '/listes/classements/5',
+          route: '/list/classements/5',
           icon: 'star',
           description: 'Les meilleures lectures',
           count: starCounts[5] || 0,
@@ -89,7 +89,7 @@ export const useSectionsStore = defineStore('sections', {
         {
           key: 'rating-4',
           label: '4 étoiles',
-          route: '/listes/classements/4',
+          route: '/list/classements/4',
           icon: 'star',
           description: 'Les meilleures lectures',
           count: starCounts[4] || 0,
@@ -97,7 +97,7 @@ export const useSectionsStore = defineStore('sections', {
         {
           key: 'rating-3',
           label: '3 étoiles',
-          route: '/listes/classements/3',
+          route: '/list/classements/3',
           icon: 'star',
           description: 'Les bonnes lectures',
           count: starCounts[3] || 0,
@@ -105,7 +105,7 @@ export const useSectionsStore = defineStore('sections', {
         {
           key: 'rating-2',
           label: '2 étoiles',
-          route: '/listes/classements/2',
+          route: '/list/classements/2',
           icon: 'star',
           description: 'Les lectures moyennes',
           count: starCounts[2] || 0,
@@ -113,7 +113,7 @@ export const useSectionsStore = defineStore('sections', {
         {
           key: 'rating-1',
           label: '1 étoiles',
-          route: '/listes/classements/1',
+          route: '/list/classements/1',
           icon: 'star',
           description: 'Les moins bonnes lectures',
           count: starCounts[1] || 0,
@@ -121,7 +121,7 @@ export const useSectionsStore = defineStore('sections', {
         // {
         //   key: 'rating-0',
         //   label: '0 étoiles',
-        //   route: '/listes/classements/0',
+        //   route: '/list/classements/0',
         //   icon: 'star',
         //   description: "Livres que je n'ai pas notés",
         //   count: starCounts[0] || 0,
@@ -132,7 +132,7 @@ export const useSectionsStore = defineStore('sections', {
         {
           key: 'reading-start',
           label: 'À commencer',
-          route: '/listes/lectures/a-commencer',
+          route: '/list/lectures/a-commencer',
           icon: 'book',
           description: "Livres que je n'ai pas commencés",
           count: listStore.countHasNotStartedReadings,
@@ -140,7 +140,7 @@ export const useSectionsStore = defineStore('sections', {
         {
           key: 'reading-in',
           label: 'En cours',
-          route: '/listes/lectures/en-cours',
+          route: '/list/lectures/en-cours',
           icon: 'book',
           description: 'Lectures en cours',
           count: listStore.countHasStartedReadings,
@@ -148,7 +148,7 @@ export const useSectionsStore = defineStore('sections', {
         {
           key: 'reading-done',
           label: 'Terminé',
-          route: '/listes/lectures/termine',
+          route: '/list/lectures/termine',
           icon: 'book',
           description: 'Lectures terminées',
           count: listStore.countHasFinishedReadings,
@@ -156,7 +156,7 @@ export const useSectionsStore = defineStore('sections', {
         {
           key: 'reading-abandoned',
           label: 'Abandonné',
-          route: '/listes/lectures/abandonne',
+          route: '/list/lectures/abandonne',
           icon: 'book',
           description: 'Lectures abandonnées',
           count: listStore.countHasAbandonedReadings,

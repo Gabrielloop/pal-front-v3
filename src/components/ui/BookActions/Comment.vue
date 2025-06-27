@@ -77,7 +77,6 @@ const handleComment = async () => {
     props.book.isComment = true
     props.book.comment = commentContent.value
   } catch (error) {
-    console.error('Error posting comment:', error)
     error.value = "Une erreur est survenue lors de l'envoi du commentaire."
   } finally {
     loading.value = false

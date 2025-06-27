@@ -23,7 +23,7 @@ const router = useRouter()
 
 function goToSearch() {
   if (searchTerm.value.trim()) {
-    router.push({ path: '/recherches', query: { q: searchTerm.value.trim() } })
+    router.push({ path: '/search', query: { q: searchTerm.value.trim() } })
   }
 }
 </script>

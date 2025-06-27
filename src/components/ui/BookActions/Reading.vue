@@ -96,7 +96,7 @@ const saveProgress = async () => {
     finishedAt: toNullableDate(finishedDate.value),
   }
   isAbandoned.value = false
-  console.log('isAbandoned:', isAbandoned.value)
+
   await bookStore.saveReadingProgress(isbn, payload)
   loading.value = false
 }
@@ -107,7 +107,6 @@ const abandonReading = async () => {
   if (response.success) {
     readingContent.value = 0
     isAbandoned.value = true
-    console.log('isAbandoned:', isAbandoned.value)
   }
   loading.value = false
 }

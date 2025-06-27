@@ -45,7 +45,6 @@ const handleSetNote = async (selectedNote) => {
     }
     props.book.note = note.value
   } catch (error) {
-    console.error("Erreur lors de l'envoi de la note :", error)
   } finally {
     loading.value = false
   }

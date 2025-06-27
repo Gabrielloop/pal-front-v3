@@ -26,7 +26,6 @@ onMounted(async () => {
     try {
       await bookStore.fetchBookByIsbn(isbn)
     } catch (error) {
-      console.error('Erreur lors du chargement du livre:', error)
     } finally {
       loading.value = false
     }

@@ -22,7 +22,7 @@
           class="mb-4 ml-1 text-sm dark:text-ivory"
         >
           <template #default="{ item }">
-            <RouterLink :to="`/listes/list/${item.userlistId}`">
+            <RouterLink :to="`/list/list/${item.userlistId}`">
               <div class="flex items-center justify-between dark:text-ivory">
                 <span class="menu-block block truncate dark:text-ivory" :title="item.userlistName">
                   {{ item.userlistName }}
@@ -66,7 +66,7 @@
 <script setup>
 import AppIcon from '@/components/AppIcon.vue'
 import BaseList from '@/components/ui/BaseList.vue'
-import DeconnexionForm from '../forms/DeconnexionForm.vue'
+import DeconnexionForm from '../forms/LogoutForm.vue'
 import Button from '@/components/ui/Button.vue'
 import { useSectionsStore } from '@/stores/useSectionsStore'
 import { useListStore } from '@/stores/useListStore'

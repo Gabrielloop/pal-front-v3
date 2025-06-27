@@ -34,7 +34,7 @@ import Cover from '@/components/ui/Cover.vue'
 import FavoriteButton from '@/components/ui/BookActions/FavoriteButton.vue'
 import WishlistButton from '@/components/ui/BookActions/WishlistButton.vue'
 import Comment from '@/components/ui/BookActions/Comment.vue'
-import Note from './BookActions/Note.vue'
+import Note from '@/components/ui/BookActions/Note.vue'
 import ReadingProgress from '@/components/ui/BookActions/Reading.vue'
 import UserLists from '@/components/ui/BookActions/UserLists.vue'
 
@@ -44,6 +44,4 @@ const props = defineProps({
     required: true,
   },
 })
-
-console.log('BookDetails props:', props)
 </script>

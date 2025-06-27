@@ -15,7 +15,6 @@ onMounted(async () => {
   try {
     await listStore.fetchAll()
   } catch (error) {
-    console.error('Error fetching lists:', error)
   } finally {
     loading.value = false
   }

@@ -1,6 +1,6 @@
 <script setup>
 import { useAuthStore } from '@/stores/useAuthStore'
-import { watch, onMounted } from 'vue'
+import { watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import '@/style.css'
@@ -8,26 +8,10 @@ import '@/style.css'
 const auth = useAuthStore()
 const router = useRouter()
 
-onMounted(() => {
-  if (auth.isAuthenticated) {
-    console.log('User is authenticated:', auth.user.role)
-  } else {
-    console.log('User is not authenticated')
-  }
-})
-
 watch(
   () => auth.user?.isDarkMode,
   (isDark) => {
     document.documentElement.classList.toggle('dark', !!isDark)
-  },
-  { immediate: true }
-)
-
-watch(
-  () => auth.user,
-  (newUser) => {
-    console.log('User changed:', newUser?.role)
   },
   { immediate: true }
 )

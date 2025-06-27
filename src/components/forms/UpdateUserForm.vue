@@ -65,7 +65,6 @@ const submit = async () => {
     })
   } catch (err) {
     error.value = 'Erreur lors de la mise à jour du profil'
-    console.error(err)
   } finally {
     loading.value = false
   }

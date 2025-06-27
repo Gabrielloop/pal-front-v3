@@ -44,7 +44,7 @@ const routes = [
         },
       },
       {
-        path: 'listes/:type/:id',
+        path: 'list/:type/:id',
         name: 'Ma liste',
         component: () => import('@/pages/Listes.vue'),
         meta: {
@@ -52,7 +52,7 @@ const routes = [
         },
       },
       {
-        path: 'listes/classements',
+        path: 'list/classements',
         name: 'Classements',
         component: () => import('@/pages/Listes.vue'),
         meta: {
@@ -60,7 +60,7 @@ const routes = [
         },
       },
       {
-        path: 'listes/favoris',
+        path: 'list/favoris',
         name: 'Mes favoris',
         component: () => import('@/pages/Listes.vue'),
         meta: {
@@ -68,7 +68,7 @@ const routes = [
         },
       },
       {
-        path: 'listes/wishlist',
+        path: 'list/wishlist',
         name: 'Ma wishlist',
         component: () => import('@/pages/Listes.vue'),
         meta: {
@@ -76,7 +76,7 @@ const routes = [
         },
       },
       {
-        path: 'listes/lectures',
+        path: 'list/lectures',
         name: 'Mes lectures',
         component: () => import('@/pages/Listes.vue'),
         meta: {
@@ -100,9 +100,9 @@ const routes = [
         },
       },
       {
-        path: 'recherches',
+        path: 'search',
         name: 'Recherches',
-        component: () => import('@/pages/Recherches.vue'),
+        component: () => import('@/pages/Search.vue'),
         meta: {
           title: 'Verso - Recherches',
         },
