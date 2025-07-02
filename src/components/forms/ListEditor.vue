@@ -1,5 +1,5 @@
 <template>
-  <FormContainer title="Confirmer la suppression" v-if="isEditing"
+  <FormContainer title="Modifier ma liste" v-if="isEditing"
     ><template #fields>
       <input
         v-model="editedName"
@@ -63,7 +63,6 @@ import { useListStore } from '@/stores/useListStore'
 import { useRouter } from 'vue-router'
 import AppIcon from '@/components/AppIcon.vue'
 import Button from '@/components/ui/Button.vue'
-import ActionGroup from '@/components/ui/ActionGroup.vue'
 import FormContainer from '@/components/ui/FormContainer.vue'
 
 const props = defineProps({

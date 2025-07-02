@@ -2,23 +2,44 @@
   <FormContainer title="Progression de lecture">
     <template #fields>
       <div>
-        <label class="mb-1 block font-semibold">Avancement : {{ readingContent }}%</label>
-        <input type="range" v-model="readingContent" min="0" max="100" class="w-full" />
+        <label for="reading-progress" class="mb-1 block font-semibold"
+          >Avancement : {{ readingContent }}%</label
+        >
+        <input
+          id="reading-progress"
+          type="range"
+          v-model="readingContent"
+          min="0"
+          max="100"
+          class="w-full"
+          :aria-valuetext="`${readingContent}%`"
+        />
       </div>
       <div class="flex-1">
-        <label class="mb-1 block font-semibold">Début</label>
-        <input type="date" v-model="startedDate" class="w-full rounded border p-1" />
+        <label for="started-date" class="mb-1 block font-semibold">Début</label>
+        <input
+          id="started-date"
+          type="date"
+          v-model="startedDate"
+          class="w-full rounded border p-1"
+        />
       </div>
       <div class="flex-1">
-        <label class="mb-1 block font-semibold">Fin</label>
-        <input type="date" v-model="finishedDate" class="w-full rounded border p-1" />
+        <label for="finished-date" class="mb-1 block font-semibold">Fin</label>
+        <input
+          id="finished-date"
+          type="date"
+          v-model="finishedDate"
+          class="w-full rounded border p-1"
+        />
       </div>
-      <p v-if="error" class="text-danger">{{ error }}</p>
+      <p aria-live="polite" v-if="error" class="text-danger">{{ error }}</p>
     </template>
 
     <template #actions>
       <div class="flex w-full flex-col gap-2">
         <Button
+          aria-label="Mettre à jour la lecture"
           :loading="loading"
           :disabled="loading"
           @click.prevent="saveProgress"

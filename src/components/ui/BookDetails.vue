@@ -22,9 +22,9 @@
     </article>
     <article><ReadingProgress :book="book" /></article>
     <article><UserLists :book="book" /></article>
-    <article class="overflow-hidden rounded-lg bg-white shadow">
+    <!-- <article class="overflow-hidden rounded-lg bg-white shadow">
       <pre>{{ book }}</pre>
-    </article>
+    </article> -->
   </div>
 </template>
 

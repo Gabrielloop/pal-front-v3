@@ -1,9 +1,12 @@
 <template>
   <table class="w-full border border-ivory">
+    <caption class="sr-only">
+      Tableau de gestion des listes utilisateur
+    </caption>
     <thead class="bg-primary text-ivory">
       <tr>
-        <th class="border px-4 py-2 text-left">Mes listes</th>
-        <th class="border px-4 py-2">Action</th>
+        <th scope="col" class="border px-4 py-2 text-left">Mes listes</th>
+        <th scope="col" class="border px-4 py-2">Action</th>
       </tr>
     </thead>
     <tbody class="bg-ivory/10 dark:bg-white/10">

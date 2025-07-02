@@ -1,11 +1,20 @@
 <template>
   <form @submit.prevent="goToSearch" class="flex h-full flex-row items-center gap-2">
+    <label for="search" class="sr-only">Rechercher un livre</label>
     <input
+      id="search"
       v-model="searchTerm"
       placeholder="Rechercher un livre..."
       class="input input-text align-item h-10 w-full"
+      type="search"
     />
-    <Button :loading="bnfStore.loading" type="submit" variant="valider" class="h-10">
+    <Button
+      :loading="bnfStore.loading"
+      type="submit"
+      variant="valider"
+      class="h-10"
+      aria-label="Lancer la recherche"
+    >
       <template #icon> <AppIcon name="search" class="h-5 w-5" /> </template
     ></Button>
   </form>

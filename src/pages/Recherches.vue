@@ -7,7 +7,10 @@
       >
     </PageTitle>
   </section>
-  <section v-else-if="!loading" aria-live="polite">
+  <section v-else-if="!loading"
+  aria-live="polite"
+  aria-labelledby="search-results-title"
+  role="region">
     <PageTitle backButton>
       <template #title
         >Résultat{{ bnfStore.results.length > 0 ? 's' : '' }} pour "{{ searchQuery }}"</template
@@ -25,12 +28,12 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
-import { useBnfStore } from '@/stores/useBnfStore'
 import BookCard from '@/components/ui/BookCard.vue'
 import Grid from '@/components/ui/Grid.vue'
 import PageTitle from '@/components/ui/PageTitle.vue'
 import LoadingLogo from '@/components/ui/LoadingLogo.vue'
+import { useRoute } from 'vue-router'
+import { useBnfStore } from '@/stores/useBnfStore'
 import { computed } from 'vue'
 import { watchEffect } from 'vue'
 

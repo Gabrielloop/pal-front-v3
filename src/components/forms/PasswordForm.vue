@@ -38,7 +38,7 @@ import { ref, computed } from 'vue'
 import { defineEmits } from 'vue'
 import FormContainer from '@/components/ui/FormContainer.vue'
 import Button from '@/components/ui/Button.vue'
-import AppIcon from '../AppIcon.vue'
+import AppIcon from '@/components/AppIcon.vue'
 
 const emit = defineEmits(['back'])
 

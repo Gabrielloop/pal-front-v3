@@ -6,6 +6,8 @@
       :disabled="loading"
       @click="handleSetNote(star)"
       class="transition-colors duration-200"
+      role="radiogroup"
+      :aria-label="`Noter ${props.book.title || 'le livre'}`"
     >
       <AppIcon :name="star <= note ? 'starSolid' : 'star'" class="h-5 w-5 hover:text-yellow-400" />
     </button>

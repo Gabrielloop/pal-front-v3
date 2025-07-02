@@ -19,7 +19,9 @@ const props = defineProps({
       <div class="flex h-16 items-center justify-between gap-2">
         <router-link :to="'/'" class="flex items-center gap-4"
           ><Logo />
-          <h1 class="hidden font-title text-title text-ivory md:block">Verso</h1></router-link
+          <h1 class="sr-only hidden font-title text-title text-ivory md:not-sr-only md:block">
+            Verso
+          </h1></router-link
         >
 
         <SearchBar class="max-w-md flex-1" />

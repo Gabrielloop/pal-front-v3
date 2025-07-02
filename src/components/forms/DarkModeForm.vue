@@ -2,7 +2,10 @@
   <article>
     <FormContainer title="Mode sombre">
       <template #actions>
-        <Switch v-model="darkMode">
+        <Switch
+          v-model="darkMode"
+          :aria-label="darkMode ? 'Désactiver le mode sombre' : 'Activer le mode sombre'"
+        >
           {{ darkMode ? 'Mode sombre activé' : 'Mode sombre désactivé' }}
         </Switch>
       </template>

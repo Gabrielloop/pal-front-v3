@@ -1,6 +1,8 @@
 <template>
   <button
     @click="toggleWishlist"
+    :title="book.isWished ? 'Retirer de la liste d’envies' : 'Ajouter à la liste d’envies'"
+    :aria-label="book.isWished ? 'Retirer de la liste d’envies' : 'Ajouter à la liste d’envies'"
     :class="
       book.isWished
         ? 'bg-danger text-white hover:text-white/50'

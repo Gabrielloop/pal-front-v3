@@ -2,6 +2,8 @@
   <button
     @click="goBack"
     class="rounded-full bg-primary p-2 text-white transition-colors duration-200 hover:bg-danger/50"
+    aria-label="Retour à la page précédente"
+    title="Retour à la page précédente"
   >
     <AppIcon name="back" class="h-5 w-5" />
   </button>

@@ -2,10 +2,12 @@
   <button
     :class="['btn', `btn-${variant}`, disabled || loading ? 'btn-disabled' : '']"
     :disabled="disabled || loading"
+    :aria-disabled="disabled || loading ? 'true' : undefined"
+    :aria-busy="loading ? 'true' : undefined"
     :type="type"
   >
     <!-- TODO : vérifier le loader -->
-    <span v-if="loading" class="loader"></span>
+    <span v-if="loading" class="loader" aria-hidden="true"></span>
     <slot name="icon" />
     <slot />
   </button>

@@ -1,9 +1,9 @@
 <template>
   <div class="loading-contain flex flex-col">
     <div class="loading">
-      <img src="@/assets/loading.gif" alt="Loading" class="object-contain" />
+      <img src="@/assets/loading.gif" alt="" aria-hidden="true" class="object-contain" />
     </div>
-    <div class="loading-text">Chargement...</div>
+    <div class="loading-text" role="status" aria-live="polite">Chargement...</div>
   </div>
 </template>
 <script setup>

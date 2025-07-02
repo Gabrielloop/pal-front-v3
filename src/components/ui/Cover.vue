@@ -1,6 +1,7 @@
 <template>
   <div class="relative flex-none" :class="getCoverSize()">
     <div
+      :aria-busy="(!isImageLoaded).toString()"
       v-if="!isImageLoaded"
       class="absolute inset-0 z-10 flex items-center justify-center rounded-sm border border-gray-200 bg-white shadow-sm dark:border-gray-600 dark:bg-ivory/5"
     >
@@ -10,7 +11,11 @@
     <img
       v-if="dynamicCover"
       :src="dynamicCover"
-      alt="cover"
+      :alt="
+        book?.title && book?.author
+          ? `Couverture de « ${book.title} » par ${book.author}`
+          : 'Couverture de livre'
+      "
       class="rounded-sm object-cover shadow-sm"
       :class="getCoverSize()"
       @load="handleImageLoad"

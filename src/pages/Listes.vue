@@ -21,7 +21,7 @@
       <ListEditor
         :name="localLists.name"
         :description="localLists.description"
-        :list-id="parseInt(route.params.id)"
+        :listId="parseInt(route.params.id)"
         :editable="true"
         @update="updateLocalLists"
       />

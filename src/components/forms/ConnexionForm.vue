@@ -5,15 +5,17 @@
         v-model="email"
         type="email"
         placeholder="Email"
+        aria-label="Adresse email"
         class="input input-text mb-2 w-full"
       />
       <input
         v-model="password"
         type="password"
         placeholder="Mot de passe"
+        aria-label="Mot de passe"
         class="input input-text mb-2 w-full"
       />
-      <p v-if="error" class="text-danger">{{ error }}</p>
+      <p aria-live="assertive" v-if="error" class="text-danger">{{ error }}</p>
     </template>
 
     <template #actions>

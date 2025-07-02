@@ -4,6 +4,8 @@
       v-for="item in items"
       :key="item.userlistId"
       :to="item.route ? item.route : `/listes/list/${item.userlistId}`"
+      role="listitem"
+      :aria-label="`Accéder à la liste ${item.userlistName || item.label || 'sans nom'}`"
     >
       <CardList
         :name="item.userlistName || item.label || 'Liste sans nom'"

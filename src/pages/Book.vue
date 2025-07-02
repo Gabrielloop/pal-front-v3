@@ -1,5 +1,5 @@
 <template>
-  <section v-if="loading">
+  <section v-if="loading" aria-busy="true">
     <LoadingLogo />
   </section>
   <section v-else>

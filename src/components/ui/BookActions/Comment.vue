@@ -7,9 +7,10 @@
         maxlength="255"
         required
         rows="8"
+        aria-label="Votre commentaire personnel"
         class="input input-textarea mb-2 w-full resize-none rounded-md border border-primary bg-white p-2 focus:border-primary focus:ring-0 dark:bg-white/10"
       />
-      <p v-if="error" class="text-danger">{{ error }}</p>
+      <p v-if="error" aria-live="polite" class="text-danger">{{ error }}</p>
     </template>
 
     <template #actions>

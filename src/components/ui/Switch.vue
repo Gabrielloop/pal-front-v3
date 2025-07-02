@@ -1,7 +1,10 @@
 <template>
-  <label class="inline-flex cursor-pointer items-center gap-2">
+  <div class="inline-flex cursor-pointer items-center gap-2">
     <button
       type="button"
+      role="switch"
+      :aria-checked="modelValue.toString()"
+      :aria-label="label"
       @click="$emit('update:modelValue', !modelValue)"
       :disabled="disabled || loading"
       :class="[
@@ -20,7 +23,7 @@
       <span v-else class="loader absolute left-1 top-1 h-4 w-4" />
     </button>
     <span><slot /></span>
-  </label>
+  </div>
 </template>
 
 <script setup>

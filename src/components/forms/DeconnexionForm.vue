@@ -7,7 +7,12 @@
   <article v-else>
     <FormContainer title="Deconnexion">
       <template #actions>
-        <Button :loading="loading" @click.prevent="submit" variant="refuser">
+        <Button
+          :loading="loading"
+          @click.prevent="submit"
+          variant="refuser"
+          aria-label="Se déconnecter"
+        >
           <template #icon> <AppIcon name="out" class="mr-2 h-5 w-5" /> </template>Se
           déconnecter</Button
         >
@@ -22,7 +27,7 @@ import { useAuthStore } from '@/stores/useAuthStore'
 import { useRouter } from 'vue-router'
 import FormContainer from '@/components/ui/FormContainer.vue'
 import Button from '@/components/ui/Button.vue'
-import AppIcon from '../AppIcon.vue'
+import AppIcon from '@/components/AppIcon.vue'
 
 const props = defineProps({
   type: {

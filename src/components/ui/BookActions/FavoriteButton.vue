@@ -7,6 +7,9 @@
         : 'bg-primary text-white hover:bg-danger/50'
     "
     class="rounded-full p-2 transition-colors duration-200"
+    :aria-pressed="isFavorite ? 'true' : 'false'"
+    :aria-label="isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'"
+    :title="isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'"
   >
     <AppIcon :name="isFavorite ? 'heartSolid' : 'heart'" class="h-5 w-5" />
   </button>

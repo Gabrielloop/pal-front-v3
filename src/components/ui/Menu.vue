@@ -1,20 +1,18 @@
 <template>
-  <aside class="bg-ivory">
-    <PageTitle>
+  <aside class="bg-ivory" role="navigation" aria-label="Menu de navigation">
+    <PageTitle as="h2">
       <template #title>Menu</template>
     </PageTitle>
 
     <ul>
-      <!-- Boucle sur les sections du store -->
       <li v-for="section in sectionStore.sections" :key="section.key">
         <RouterLink
           :to="section.route"
           class="flex items-center gap-4 rounded px-1 py-2 text-primary hover:bg-background dark:text-ivory dark:hover:bg-ivory/10"
           ><AppIcon :name="section.icon" class="h-5 w-5" />
-          <span>{{ section.label }}</span>
+          <h3>{{ section.label }}</h3>
         </RouterLink>
 
-        <!-- Si "mes-listes", on affiche les listes utilisateur -->
         <BaseList
           v-if="section.key === 'mes-listes'"
           :items="listStore.lists"
@@ -22,7 +20,10 @@
           class="mb-4 ml-1 text-sm dark:text-ivory"
         >
           <template #default="{ item }">
-            <RouterLink :to="`/listes/list/${item.userlistId}`">
+            <RouterLink
+              :to="`/listes/list/${item.userlistId}`"
+              :aria-label="`${item.userlistName}, ${item.books?.length ?? 0} livres`"
+            >
               <div class="flex items-center justify-between dark:text-ivory">
                 <span class="menu-block block truncate dark:text-ivory" :title="item.userlistName">
                   {{ item.userlistName }}
@@ -35,7 +36,6 @@
           </template>
         </BaseList>
 
-        <!-- Affiche les sous-listes si elles existent -->
         <BaseList
           v-else-if="section.children"
           :items="section.children"
@@ -56,7 +56,14 @@
         </BaseList>
       </li>
     </ul>
-    <Button variant="attente" class="mt-4 w-full" @click="$router.push('/admin')" v-if="isAdmin">
+    <Button
+      variant="attente"
+      class="mt-4 w-full"
+      @click="$router.push('/admin')"
+      v-if="isAdmin"
+      role="link"
+      aria-label="Accéder à l'administration"
+    >
       <template #icon> <AppIcon name="lock" class="mr-2 h-5 w-5" /> </template>Admin</Button
     >
     <DeconnexionForm type="menu" class="mt-8" />

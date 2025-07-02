@@ -1,5 +1,11 @@
 <template>
-  <component :is="iconComponent" v-bind="$attrs" class="h-5 w-5" />
+  <component
+    :is="iconComponent"
+    v-bind="$attrs"
+    class="h-5 w-5"
+    aria-hidden="true"
+    focusable="false"
+  />
 </template>
 
 <script setup>

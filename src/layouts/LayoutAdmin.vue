@@ -1,21 +1,14 @@
-<script setup>
-import Header from '@/components/ui/Header.vue'
-import MainContent from '@/components/ui/MainContent.vue'
-import AdminMenu from '@/components/admin/AdminMenu.vue'
-</script>
+<script setup></script>
 
 <template>
   <div>
     <main>
-      <!-- HEADER : Logo + barre de recherche -->
       <Header isAdmin />
-
-      <!-- MAIN : Contenu principal de la page -->
       <MainContent>
-        <!-- ASIDE : Menu latéral pour les écrans larges -->
-        <template #aside> <AdminMenu /> </template>
+        <template #aside>
+          <AdminMenu role="navigation" aria-label="Menu d’administration" />
+        </template>
 
-        <!-- SECTION : Contenu principal de la page -->
         <template #section>
           <router-view />
         </template>

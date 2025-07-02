@@ -1,12 +1,13 @@
 <template>
   <div
     class="logo-wrapper"
+    role="presentation"
     :style="{ width: size, height: size }"
     @mouseenter="showGif"
     @mouseleave="hideGif"
   >
-    <img :src="pngLogo" alt="Verso logo" class="logo-base" />
-    <img :src="gifSrc" alt="Verso animation" class="logo-gif" v-show="gifVisible" />
+    <img :src="pngLogo" alt="" aria-hidden="true" class="logo-base" />
+    <img :src="gifSrc" alt="" aria-hidden="true" class="logo-gif" v-show="gifVisible" />
   </div>
 </template>
 

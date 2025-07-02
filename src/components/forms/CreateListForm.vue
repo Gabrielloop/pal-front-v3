@@ -1,15 +1,17 @@
 <template>
   <FormContainer title="Nouvelle liste">
-    <template #fields>
+    <template #fields
+      ><label for="titre" class="sr-only">Titre de la liste</label>
       <input
         v-model="titre"
         type="text"
         maxlength="100"
-        minlenght="3"
+        minlength="3"
         required
         placeholder="Ma liste de livres"
         class="input input-text mb-2 w-full"
       />
+      <label for="description" class="sr-only">Description de la liste</label>
       <textarea
         v-model="description"
         type="text"
@@ -18,11 +20,17 @@
         placeholder="Description de la liste"
         class="input input-text dar:k:bg-primary/10 mb-2 w-full dark:bg-white/10"
       />
-      <p v-if="error" class="text-danger">{{ error }}</p>
+      <p v-if="error" class="text-danger" aria-live="assertive">{{ error }}</p>
     </template>
 
     <template #actions>
-      <Button :loading="loading" @click.prevent="submit" type="submit" variant="valider">
+      <Button
+        :loading="loading"
+        @click.prevent="submit"
+        type="submit"
+        aria-label="Ajouter une nouvelle liste"
+        variant="valider"
+      >
         <template #icon> <AppIcon name="plus" class="mr-2 h-5 w-5" /> </template>Ajouter</Button
       >
     </template>

@@ -1,5 +1,10 @@
 <template>
   <div
+    role="button"
+    tabindex="0"
+    @keydown.enter.prevent="handleClick"
+    @keydown.space.prevent="handleClick"
+    :aria-label="`Voir la fiche du livre ${displayTitle}`"
     class="flex cursor-pointer flex-col gap-2 overflow-hidden rounded-xl bg-white shadow transition-all duration-200 hover:shadow-md dark:bg-ivory/5"
     @click="handleClick"
   >
