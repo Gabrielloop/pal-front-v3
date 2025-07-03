@@ -1,4 +1,8 @@
-<script setup></script>
+<script setup>
+import Header from '@/components/ui/Header.vue'
+import MainContent from '@/components/ui/MainContent.vue'
+import AdminMenu from '@/components/admin/AdminMenu.vue'
+</script>
 
 <template>
   <div>

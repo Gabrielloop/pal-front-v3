@@ -5,9 +5,15 @@ import Menu from '@/components/ui/Menu.vue'
 import MainContent from '@/components/ui/MainContent.vue'
 import LoadingLogo from '@/components/ui/LoadingLogo.vue'
 import { useListStore } from '@/stores/useListStore'
+import { useAuthStore } from '@/stores/useAuthStore'
+import { useToastStore } from '@/stores/toast'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const listStore = useListStore()
+const authStore = useAuthStore()
+const router = useRouter()
+const toastStore = useToastStore()
 
 const loading = ref(true)
 
@@ -15,7 +21,11 @@ onMounted(async () => {
   try {
     await listStore.fetchAll()
   } catch (error) {
-    console.error('Error fetching lists:', error)
+    if (error.message.includes('Session expirée')) {
+      authStore.logout()
+      toast.warn('Session expirée')
+      await router.push('/login')
+    }
   } finally {
     loading.value = false
   }

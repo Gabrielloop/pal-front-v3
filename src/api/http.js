@@ -1,20 +1,14 @@
 import { useAuthStore } from '@/stores/useAuthStore'
 
-// Construction de la requete
-
 export async function apiFetch(path, options = {}) {
-  // Vérification des paramètres
   const auth = useAuthStore()
-  // Lien de l'API
   const baseUrl = import.meta.env.VITE_API_BASE_URL
 
-  // Définition du header
   const headers = {
     'Content-Type': 'application/json',
     ...options.headers,
   }
 
-  // Ajout du token dans la requete
   if (auth.token) {
     headers['Authorization'] = `Bearer ${auth.token}`
   }
@@ -30,6 +24,10 @@ export async function apiFetch(path, options = {}) {
     data = await response.json()
   } catch (e) {
     throw new Error('Erreur de parsing JSON')
+  }
+
+  if (response.status === 401) {
+    throw new Error('Session expirée. Veuillez vous reconnecter.')
   }
 
   if (!data.success || !response.ok) {

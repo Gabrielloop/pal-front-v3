@@ -44,6 +44,4 @@ const props = defineProps({
     required: true,
   },
 })
-
-console.log('BookDetails props:', props)
 </script>

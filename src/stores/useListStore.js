@@ -76,7 +76,6 @@ export const useListStore = defineStore('listStore', {
         const res = await fetchUserLists()
         if (res.success) {
           this.lists = res.data
-          console.log('fetchLists :', this.lists)
         } else {
           toast.error(res.message || 'Échec récupération des listes')
         }
@@ -94,7 +93,6 @@ export const useListStore = defineStore('listStore', {
         const res = await fetchUserFavorites('favorites')
         if (res.success) {
           this.favorites = res.data
-          console.log('fetchFavorites :', this.favorites)
         } else {
           toast.error(res.message || 'Échec récupération des favoris')
         }
@@ -112,7 +110,6 @@ export const useListStore = defineStore('listStore', {
         const res = await fetchUserWishlists('wishlists')
         if (res.success) {
           this.wishlists = res.data
-          console.log('fetchWishlists :', this.wishlists)
         } else {
           toast.error(res.message || 'Échec récupération des wishlists')
         }
@@ -130,7 +127,6 @@ export const useListStore = defineStore('listStore', {
         const res = await fetchUserReadings('readings')
         if (res.success) {
           this.readings = res.data
-          console.log('fetchReadings :', this.readings)
         } else {
           toast.error(res.message || 'Échec récupération des lectures')
         }
@@ -148,7 +144,6 @@ export const useListStore = defineStore('listStore', {
         const res = await fetchUserComments('comments')
         if (res.success) {
           this.comments = res.data
-          console.log('fetchComments :', this.comments)
         } else {
           toast.error(res.message || 'Échec récupération de vos avis')
         }
@@ -166,7 +161,6 @@ export const useListStore = defineStore('listStore', {
         const res = await fetchUserNotes('notes')
         if (res.success) {
           this.notes = res.data
-          console.log('fetchNotes :', this.notes)
         } else {
           toast.error(res.message || 'Échec récupération des notes')
         }

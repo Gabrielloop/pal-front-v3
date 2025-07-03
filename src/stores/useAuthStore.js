@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { loginRequest, logoutRequest } from '@/api/auth'
-import { switchIsDarkMode, updateUser } from '@/api/user'
+import { switchIsDarkMode, updateUser, controlMe } from '@/api/user'
 import { useToastStore } from '@/stores/toast'
 import { useListStore } from '@/stores/useListStore'
 import { useSectionsStore } from '@/stores/useSectionsStore'
@@ -25,7 +25,6 @@ export const useAuthStore = defineStore('auth', {
         this.user = data.user
 
         localStorage.setItem('token', data.accessToken)
-        localStorage.setItem('user', JSON.stringify(data.user))
 
         toast.success('Bonjour ' + this.user.name)
       } catch (err) {
@@ -36,12 +35,13 @@ export const useAuthStore = defineStore('auth', {
     },
     async updateDarkMode(value) {
       const toast = useToastStore()
+
       document.documentElement.classList.toggle('dark', value)
+
+      localStorage.setItem('darkMode', value)
 
       if (this.user) {
         this.user = { ...this.user, isDarkMode: value }
-
-        localStorage.setItem('user', JSON.stringify(this.user))
       }
 
       try {
@@ -49,14 +49,17 @@ export const useAuthStore = defineStore('auth', {
 
         this.user = { ...this.user, isDarkMode: data.data.isDarkMode }
         document.documentElement.classList.toggle('dark', data.data.isDarkMode)
+        localStorage.setItem('darkMode', data.data.isDarkMode)
+
         toast.success('Changement de mode enregistré')
-        localStorage.setItem('user', JSON.stringify(this.user))
       } catch (err) {
         console.error('Erreur API dark mode :', err)
+
         this.user = { ...this.user, isDarkMode: !value }
         document.documentElement.classList.toggle('dark', !value)
+        localStorage.setItem('darkMode', !value)
+
         toast.warn('Erreur lors du changement de mode')
-        localStorage.setItem('user', JSON.stringify(this.user))
       }
     },
     async updateProfile(payload) {
@@ -96,11 +99,21 @@ export const useAuthStore = defineStore('auth', {
     },
     restore: async function () {
       const token = localStorage.getItem('token')
-      const user = localStorage.getItem('user')
+      const darkMode = localStorage.getItem('darkMode') === 'true'
+      document.documentElement.classList.toggle('dark', darkMode)
 
-      if (token && user) {
+      if (token) {
         this.token = token
-        this.user = JSON.parse(user)
+
+        try {
+          const response = await controlMe()
+          this.user = response.data
+        } catch (err) {
+          this.user = null
+          this.token = null
+          localStorage.removeItem('token')
+          localStorage.removeItem('darkMode')
+        }
       }
     },
   },

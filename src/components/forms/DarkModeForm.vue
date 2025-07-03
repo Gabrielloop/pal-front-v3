@@ -14,15 +14,14 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useAuthStore } from '@/stores/useAuthStore'
 import FormContainer from '@/components/ui/FormContainer.vue'
 import Switch from '@/components/ui/Switch.vue'
+import { ref, watch } from 'vue'
 
-const auth = useAuthStore()
+const darkMode = ref(localStorage.getItem('darkMode') === 'true')
 
-const darkMode = computed({
-  get: () => auth.user?.isDarkMode ?? false,
-  set: (val) => auth.updateDarkMode(val),
+watch(darkMode, (val) => {
+  localStorage.setItem('darkMode', val)
+  document.documentElement.classList.toggle('dark', val)
 })
 </script>

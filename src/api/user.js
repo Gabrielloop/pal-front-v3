@@ -1,5 +1,9 @@
 import { apiFetch } from './http'
 
+export async function controlMe() {
+  return apiFetch('/users/me/control')
+}
+
 export async function switchIsDarkMode(value) {
   return apiFetch('/users/me', {
     method: 'PUT',

@@ -4,7 +4,7 @@
       type="button"
       role="switch"
       :aria-checked="modelValue.toString()"
-      :aria-label="label"
+      aria-label="switch"
       @click="$emit('update:modelValue', !modelValue)"
       :disabled="disabled || loading"
       :class="[
